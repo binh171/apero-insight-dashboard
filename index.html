@@ -45,7 +45,11 @@ header h1{font-size:26px;color:#fff}header p{color:var(--muted);font-size:13px;m
 .rank-bar-wrap{display:flex;align-items:center;gap:8px;margin-bottom:6px}
 .rank-bar-bg{flex:1;height:8px;background:rgba(255,255,255,.06);border-radius:4px;overflow:hidden}.rank-bar-fill{height:100%;border-radius:4px;transition:.3s}
 .rank-bar-score{font-size:16px;font-weight:800;min-width:40px}
-.rank-meta{display:flex;gap:6px;flex-wrap:wrap}
+.rank-meta{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+.country-tag{background:rgba(245,158,11,.12);color:#fbbf24;padding:2px 8px;border-radius:8px;font-size:10px;font-weight:600;margin:1px 2px;display:inline-block}
+.country-tag-sm{background:rgba(245,158,11,.12);color:#fbbf24;padding:1px 5px;border-radius:6px;font-size:9px;font-weight:600}
+.insight-countries{margin-top:6px;font-size:11px;display:flex;flex-wrap:wrap;gap:4px;align-items:center}
+.insight-countries b{color:var(--text);margin-right:4px}
 .src-trace{margin-top:8px;font-size:11px}.src-chip{background:rgba(56,189,248,.1);color:var(--accent);padding:1px 6px;border-radius:8px;font-size:10px;margin:1px 2px;display:inline-block}
 .bar-row{display:flex;align-items:center;gap:6px;margin-bottom:3px}.bar-label{font-size:10px;color:var(--muted);min-width:65px}
 .bar-bg{flex:1;height:5px;background:rgba(255,255,255,.08);border-radius:3px;overflow:hidden}.bar-fill{height:100%;background:var(--accent);border-radius:3px}
@@ -115,7 +119,7 @@ footer{text-align:center;padding:24px 0;color:var(--muted);font-size:11px;border
 <div class="m-card"><div class="m-val" style="color:#10b981">3</div><div class="m-lbl">Run Today</div></div>
 <div class="m-card"><div class="m-val">105</div><div class="m-lbl">KOL Signals</div></div>
 <div class="m-card"><div class="m-val">9/13</div><div class="m-lbl">Sources</div></div>
-<div class="m-card"><div class="m-val">7/18</div><div class="m-lbl">Countries</div></div>
+<div class="m-card"><div class="m-val">7/53</div><div class="m-lbl">Countries</div></div>
 <div class="m-card"><div class="m-val">90.1</div><div class="m-lbl">Top Score</div><div class="m-sub">Cricket hero angle from Compet</div></div>
 </div>
 <div class="tabs">
@@ -194,6 +198,7 @@ footer{text-align:center;padding:24px 0;color:var(--muted);font-size:11px;border
                         </div>
                     </div>
                     <div class="angles"><span class="tag accent">Captain entrance hero shot inspired by: Compe</span><span class="tag accent">Batsman winner pose</span><span class="tag accent">Fan-to-stadium-hero transformation</span></div>
+                    <div class="insight-countries"><b>Markets:</b> <span class="country-tag" style="opacity:1" title="India (100%)">IN India</span><span class="country-tag" style="opacity:1" title="Switzerland (75%)">CH Switzerl</span><span class="country-tag" style="opacity:1" title="Brazil (75%)">BR Brazil</span><span class="country-tag" style="opacity:1" title="Argentina (75%)">AR Argentin</span><span class="country-tag" style="opacity:1" title="Ethiopia (75%)">ET Ethiopia</span></div>
                     <div class="src-trace"><span class="src-chip">Meta Ad Library Watch</span></div>
                 </div>
                 <div class="action-btns">
@@ -228,6 +233,7 @@ footer{text-align:center;padding:24px 0;color:var(--muted);font-size:11px;border
                         </div>
                     </div>
                     <div class="angles"><span class="tag accent">Captain entrance hero shot inspired by: crick</span><span class="tag accent">Batsman winner pose</span><span class="tag accent">Fan-to-stadium-hero transformation</span></div>
+                    <div class="insight-countries"><b>Markets:</b> <span class="country-tag" style="opacity:1" title="Brazil (100%)">BR Brazil</span><span class="country-tag" style="opacity:1" title="India (80%)">IN India</span><span class="country-tag" style="opacity:1" title="Argentina (60%)">AR Argentin</span><span class="country-tag" style="opacity:1" title="Ethiopia (60%)">ET Ethiopia</span><span class="country-tag" style="opacity:0.6" title="Pakistan (40%)">PK Pakistan</span></div>
                     <div class="src-trace"><span class="src-chip">Meta Ad Library</span></div>
                 </div>
                 <div class="action-btns">
@@ -262,6 +268,7 @@ footer{text-align:center;padding:24px 0;color:var(--muted);font-size:11px;border
                         </div>
                     </div>
                     <div class="angles"><span class="tag accent">Captain entrance hero shot inspired by: IPL 2</span><span class="tag accent">Batsman winner pose</span><span class="tag accent">Fan-to-stadium-hero transformation</span></div>
+                    <div class="insight-countries"><b>Markets:</b> <span class="country-tag" style="opacity:1" title="India (100%)">IN India</span><span class="country-tag" style="opacity:1" title="Canada (75%)">CA Canada</span><span class="country-tag" style="opacity:1" title="Poland (75%)">PL Poland</span><span class="country-tag" style="opacity:1" title="Argentina (75%)">AR Argentin</span><span class="country-tag" style="opacity:1" title="Pakistan (50%)">PK Pakistan</span></div>
                     <div class="src-trace"><span class="src-chip">IPL Calendar</span></div>
                 </div>
                 <div class="action-btns">
@@ -305,6 +312,7 @@ footer{text-align:center;padding:24px 0;color:var(--muted);font-size:11px;border
                         </div>
                     </div>
                     <div class="angles"><span class="tag accent">Traditional royal look inspired by: India Fes</span><span class="tag accent">Festival family portrait upgrade</span><span class="tag accent">Before casual to festive attire</span></div>
+                    <div class="insight-countries"><b>Markets:</b> <span class="country-tag" style="opacity:1" title="India (100%)">IN India</span><span class="country-tag" style="opacity:0.6" title="Canada (42%)">CA Canada</span><span class="country-tag" style="opacity:0.6" title="Spain (42%)">ES Spain</span><span class="country-tag" style="opacity:0.6" title="Argentina (42%)">AR Argentin</span><span class="country-tag" style="opacity:0.6" title="United States (28%)">US United S</span></div>
                     <div class="src-trace"><span class="src-chip">India Festival Calendar</span></div>
                 </div>
                 <div class="action-btns">
@@ -348,6 +356,7 @@ footer{text-align:center;padding:24px 0;color:var(--muted);font-size:11px;border
                         </div>
                     </div>
                     <div class="angles"><span class="tag accent">Mass entry hero reveal inspired by: BAJRANG B</span><span class="tag accent">Action poster transformation</span><span class="tag accent">Fire-and-aura cinematic portrait</span></div>
+                    <div class="insight-countries"><b>Markets:</b> <span class="country-tag" style="opacity:1" title="Spain (100%)">ES Spain</span><span class="country-tag" style="opacity:1" title="Sweden (100%)">SE Sweden</span></div>
                     <div class="src-trace"><span class="src-chip">T-Series</span></div>
                 </div>
                 <div class="action-btns">
@@ -382,6 +391,7 @@ footer{text-align:center;padding:24px 0;color:var(--muted);font-size:11px;border
                         </div>
                     </div>
                     <div class="angles"><span class="tag accent">Mass entry hero reveal inspired by: bollywood</span><span class="tag accent">Action poster transformation</span><span class="tag accent">Fire-and-aura cinematic portrait</span></div>
+                    <div class="insight-countries"><b>Markets:</b> <span class="country-tag" style="opacity:1" title="Brazil (100%)">BR Brazil</span><span class="country-tag" style="opacity:1" title="Argentina (100%)">AR Argentin</span><span class="country-tag" style="opacity:1" title="Ethiopia (100%)">ET Ethiopia</span><span class="country-tag" style="opacity:1" title="India (66%)">IN India</span></div>
                     <div class="src-trace"><span class="src-chip">Meta Ad Library</span></div>
                 </div>
                 <div class="action-btns">
@@ -416,6 +426,7 @@ footer{text-align:center;padding:24px 0;color:var(--muted);font-size:11px;border
                         </div>
                     </div>
                     <div class="angles"><span class="tag accent">Mass entry hero reveal inspired by: &#x27;14 Songs</span><span class="tag accent">Action poster transformation</span><span class="tag accent">Fire-and-aura cinematic portrait</span></div>
+                    <div class="insight-countries"><b>Markets:</b> <span class="country-tag" style="opacity:1" title="Spain (100%)">ES Spain</span></div>
                     <div class="src-trace"><span class="src-chip">NDTV Movies</span></div>
                 </div>
                 <div class="action-btns">
@@ -450,6 +461,7 @@ footer{text-align:center;padding:24px 0;color:var(--muted);font-size:11px;border
                         </div>
                     </div>
                     <div class="angles"><span class="tag accent">Mass entry hero reveal inspired by: Aditya Dh</span><span class="tag accent">Action poster transformation</span><span class="tag accent">Fire-and-aura cinematic portrait</span></div>
+                    <div class="insight-countries"><b>Markets:</b> <span class="country-tag" style="opacity:1" title="Spain (100%)">ES Spain</span></div>
                     <div class="src-trace"><span class="src-chip">NDTV Movies</span></div>
                 </div>
                 <div class="action-btns">
@@ -493,6 +505,7 @@ footer{text-align:center;padding:24px 0;color:var(--muted);font-size:11px;border
                         </div>
                     </div>
                     <div class="angles"><span class="tag accent">Old photo restore emotional reveal inspired b</span><span class="tag accent">Blurred memory to HD portrait</span><span class="tag accent">Family archive cleanup</span></div>
+                    <div class="insight-countries"><b>Markets:</b> <span class="country-tag" style="opacity:1" title="India (100%)">IN India</span><span class="country-tag" style="opacity:1" title="United States (50%)">US United S</span><span class="country-tag" style="opacity:1" title="Brazil (50%)">BR Brazil</span><span class="country-tag" style="opacity:1" title="Indonesia (50%)">ID Indonesi</span><span class="country-tag" style="opacity:1" title="Philippines (50%)">PH Philippi</span></div>
                     <div class="src-trace"><span class="src-chip">Internal Watch</span></div>
                 </div>
                 <div class="action-btns">
@@ -536,6 +549,7 @@ footer{text-align:center;padding:24px 0;color:var(--muted);font-size:11px;border
                         </div>
                     </div>
                     <div class="angles"><span class="tag accent">Before selfie to aspirational portrait inspir</span><span class="tag accent">Upload-photo instant transformation</span><span class="tag accent">Profile-picture upgrade</span></div>
+                    <div class="insight-countries"><b>Markets:</b> <span class="country-tag" style="opacity:1" title="United States (100%)">US United S</span><span class="country-tag" style="opacity:1" title="India (83%)">IN India</span><span class="country-tag" style="opacity:1" title="Indonesia (83%)">ID Indonesi</span><span class="country-tag" style="opacity:1" title="Philippines (83%)">PH Philippi</span><span class="country-tag" style="opacity:1" title="Brazil (83%)">BR Brazil</span></div>
                     <div class="src-trace"><span class="src-chip">Google News SA</span><span class="src-chip">Google News US</span></div>
                 </div>
                 <div class="action-btns">
@@ -560,6 +574,7 @@ footer{text-align:center;padding:24px 0;color:var(--muted);font-size:11px;border
                     <span class="tag">sports</span>
                     <span class="tag">24-72h</span>
                     <span class="tag">1 src</span>
+                    <span class="country-tag-sm">IN</span><span class="country-tag-sm">CH</span><span class="country-tag-sm">BR</span><span class="country-tag-sm">AR</span>
                 </div>
             </div>
         </div>
@@ -576,6 +591,7 @@ footer{text-align:center;padding:24px 0;color:var(--muted);font-size:11px;border
                     <span class="tag">sports</span>
                     <span class="tag">24-72h</span>
                     <span class="tag">1 src</span>
+                    <span class="country-tag-sm">BR</span><span class="country-tag-sm">IN</span><span class="country-tag-sm">AR</span><span class="country-tag-sm">ET</span>
                 </div>
             </div>
         </div>
@@ -592,6 +608,7 @@ footer{text-align:center;padding:24px 0;color:var(--muted);font-size:11px;border
                     <span class="tag">sports</span>
                     <span class="tag">24-72h</span>
                     <span class="tag">1 src</span>
+                    <span class="country-tag-sm">IN</span><span class="country-tag-sm">CA</span><span class="country-tag-sm">PL</span><span class="country-tag-sm">AR</span>
                 </div>
             </div>
         </div>
@@ -608,6 +625,7 @@ footer{text-align:center;padding:24px 0;color:var(--muted);font-size:11px;border
                     <span class="tag">festival</span>
                     <span class="tag">2-7 days</span>
                     <span class="tag">1 src</span>
+                    <span class="country-tag-sm">IN</span><span class="country-tag-sm">CA</span><span class="country-tag-sm">ES</span><span class="country-tag-sm">AR</span>
                 </div>
             </div>
         </div>
@@ -624,6 +642,7 @@ footer{text-align:center;padding:24px 0;color:var(--muted);font-size:11px;border
                     <span class="tag">cinema</span>
                     <span class="tag">24-72h</span>
                     <span class="tag">1 src</span>
+                    <span class="country-tag-sm">ES</span><span class="country-tag-sm">SE</span>
                 </div>
             </div>
         </div>
@@ -640,6 +659,7 @@ footer{text-align:center;padding:24px 0;color:var(--muted);font-size:11px;border
                     <span class="tag">cinema</span>
                     <span class="tag">24-72h</span>
                     <span class="tag">1 src</span>
+                    <span class="country-tag-sm">BR</span><span class="country-tag-sm">AR</span><span class="country-tag-sm">ET</span><span class="country-tag-sm">IN</span>
                 </div>
             </div>
         </div>
@@ -656,6 +676,7 @@ footer{text-align:center;padding:24px 0;color:var(--muted);font-size:11px;border
                     <span class="tag">cinema</span>
                     <span class="tag">24-72h</span>
                     <span class="tag">1 src</span>
+                    <span class="country-tag-sm">ES</span>
                 </div>
             </div>
         </div>
@@ -672,6 +693,7 @@ footer{text-align:center;padding:24px 0;color:var(--muted);font-size:11px;border
                     <span class="tag">cinema</span>
                     <span class="tag">24-72h</span>
                     <span class="tag">1 src</span>
+                    <span class="country-tag-sm">ES</span>
                 </div>
             </div>
         </div>
@@ -688,6 +710,7 @@ footer{text-align:center;padding:24px 0;color:var(--muted);font-size:11px;border
                     <span class="tag">evergreen</span>
                     <span class="tag">3-14 days</span>
                     <span class="tag">1 src</span>
+                    <span class="country-tag-sm">IN</span><span class="country-tag-sm">US</span><span class="country-tag-sm">BR</span><span class="country-tag-sm">ID</span>
                 </div>
             </div>
         </div>
@@ -704,6 +727,7 @@ footer{text-align:center;padding:24px 0;color:var(--muted);font-size:11px;border
                     <span class="tag">photo_editing</span>
                     <span class="tag">24h</span>
                     <span class="tag">2 src</span>
+                    <span class="country-tag-sm">US</span><span class="country-tag-sm">IN</span><span class="country-tag-sm">ID</span><span class="country-tag-sm">PH</span>
                 </div>
             </div>
         </div></div></div>
@@ -3277,6 +3301,60 @@ Easy 3D</a>
             </div>
             <div class="country-card" style="opacity:0.45">
                 <div class="country-head">
+                    <span class="country-code">DE</span>
+                    <span class="country-name">Germany</span>
+                    <span class="tier-badge" style="background:#10b981">T1</span>
+                    
+                </div>
+                <div class="country-stats">
+                    <div><span class="stat-num">0</span><span class="stat-label">Signals</span></div>
+                    <div><span class="stat-num">0</span><span class="stat-label">KOL</span></div>
+                    <div><span class="stat-num">0</span><span class="stat-label">YT</span></div>
+                    <div><span class="stat-num">0</span><span class="stat-label">TikTok</span></div>
+                    <div><span class="stat-num">0</span><span class="stat-label">Pin</span></div>
+                </div>
+                <div class="country-opp"><span class="country-opp-lbl">Coverage</span><div class="country-opp-bar"><div class="country-opp-fill" style="width:0%;background:#6b7280"></div></div></div>
+                <div class="country-cats">—</div>
+                
+            </div>
+            <div class="country-card" style="opacity:0.45">
+                <div class="country-head">
+                    <span class="country-code">FR</span>
+                    <span class="country-name">France</span>
+                    <span class="tier-badge" style="background:#10b981">T1</span>
+                    
+                </div>
+                <div class="country-stats">
+                    <div><span class="stat-num">0</span><span class="stat-label">Signals</span></div>
+                    <div><span class="stat-num">0</span><span class="stat-label">KOL</span></div>
+                    <div><span class="stat-num">0</span><span class="stat-label">YT</span></div>
+                    <div><span class="stat-num">0</span><span class="stat-label">TikTok</span></div>
+                    <div><span class="stat-num">0</span><span class="stat-label">Pin</span></div>
+                </div>
+                <div class="country-opp"><span class="country-opp-lbl">Coverage</span><div class="country-opp-bar"><div class="country-opp-fill" style="width:0%;background:#6b7280"></div></div></div>
+                <div class="country-cats">—</div>
+                
+            </div>
+            <div class="country-card" style="opacity:0.45">
+                <div class="country-head">
+                    <span class="country-code">NL</span>
+                    <span class="country-name">Netherlands</span>
+                    <span class="tier-badge" style="background:#10b981">T1</span>
+                    
+                </div>
+                <div class="country-stats">
+                    <div><span class="stat-num">0</span><span class="stat-label">Signals</span></div>
+                    <div><span class="stat-num">0</span><span class="stat-label">KOL</span></div>
+                    <div><span class="stat-num">0</span><span class="stat-label">YT</span></div>
+                    <div><span class="stat-num">0</span><span class="stat-label">TikTok</span></div>
+                    <div><span class="stat-num">0</span><span class="stat-label">Pin</span></div>
+                </div>
+                <div class="country-opp"><span class="country-opp-lbl">Coverage</span><div class="country-opp-bar"><div class="country-opp-fill" style="width:0%;background:#6b7280"></div></div></div>
+                <div class="country-cats">—</div>
+                
+            </div>
+            <div class="country-card" style="opacity:0.45">
+                <div class="country-head">
                     <span class="country-code">AE</span>
                     <span class="country-name">UAE</span>
                     <span class="tier-badge" style="background:#10b981">T1</span>
@@ -3295,8 +3373,188 @@ Easy 3D</a>
             </div>
             <div class="country-card" style="opacity:0.45">
                 <div class="country-head">
-                    <span class="country-code">DE</span>
-                    <span class="country-name">Germany</span>
+                    <span class="country-code">KW</span>
+                    <span class="country-name">Kuwait</span>
+                    <span class="tier-badge" style="background:#10b981">T1</span>
+                    
+                </div>
+                <div class="country-stats">
+                    <div><span class="stat-num">0</span><span class="stat-label">Signals</span></div>
+                    <div><span class="stat-num">0</span><span class="stat-label">KOL</span></div>
+                    <div><span class="stat-num">0</span><span class="stat-label">YT</span></div>
+                    <div><span class="stat-num">0</span><span class="stat-label">TikTok</span></div>
+                    <div><span class="stat-num">0</span><span class="stat-label">Pin</span></div>
+                </div>
+                <div class="country-opp"><span class="country-opp-lbl">Coverage</span><div class="country-opp-bar"><div class="country-opp-fill" style="width:0%;background:#6b7280"></div></div></div>
+                <div class="country-cats">—</div>
+                
+            </div>
+            <div class="country-card" style="opacity:0.45">
+                <div class="country-head">
+                    <span class="country-code">QA</span>
+                    <span class="country-name">Qatar</span>
+                    <span class="tier-badge" style="background:#10b981">T1</span>
+                    
+                </div>
+                <div class="country-stats">
+                    <div><span class="stat-num">0</span><span class="stat-label">Signals</span></div>
+                    <div><span class="stat-num">0</span><span class="stat-label">KOL</span></div>
+                    <div><span class="stat-num">0</span><span class="stat-label">YT</span></div>
+                    <div><span class="stat-num">0</span><span class="stat-label">TikTok</span></div>
+                    <div><span class="stat-num">0</span><span class="stat-label">Pin</span></div>
+                </div>
+                <div class="country-opp"><span class="country-opp-lbl">Coverage</span><div class="country-opp-bar"><div class="country-opp-fill" style="width:0%;background:#6b7280"></div></div></div>
+                <div class="country-cats">—</div>
+                
+            </div>
+            <div class="country-card" style="opacity:0.45">
+                <div class="country-head">
+                    <span class="country-code">JP</span>
+                    <span class="country-name">Japan</span>
+                    <span class="tier-badge" style="background:#10b981">T1</span>
+                    
+                </div>
+                <div class="country-stats">
+                    <div><span class="stat-num">0</span><span class="stat-label">Signals</span></div>
+                    <div><span class="stat-num">0</span><span class="stat-label">KOL</span></div>
+                    <div><span class="stat-num">0</span><span class="stat-label">YT</span></div>
+                    <div><span class="stat-num">0</span><span class="stat-label">TikTok</span></div>
+                    <div><span class="stat-num">0</span><span class="stat-label">Pin</span></div>
+                </div>
+                <div class="country-opp"><span class="country-opp-lbl">Coverage</span><div class="country-opp-bar"><div class="country-opp-fill" style="width:0%;background:#6b7280"></div></div></div>
+                <div class="country-cats">—</div>
+                
+            </div>
+            <div class="country-card" style="opacity:0.45">
+                <div class="country-head">
+                    <span class="country-code">KR</span>
+                    <span class="country-name">South Korea</span>
+                    <span class="tier-badge" style="background:#10b981">T1</span>
+                    
+                </div>
+                <div class="country-stats">
+                    <div><span class="stat-num">0</span><span class="stat-label">Signals</span></div>
+                    <div><span class="stat-num">0</span><span class="stat-label">KOL</span></div>
+                    <div><span class="stat-num">0</span><span class="stat-label">YT</span></div>
+                    <div><span class="stat-num">0</span><span class="stat-label">TikTok</span></div>
+                    <div><span class="stat-num">0</span><span class="stat-label">Pin</span></div>
+                </div>
+                <div class="country-opp"><span class="country-opp-lbl">Coverage</span><div class="country-opp-bar"><div class="country-opp-fill" style="width:0%;background:#6b7280"></div></div></div>
+                <div class="country-cats">—</div>
+                
+            </div>
+            <div class="country-card" style="opacity:0.45">
+                <div class="country-head">
+                    <span class="country-code">SG</span>
+                    <span class="country-name">Singapore</span>
+                    <span class="tier-badge" style="background:#10b981">T1</span>
+                    
+                </div>
+                <div class="country-stats">
+                    <div><span class="stat-num">0</span><span class="stat-label">Signals</span></div>
+                    <div><span class="stat-num">0</span><span class="stat-label">KOL</span></div>
+                    <div><span class="stat-num">0</span><span class="stat-label">YT</span></div>
+                    <div><span class="stat-num">0</span><span class="stat-label">TikTok</span></div>
+                    <div><span class="stat-num">0</span><span class="stat-label">Pin</span></div>
+                </div>
+                <div class="country-opp"><span class="country-opp-lbl">Coverage</span><div class="country-opp-bar"><div class="country-opp-fill" style="width:0%;background:#6b7280"></div></div></div>
+                <div class="country-cats">—</div>
+                
+            </div>
+            <div class="country-card" style="opacity:0.45">
+                <div class="country-head">
+                    <span class="country-code">IL</span>
+                    <span class="country-name">Israel</span>
+                    <span class="tier-badge" style="background:#10b981">T1</span>
+                    
+                </div>
+                <div class="country-stats">
+                    <div><span class="stat-num">0</span><span class="stat-label">Signals</span></div>
+                    <div><span class="stat-num">0</span><span class="stat-label">KOL</span></div>
+                    <div><span class="stat-num">0</span><span class="stat-label">YT</span></div>
+                    <div><span class="stat-num">0</span><span class="stat-label">TikTok</span></div>
+                    <div><span class="stat-num">0</span><span class="stat-label">Pin</span></div>
+                </div>
+                <div class="country-opp"><span class="country-opp-lbl">Coverage</span><div class="country-opp-bar"><div class="country-opp-fill" style="width:0%;background:#6b7280"></div></div></div>
+                <div class="country-cats">—</div>
+                
+            </div>
+            <div class="country-card" style="opacity:0.45">
+                <div class="country-head">
+                    <span class="country-code">SE</span>
+                    <span class="country-name">Sweden</span>
+                    <span class="tier-badge" style="background:#10b981">T1</span>
+                    
+                </div>
+                <div class="country-stats">
+                    <div><span class="stat-num">0</span><span class="stat-label">Signals</span></div>
+                    <div><span class="stat-num">0</span><span class="stat-label">KOL</span></div>
+                    <div><span class="stat-num">0</span><span class="stat-label">YT</span></div>
+                    <div><span class="stat-num">0</span><span class="stat-label">TikTok</span></div>
+                    <div><span class="stat-num">0</span><span class="stat-label">Pin</span></div>
+                </div>
+                <div class="country-opp"><span class="country-opp-lbl">Coverage</span><div class="country-opp-bar"><div class="country-opp-fill" style="width:0%;background:#6b7280"></div></div></div>
+                <div class="country-cats">—</div>
+                
+            </div>
+            <div class="country-card" style="opacity:0.45">
+                <div class="country-head">
+                    <span class="country-code">False</span>
+                    <span class="country-name">Norway</span>
+                    <span class="tier-badge" style="background:#10b981">T1</span>
+                    
+                </div>
+                <div class="country-stats">
+                    <div><span class="stat-num">0</span><span class="stat-label">Signals</span></div>
+                    <div><span class="stat-num">0</span><span class="stat-label">KOL</span></div>
+                    <div><span class="stat-num">0</span><span class="stat-label">YT</span></div>
+                    <div><span class="stat-num">0</span><span class="stat-label">TikTok</span></div>
+                    <div><span class="stat-num">0</span><span class="stat-label">Pin</span></div>
+                </div>
+                <div class="country-opp"><span class="country-opp-lbl">Coverage</span><div class="country-opp-bar"><div class="country-opp-fill" style="width:0%;background:#6b7280"></div></div></div>
+                <div class="country-cats">—</div>
+                
+            </div>
+            <div class="country-card" style="opacity:0.45">
+                <div class="country-head">
+                    <span class="country-code">CH</span>
+                    <span class="country-name">Switzerland</span>
+                    <span class="tier-badge" style="background:#10b981">T1</span>
+                    
+                </div>
+                <div class="country-stats">
+                    <div><span class="stat-num">0</span><span class="stat-label">Signals</span></div>
+                    <div><span class="stat-num">0</span><span class="stat-label">KOL</span></div>
+                    <div><span class="stat-num">0</span><span class="stat-label">YT</span></div>
+                    <div><span class="stat-num">0</span><span class="stat-label">TikTok</span></div>
+                    <div><span class="stat-num">0</span><span class="stat-label">Pin</span></div>
+                </div>
+                <div class="country-opp"><span class="country-opp-lbl">Coverage</span><div class="country-opp-bar"><div class="country-opp-fill" style="width:0%;background:#6b7280"></div></div></div>
+                <div class="country-cats">—</div>
+                
+            </div>
+            <div class="country-card" style="opacity:0.45">
+                <div class="country-head">
+                    <span class="country-code">IT</span>
+                    <span class="country-name">Italy</span>
+                    <span class="tier-badge" style="background:#10b981">T1</span>
+                    
+                </div>
+                <div class="country-stats">
+                    <div><span class="stat-num">0</span><span class="stat-label">Signals</span></div>
+                    <div><span class="stat-num">0</span><span class="stat-label">KOL</span></div>
+                    <div><span class="stat-num">0</span><span class="stat-label">YT</span></div>
+                    <div><span class="stat-num">0</span><span class="stat-label">TikTok</span></div>
+                    <div><span class="stat-num">0</span><span class="stat-label">Pin</span></div>
+                </div>
+                <div class="country-opp"><span class="country-opp-lbl">Coverage</span><div class="country-opp-bar"><div class="country-opp-fill" style="width:0%;background:#6b7280"></div></div></div>
+                <div class="country-cats">—</div>
+                
+            </div>
+            <div class="country-card" style="opacity:0.45">
+                <div class="country-head">
+                    <span class="country-code">ES</span>
+                    <span class="country-name">Spain</span>
                     <span class="tier-badge" style="background:#10b981">T1</span>
                     
                 </div>
@@ -3400,6 +3658,222 @@ Easy 3D</a>
                 <div class="country-opp"><span class="country-opp-lbl">Coverage</span><div class="country-opp-bar"><div class="country-opp-fill" style="width:0%;background:#6b7280"></div></div></div>
                 <div class="country-cats">—</div>
                 
+            </div>
+            <div class="country-card" style="opacity:0.45">
+                <div class="country-head">
+                    <span class="country-code">PL</span>
+                    <span class="country-name">Poland</span>
+                    <span class="tier-badge" style="background:#f59e0b">T2</span>
+                    
+                </div>
+                <div class="country-stats">
+                    <div><span class="stat-num">0</span><span class="stat-label">Signals</span></div>
+                    <div><span class="stat-num">0</span><span class="stat-label">KOL</span></div>
+                    <div><span class="stat-num">0</span><span class="stat-label">YT</span></div>
+                    <div><span class="stat-num">0</span><span class="stat-label">TikTok</span></div>
+                    <div><span class="stat-num">0</span><span class="stat-label">Pin</span></div>
+                </div>
+                <div class="country-opp"><span class="country-opp-lbl">Coverage</span><div class="country-opp-bar"><div class="country-opp-fill" style="width:0%;background:#6b7280"></div></div></div>
+                <div class="country-cats">—</div>
+                
+            </div>
+            <div class="country-card" style="opacity:0.45">
+                <div class="country-head">
+                    <span class="country-code">AR</span>
+                    <span class="country-name">Argentina</span>
+                    <span class="tier-badge" style="background:#f59e0b">T2</span>
+                    
+                </div>
+                <div class="country-stats">
+                    <div><span class="stat-num">0</span><span class="stat-label">Signals</span></div>
+                    <div><span class="stat-num">0</span><span class="stat-label">KOL</span></div>
+                    <div><span class="stat-num">0</span><span class="stat-label">YT</span></div>
+                    <div><span class="stat-num">0</span><span class="stat-label">TikTok</span></div>
+                    <div><span class="stat-num">0</span><span class="stat-label">Pin</span></div>
+                </div>
+                <div class="country-opp"><span class="country-opp-lbl">Coverage</span><div class="country-opp-bar"><div class="country-opp-fill" style="width:0%;background:#6b7280"></div></div></div>
+                <div class="country-cats">—</div>
+                
+            </div>
+            <div class="country-card" style="opacity:0.45">
+                <div class="country-head">
+                    <span class="country-code">CO</span>
+                    <span class="country-name">Colombia</span>
+                    <span class="tier-badge" style="background:#f59e0b">T2</span>
+                    
+                </div>
+                <div class="country-stats">
+                    <div><span class="stat-num">0</span><span class="stat-label">Signals</span></div>
+                    <div><span class="stat-num">0</span><span class="stat-label">KOL</span></div>
+                    <div><span class="stat-num">0</span><span class="stat-label">YT</span></div>
+                    <div><span class="stat-num">0</span><span class="stat-label">TikTok</span></div>
+                    <div><span class="stat-num">0</span><span class="stat-label">Pin</span></div>
+                </div>
+                <div class="country-opp"><span class="country-opp-lbl">Coverage</span><div class="country-opp-bar"><div class="country-opp-fill" style="width:0%;background:#6b7280"></div></div></div>
+                <div class="country-cats">—</div>
+                
+            </div>
+            <div class="country-card" style="opacity:0.45">
+                <div class="country-head">
+                    <span class="country-code">CL</span>
+                    <span class="country-name">Chile</span>
+                    <span class="tier-badge" style="background:#f59e0b">T2</span>
+                    
+                </div>
+                <div class="country-stats">
+                    <div><span class="stat-num">0</span><span class="stat-label">Signals</span></div>
+                    <div><span class="stat-num">0</span><span class="stat-label">KOL</span></div>
+                    <div><span class="stat-num">0</span><span class="stat-label">YT</span></div>
+                    <div><span class="stat-num">0</span><span class="stat-label">TikTok</span></div>
+                    <div><span class="stat-num">0</span><span class="stat-label">Pin</span></div>
+                </div>
+                <div class="country-opp"><span class="country-opp-lbl">Coverage</span><div class="country-opp-bar"><div class="country-opp-fill" style="width:0%;background:#6b7280"></div></div></div>
+                <div class="country-cats">—</div>
+                
+            </div>
+            <div class="country-card" style="opacity:0.45">
+                <div class="country-head">
+                    <span class="country-code">MY</span>
+                    <span class="country-name">Malaysia</span>
+                    <span class="tier-badge" style="background:#f59e0b">T2</span>
+                    
+                </div>
+                <div class="country-stats">
+                    <div><span class="stat-num">0</span><span class="stat-label">Signals</span></div>
+                    <div><span class="stat-num">0</span><span class="stat-label">KOL</span></div>
+                    <div><span class="stat-num">0</span><span class="stat-label">YT</span></div>
+                    <div><span class="stat-num">0</span><span class="stat-label">TikTok</span></div>
+                    <div><span class="stat-num">0</span><span class="stat-label">Pin</span></div>
+                </div>
+                <div class="country-opp"><span class="country-opp-lbl">Coverage</span><div class="country-opp-bar"><div class="country-opp-fill" style="width:0%;background:#6b7280"></div></div></div>
+                <div class="country-cats">—</div>
+                
+            </div>
+            <div class="country-card" style="opacity:0.45">
+                <div class="country-head">
+                    <span class="country-code">TW</span>
+                    <span class="country-name">Taiwan</span>
+                    <span class="tier-badge" style="background:#f59e0b">T2</span>
+                    
+                </div>
+                <div class="country-stats">
+                    <div><span class="stat-num">0</span><span class="stat-label">Signals</span></div>
+                    <div><span class="stat-num">0</span><span class="stat-label">KOL</span></div>
+                    <div><span class="stat-num">0</span><span class="stat-label">YT</span></div>
+                    <div><span class="stat-num">0</span><span class="stat-label">TikTok</span></div>
+                    <div><span class="stat-num">0</span><span class="stat-label">Pin</span></div>
+                </div>
+                <div class="country-opp"><span class="country-opp-lbl">Coverage</span><div class="country-opp-bar"><div class="country-opp-fill" style="width:0%;background:#6b7280"></div></div></div>
+                <div class="country-cats">—</div>
+                
+            </div>
+            <div class="country-card" style="opacity:0.45">
+                <div class="country-head">
+                    <span class="country-code">RO</span>
+                    <span class="country-name">Romania</span>
+                    <span class="tier-badge" style="background:#f59e0b">T2</span>
+                    
+                </div>
+                <div class="country-stats">
+                    <div><span class="stat-num">0</span><span class="stat-label">Signals</span></div>
+                    <div><span class="stat-num">0</span><span class="stat-label">KOL</span></div>
+                    <div><span class="stat-num">0</span><span class="stat-label">YT</span></div>
+                    <div><span class="stat-num">0</span><span class="stat-label">TikTok</span></div>
+                    <div><span class="stat-num">0</span><span class="stat-label">Pin</span></div>
+                </div>
+                <div class="country-opp"><span class="country-opp-lbl">Coverage</span><div class="country-opp-bar"><div class="country-opp-fill" style="width:0%;background:#6b7280"></div></div></div>
+                <div class="country-cats">—</div>
+                
+            </div>
+            <div class="country-card" style="opacity:0.45">
+                <div class="country-head">
+                    <span class="country-code">ZA</span>
+                    <span class="country-name">South Africa</span>
+                    <span class="tier-badge" style="background:#f59e0b">T2</span>
+                    
+                </div>
+                <div class="country-stats">
+                    <div><span class="stat-num">0</span><span class="stat-label">Signals</span></div>
+                    <div><span class="stat-num">0</span><span class="stat-label">KOL</span></div>
+                    <div><span class="stat-num">0</span><span class="stat-label">YT</span></div>
+                    <div><span class="stat-num">0</span><span class="stat-label">TikTok</span></div>
+                    <div><span class="stat-num">0</span><span class="stat-label">Pin</span></div>
+                </div>
+                <div class="country-opp"><span class="country-opp-lbl">Coverage</span><div class="country-opp-bar"><div class="country-opp-fill" style="width:0%;background:#6b7280"></div></div></div>
+                <div class="country-cats">—</div>
+                
+            </div>
+            <div class="country-card" style="opacity:0.45">
+                <div class="country-head">
+                    <span class="country-code">PE</span>
+                    <span class="country-name">Peru</span>
+                    <span class="tier-badge" style="background:#f59e0b">T2</span>
+                    
+                </div>
+                <div class="country-stats">
+                    <div><span class="stat-num">0</span><span class="stat-label">Signals</span></div>
+                    <div><span class="stat-num">0</span><span class="stat-label">KOL</span></div>
+                    <div><span class="stat-num">0</span><span class="stat-label">YT</span></div>
+                    <div><span class="stat-num">0</span><span class="stat-label">TikTok</span></div>
+                    <div><span class="stat-num">0</span><span class="stat-label">Pin</span></div>
+                </div>
+                <div class="country-opp"><span class="country-opp-lbl">Coverage</span><div class="country-opp-bar"><div class="country-opp-fill" style="width:0%;background:#6b7280"></div></div></div>
+                <div class="country-cats">—</div>
+                
+            </div>
+            <div class="country-card" style="opacity:0.45">
+                <div class="country-head">
+                    <span class="country-code">MA</span>
+                    <span class="country-name">Morocco</span>
+                    <span class="tier-badge" style="background:#f59e0b">T2</span>
+                    
+                </div>
+                <div class="country-stats">
+                    <div><span class="stat-num">0</span><span class="stat-label">Signals</span></div>
+                    <div><span class="stat-num">0</span><span class="stat-label">KOL</span></div>
+                    <div><span class="stat-num">0</span><span class="stat-label">YT</span></div>
+                    <div><span class="stat-num">0</span><span class="stat-label">TikTok</span></div>
+                    <div><span class="stat-num">0</span><span class="stat-label">Pin</span></div>
+                </div>
+                <div class="country-opp"><span class="country-opp-lbl">Coverage</span><div class="country-opp-bar"><div class="country-opp-fill" style="width:0%;background:#6b7280"></div></div></div>
+                <div class="country-cats">—</div>
+                
+            </div>
+            <div class="country-card" style="opacity:0.45">
+                <div class="country-head">
+                    <span class="country-code">RU</span>
+                    <span class="country-name">Russia</span>
+                    <span class="tier-badge" style="background:#f59e0b">T2</span>
+                    
+                </div>
+                <div class="country-stats">
+                    <div><span class="stat-num">0</span><span class="stat-label">Signals</span></div>
+                    <div><span class="stat-num">0</span><span class="stat-label">KOL</span></div>
+                    <div><span class="stat-num">0</span><span class="stat-label">YT</span></div>
+                    <div><span class="stat-num">0</span><span class="stat-label">TikTok</span></div>
+                    <div><span class="stat-num">0</span><span class="stat-label">Pin</span></div>
+                </div>
+                <div class="country-opp"><span class="country-opp-lbl">Coverage</span><div class="country-opp-bar"><div class="country-opp-fill" style="width:0%;background:#6b7280"></div></div></div>
+                <div class="country-cats">—</div>
+                
+            </div>
+            <div class="country-card" style="opacity:0.45">
+                <div class="country-head">
+                    <span class="country-code">UA</span>
+                    <span class="country-name">Ukraine</span>
+                    <span class="tier-badge" style="background:#f59e0b">T2</span>
+                    
+                </div>
+                <div class="country-stats">
+                    <div><span class="stat-num">0</span><span class="stat-label">Signals</span></div>
+                    <div><span class="stat-num">0</span><span class="stat-label">KOL</span></div>
+                    <div><span class="stat-num">0</span><span class="stat-label">YT</span></div>
+                    <div><span class="stat-num">0</span><span class="stat-label">TikTok</span></div>
+                    <div><span class="stat-num">0</span><span class="stat-label">Pin</span></div>
+                </div>
+                <div class="country-opp"><span class="country-opp-lbl">Coverage</span><div class="country-opp-bar"><div class="country-opp-fill" style="width:0%;background:#6b7280"></div></div></div>
+                <div class="country-cats">—</div>
+                
             </div></div><div class="tier-header" style="color:#3b82f6;border-bottom:2px solid #3b82f6">Tier 3 — Volume Markets</div><div class="country-grid">
             <div class="country-card" style="opacity:1">
                 <div class="country-head">
@@ -3441,8 +3915,8 @@ Easy 3D</a>
             </div>
             <div class="country-card" style="opacity:0.45">
                 <div class="country-head">
-                    <span class="country-code">VN</span>
-                    <span class="country-name">Vietnam</span>
+                    <span class="country-code">PK</span>
+                    <span class="country-name">Pakistan</span>
                     <span class="tier-badge" style="background:#3b82f6">T3</span>
                     
                 </div>
@@ -3459,8 +3933,44 @@ Easy 3D</a>
             </div>
             <div class="country-card" style="opacity:0.45">
                 <div class="country-head">
-                    <span class="country-code">PK</span>
-                    <span class="country-name">Pakistan</span>
+                    <span class="country-code">BD</span>
+                    <span class="country-name">Bangladesh</span>
+                    <span class="tier-badge" style="background:#3b82f6">T3</span>
+                    
+                </div>
+                <div class="country-stats">
+                    <div><span class="stat-num">0</span><span class="stat-label">Signals</span></div>
+                    <div><span class="stat-num">0</span><span class="stat-label">KOL</span></div>
+                    <div><span class="stat-num">0</span><span class="stat-label">YT</span></div>
+                    <div><span class="stat-num">0</span><span class="stat-label">TikTok</span></div>
+                    <div><span class="stat-num">0</span><span class="stat-label">Pin</span></div>
+                </div>
+                <div class="country-opp"><span class="country-opp-lbl">Coverage</span><div class="country-opp-bar"><div class="country-opp-fill" style="width:0%;background:#6b7280"></div></div></div>
+                <div class="country-cats">—</div>
+                
+            </div>
+            <div class="country-card" style="opacity:0.45">
+                <div class="country-head">
+                    <span class="country-code">NG</span>
+                    <span class="country-name">Nigeria</span>
+                    <span class="tier-badge" style="background:#3b82f6">T3</span>
+                    
+                </div>
+                <div class="country-stats">
+                    <div><span class="stat-num">0</span><span class="stat-label">Signals</span></div>
+                    <div><span class="stat-num">0</span><span class="stat-label">KOL</span></div>
+                    <div><span class="stat-num">0</span><span class="stat-label">YT</span></div>
+                    <div><span class="stat-num">0</span><span class="stat-label">TikTok</span></div>
+                    <div><span class="stat-num">0</span><span class="stat-label">Pin</span></div>
+                </div>
+                <div class="country-opp"><span class="country-opp-lbl">Coverage</span><div class="country-opp-bar"><div class="country-opp-fill" style="width:0%;background:#6b7280"></div></div></div>
+                <div class="country-cats">—</div>
+                
+            </div>
+            <div class="country-card" style="opacity:0.45">
+                <div class="country-head">
+                    <span class="country-code">VN</span>
+                    <span class="country-name">Vietnam</span>
                     <span class="tier-badge" style="background:#3b82f6">T3</span>
                     
                 </div>
@@ -3495,8 +4005,152 @@ Easy 3D</a>
             </div>
             <div class="country-card" style="opacity:0.45">
                 <div class="country-head">
-                    <span class="country-code">NG</span>
-                    <span class="country-name">Nigeria</span>
+                    <span class="country-code">KE</span>
+                    <span class="country-name">Kenya</span>
+                    <span class="tier-badge" style="background:#3b82f6">T3</span>
+                    
+                </div>
+                <div class="country-stats">
+                    <div><span class="stat-num">0</span><span class="stat-label">Signals</span></div>
+                    <div><span class="stat-num">0</span><span class="stat-label">KOL</span></div>
+                    <div><span class="stat-num">0</span><span class="stat-label">YT</span></div>
+                    <div><span class="stat-num">0</span><span class="stat-label">TikTok</span></div>
+                    <div><span class="stat-num">0</span><span class="stat-label">Pin</span></div>
+                </div>
+                <div class="country-opp"><span class="country-opp-lbl">Coverage</span><div class="country-opp-bar"><div class="country-opp-fill" style="width:0%;background:#6b7280"></div></div></div>
+                <div class="country-cats">—</div>
+                
+            </div>
+            <div class="country-card" style="opacity:0.45">
+                <div class="country-head">
+                    <span class="country-code">GH</span>
+                    <span class="country-name">Ghana</span>
+                    <span class="tier-badge" style="background:#3b82f6">T3</span>
+                    
+                </div>
+                <div class="country-stats">
+                    <div><span class="stat-num">0</span><span class="stat-label">Signals</span></div>
+                    <div><span class="stat-num">0</span><span class="stat-label">KOL</span></div>
+                    <div><span class="stat-num">0</span><span class="stat-label">YT</span></div>
+                    <div><span class="stat-num">0</span><span class="stat-label">TikTok</span></div>
+                    <div><span class="stat-num">0</span><span class="stat-label">Pin</span></div>
+                </div>
+                <div class="country-opp"><span class="country-opp-lbl">Coverage</span><div class="country-opp-bar"><div class="country-opp-fill" style="width:0%;background:#6b7280"></div></div></div>
+                <div class="country-cats">—</div>
+                
+            </div>
+            <div class="country-card" style="opacity:0.45">
+                <div class="country-head">
+                    <span class="country-code">TZ</span>
+                    <span class="country-name">Tanzania</span>
+                    <span class="tier-badge" style="background:#3b82f6">T3</span>
+                    
+                </div>
+                <div class="country-stats">
+                    <div><span class="stat-num">0</span><span class="stat-label">Signals</span></div>
+                    <div><span class="stat-num">0</span><span class="stat-label">KOL</span></div>
+                    <div><span class="stat-num">0</span><span class="stat-label">YT</span></div>
+                    <div><span class="stat-num">0</span><span class="stat-label">TikTok</span></div>
+                    <div><span class="stat-num">0</span><span class="stat-label">Pin</span></div>
+                </div>
+                <div class="country-opp"><span class="country-opp-lbl">Coverage</span><div class="country-opp-bar"><div class="country-opp-fill" style="width:0%;background:#6b7280"></div></div></div>
+                <div class="country-cats">—</div>
+                
+            </div>
+            <div class="country-card" style="opacity:0.45">
+                <div class="country-head">
+                    <span class="country-code">ET</span>
+                    <span class="country-name">Ethiopia</span>
+                    <span class="tier-badge" style="background:#3b82f6">T3</span>
+                    
+                </div>
+                <div class="country-stats">
+                    <div><span class="stat-num">0</span><span class="stat-label">Signals</span></div>
+                    <div><span class="stat-num">0</span><span class="stat-label">KOL</span></div>
+                    <div><span class="stat-num">0</span><span class="stat-label">YT</span></div>
+                    <div><span class="stat-num">0</span><span class="stat-label">TikTok</span></div>
+                    <div><span class="stat-num">0</span><span class="stat-label">Pin</span></div>
+                </div>
+                <div class="country-opp"><span class="country-opp-lbl">Coverage</span><div class="country-opp-bar"><div class="country-opp-fill" style="width:0%;background:#6b7280"></div></div></div>
+                <div class="country-cats">—</div>
+                
+            </div>
+            <div class="country-card" style="opacity:0.45">
+                <div class="country-head">
+                    <span class="country-code">IQ</span>
+                    <span class="country-name">Iraq</span>
+                    <span class="tier-badge" style="background:#3b82f6">T3</span>
+                    
+                </div>
+                <div class="country-stats">
+                    <div><span class="stat-num">0</span><span class="stat-label">Signals</span></div>
+                    <div><span class="stat-num">0</span><span class="stat-label">KOL</span></div>
+                    <div><span class="stat-num">0</span><span class="stat-label">YT</span></div>
+                    <div><span class="stat-num">0</span><span class="stat-label">TikTok</span></div>
+                    <div><span class="stat-num">0</span><span class="stat-label">Pin</span></div>
+                </div>
+                <div class="country-opp"><span class="country-opp-lbl">Coverage</span><div class="country-opp-bar"><div class="country-opp-fill" style="width:0%;background:#6b7280"></div></div></div>
+                <div class="country-cats">—</div>
+                
+            </div>
+            <div class="country-card" style="opacity:0.45">
+                <div class="country-head">
+                    <span class="country-code">MM</span>
+                    <span class="country-name">Myanmar</span>
+                    <span class="tier-badge" style="background:#3b82f6">T3</span>
+                    
+                </div>
+                <div class="country-stats">
+                    <div><span class="stat-num">0</span><span class="stat-label">Signals</span></div>
+                    <div><span class="stat-num">0</span><span class="stat-label">KOL</span></div>
+                    <div><span class="stat-num">0</span><span class="stat-label">YT</span></div>
+                    <div><span class="stat-num">0</span><span class="stat-label">TikTok</span></div>
+                    <div><span class="stat-num">0</span><span class="stat-label">Pin</span></div>
+                </div>
+                <div class="country-opp"><span class="country-opp-lbl">Coverage</span><div class="country-opp-bar"><div class="country-opp-fill" style="width:0%;background:#6b7280"></div></div></div>
+                <div class="country-cats">—</div>
+                
+            </div>
+            <div class="country-card" style="opacity:0.45">
+                <div class="country-head">
+                    <span class="country-code">KH</span>
+                    <span class="country-name">Cambodia</span>
+                    <span class="tier-badge" style="background:#3b82f6">T3</span>
+                    
+                </div>
+                <div class="country-stats">
+                    <div><span class="stat-num">0</span><span class="stat-label">Signals</span></div>
+                    <div><span class="stat-num">0</span><span class="stat-label">KOL</span></div>
+                    <div><span class="stat-num">0</span><span class="stat-label">YT</span></div>
+                    <div><span class="stat-num">0</span><span class="stat-label">TikTok</span></div>
+                    <div><span class="stat-num">0</span><span class="stat-label">Pin</span></div>
+                </div>
+                <div class="country-opp"><span class="country-opp-lbl">Coverage</span><div class="country-opp-bar"><div class="country-opp-fill" style="width:0%;background:#6b7280"></div></div></div>
+                <div class="country-cats">—</div>
+                
+            </div>
+            <div class="country-card" style="opacity:0.45">
+                <div class="country-head">
+                    <span class="country-code">LK</span>
+                    <span class="country-name">Sri Lanka</span>
+                    <span class="tier-badge" style="background:#3b82f6">T3</span>
+                    
+                </div>
+                <div class="country-stats">
+                    <div><span class="stat-num">0</span><span class="stat-label">Signals</span></div>
+                    <div><span class="stat-num">0</span><span class="stat-label">KOL</span></div>
+                    <div><span class="stat-num">0</span><span class="stat-label">YT</span></div>
+                    <div><span class="stat-num">0</span><span class="stat-label">TikTok</span></div>
+                    <div><span class="stat-num">0</span><span class="stat-label">Pin</span></div>
+                </div>
+                <div class="country-opp"><span class="country-opp-lbl">Coverage</span><div class="country-opp-bar"><div class="country-opp-fill" style="width:0%;background:#6b7280"></div></div></div>
+                <div class="country-cats">—</div>
+                
+            </div>
+            <div class="country-card" style="opacity:0.45">
+                <div class="country-head">
+                    <span class="country-code">NP</span>
+                    <span class="country-name">Nepal</span>
                     <span class="tier-badge" style="background:#3b82f6">T3</span>
                     
                 </div>
@@ -3573,7 +4227,7 @@ Easy 3D</a>
 <div class="learn-sec"><h4>Insight Families</h4><p class="learn-desc">Which insight themes perform best historically</p><div class="learn-row"><span class="learn-key">cricket-hero-angle</span><div class="learn-bar-bg"><div class="learn-bar-fill" style="width:98%;background:#10b981"></div></div><span class="learn-val" style="color:#10b981">0.98</span></div><div class="learn-row"><span class="learn-key">festival-transformation-angle</span><div class="learn-bar-bg"><div class="learn-bar-fill" style="width:90%;background:#10b981"></div></div><span class="learn-val" style="color:#10b981">0.90</span></div><div class="learn-row"><span class="learn-key">mass-hero-cinematic-angle</span><div class="learn-bar-bg"><div class="learn-bar-fill" style="width:66%;background:#10b981"></div></div><span class="learn-val" style="color:#10b981">0.66</span></div><div class="learn-row"><span class="learn-key">evergreen-old-photo</span><div class="learn-bar-bg"><div class="learn-bar-fill" style="width:59%;background:#f59e0b"></div></div><span class="learn-val" style="color:#f59e0b">0.59</span></div></div><div class="learn-sec"><h4>Categories</h4><p class="learn-desc">Which content categories win</p><div class="learn-row"><span class="learn-key">sports</span><div class="learn-bar-bg"><div class="learn-bar-fill" style="width:98%;background:#10b981"></div></div><span class="learn-val" style="color:#10b981">0.98</span></div><div class="learn-row"><span class="learn-key">festival</span><div class="learn-bar-bg"><div class="learn-bar-fill" style="width:90%;background:#10b981"></div></div><span class="learn-val" style="color:#10b981">0.90</span></div><div class="learn-row"><span class="learn-key">cinema</span><div class="learn-bar-bg"><div class="learn-bar-fill" style="width:66%;background:#10b981"></div></div><span class="learn-val" style="color:#10b981">0.66</span></div><div class="learn-row"><span class="learn-key">evergreen</span><div class="learn-bar-bg"><div class="learn-bar-fill" style="width:59%;background:#f59e0b"></div></div><span class="learn-val" style="color:#f59e0b">0.59</span></div></div><div class="learn-sec"><h4>Trending Reasons</h4><p class="learn-desc">Why things are trending — which reasons lead to ROI</p><div class="learn-row"><span class="learn-key">competition</span><div class="learn-bar-bg"><div class="learn-bar-fill" style="width:98%;background:#10b981"></div></div><span class="learn-val" style="color:#10b981">0.98</span></div><div class="learn-row"><span class="learn-key">identity/culture</span><div class="learn-bar-bg"><div class="learn-bar-fill" style="width:90%;background:#10b981"></div></div><span class="learn-val" style="color:#10b981">0.90</span></div><div class="learn-row"><span class="learn-key">celebrity</span><div class="learn-bar-bg"><div class="learn-bar-fill" style="width:66%;background:#10b981"></div></div><span class="learn-val" style="color:#10b981">0.66</span></div><div class="learn-row"><span class="learn-key">nostalgia</span><div class="learn-bar-bg"><div class="learn-bar-fill" style="width:59%;background:#f59e0b"></div></div><span class="learn-val" style="color:#f59e0b">0.59</span></div></div><div class="learn-sec"><h4>Data Sources</h4><p class="learn-desc">Which sources contribute to winning insights</p><div class="learn-row"><span class="learn-key">google_trends</span><div class="learn-bar-bg"><div class="learn-bar-fill" style="width:97%;background:#10b981"></div></div><span class="learn-val" style="color:#10b981">0.97</span></div><div class="learn-row"><span class="learn-key">calendar</span><div class="learn-bar-bg"><div class="learn-bar-fill" style="width:90%;background:#10b981"></div></div><span class="learn-val" style="color:#10b981">0.90</span></div><div class="learn-row"><span class="learn-key">youtube_watchlist</span><div class="learn-bar-bg"><div class="learn-bar-fill" style="width:88%;background:#10b981"></div></div><span class="learn-val" style="color:#10b981">0.89</span></div><div class="learn-row"><span class="learn-key">manual_internal</span><div class="learn-bar-bg"><div class="learn-bar-fill" style="width:59%;background:#f59e0b"></div></div><span class="learn-val" style="color:#f59e0b">0.59</span></div><div class="learn-row"><span class="learn-key">rss_watchlist</span><div class="learn-bar-bg"><div class="learn-bar-fill" style="width:54%;background:#f59e0b"></div></div><span class="learn-val" style="color:#f59e0b">0.54</span></div></div>
 <div class="note">Top winning insight families: cricket-hero-angle (2), festival-transformation-angle (1), mass-hero-cinematic-angle (1)</div></div>
 
-<footer>Apero Creative Insight Bot V7 &mdash; 2026-04-07 17:05 &mdash; 279 signals from 9 sources &mdash; <a href="https://github.com/binh171/apero-insight-dashboard">GitHub</a></footer>
+<footer>Apero Creative Insight Bot V7 &mdash; 2026-04-07 17:12 &mdash; 279 signals from 9 sources &mdash; <a href="https://github.com/binh171/apero-insight-dashboard">GitHub</a></footer>
 </div>
 <script>
 function sw(n){document.querySelectorAll('.tc').forEach(e=>e.classList.remove('active'));document.querySelectorAll('.tab').forEach(e=>e.classList.remove('active'));document.getElementById('t-'+n).classList.add('active');event.target.classList.add('active')}
