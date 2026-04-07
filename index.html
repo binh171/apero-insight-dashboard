@@ -28,6 +28,24 @@ header h1{font-size:26px;color:#fff}header p{color:var(--muted);font-size:13px;m
 .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
 .angles{margin-top:10px;font-size:12px}
 .conf-dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:4px;vertical-align:middle}
+.cat-overview{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px}
+.cat-chip{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:8px 14px;cursor:pointer;display:flex;align-items:center;gap:6px;transition:.2s}.cat-chip:hover,.cat-chip.active{border-color:var(--accent);background:rgba(56,189,248,.08)}
+.cat-chip-icon{font-size:16px}.cat-chip-label{font-size:12px;font-weight:500}.cat-chip-count{background:rgba(255,255,255,.1);padding:1px 7px;border-radius:10px;font-size:10px;font-weight:700}
+.chip-run{background:#10b981;color:#fff;padding:1px 6px;border-radius:10px;font-size:9px;font-weight:700}
+.cat-group{margin-bottom:24px}
+.cat-header{display:flex;align-items:center;gap:10px;padding:10px 0;margin-bottom:10px;border-bottom:2px solid var(--border)}
+.cat-header-icon{font-size:20px}.cat-header-label{font-size:15px;font-weight:700;color:#fff;flex:1}.cat-header-count{font-size:11px;color:var(--muted)}.cat-header-top{font-size:13px;font-weight:700}
+.rank-pill{min-width:44px;height:44px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:800;color:#fff}
+.insight-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.rank-list{display:flex;flex-direction:column;gap:6px}
+.rank-item{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:12px 16px;display:flex;gap:14px;align-items:center;transition:.15s}.rank-item:hover{border-color:var(--accent)}
+.rank-run{border-left:3px solid #10b981}.rank-test{border-left:3px solid #f59e0b}.rank-watch{border-left:3px solid #3b82f6}
+.rank-pos{font-size:20px;font-weight:800;color:var(--muted);min-width:36px;text-align:center}
+.rank-main{flex:1}.rank-title{font-size:13px;font-weight:500;color:#fff;margin-bottom:6px}
+.rank-bar-wrap{display:flex;align-items:center;gap:8px;margin-bottom:6px}
+.rank-bar-bg{flex:1;height:8px;background:rgba(255,255,255,.06);border-radius:4px;overflow:hidden}.rank-bar-fill{height:100%;border-radius:4px;transition:.3s}
+.rank-bar-score{font-size:16px;font-weight:800;min-width:40px}
+.rank-meta{display:flex;gap:6px;flex-wrap:wrap}
 .src-trace{margin-top:8px;font-size:11px}.src-chip{background:rgba(56,189,248,.1);color:var(--accent);padding:1px 6px;border-radius:8px;font-size:10px;margin:1px 2px;display:inline-block}
 .bar-row{display:flex;align-items:center;gap:6px;margin-bottom:3px}.bar-label{font-size:10px;color:var(--muted);min-width:65px}
 .bar-bg{flex:1;height:5px;background:rgba(255,255,255,.08);border-radius:3px;overflow:hidden}.bar-fill{height:100%;background:var(--accent);border-radius:3px}
@@ -109,450 +127,586 @@ footer{text-align:center;padding:24px 0;color:var(--muted);font-size:11px;border
 <div class="tab" onclick="sw('learning')">Learning</div>
 </div>
 
-<div id="t-insights" class="tc active"><div class="sec-title">Top Insights</div>
-        <div class="card" style="border-left:4px solid #10b981" id="insight-1">
-            <div class="card-head">
-                <span class="rank">#1</span>
-                <div class="card-title-area">
-                    <h3><span class="conf-dot" style="background:#f59e0b" title="Medium"></span> Cricket hero angle from Competitor cricket portrait ads India </h3>
-                    <div class="meta">
-                        <span class="badge" style="background:#ecfdf5;color:#10b981">Run today</span>
-                        <span class="pill">90.1</span>
-                        <span class="tag">sports</span>
-                        <span class="tag">24-72h</span>
-                        <span class="tag">1 sources</span>
+<div id="t-insights" class="tc active"><div class="sec-title">Insights by Category</div>
+        <div class="cat-overview">
+            <div class="cat-chip-all cat-chip active" onclick="filterInsights('all')">
+                <span class="cat-chip-label">All</span><span class="cat-chip-count">10</span>
+            </div>
+            <div class="cat-chip" onclick="filterInsights('sports')" data-cat="sports">
+            <span class="cat-chip-icon">🏏</span>
+            <span class="cat-chip-label">Sports & IPL</span>
+            <span class="cat-chip-count">3</span>
+            <span class="chip-run">3</span>
+        </div><div class="cat-chip" onclick="filterInsights('festival')" data-cat="festival">
+            <span class="cat-chip-icon">🎉</span>
+            <span class="cat-chip-label">Festivals & Events</span>
+            <span class="cat-chip-count">1</span>
+            
+        </div><div class="cat-chip" onclick="filterInsights('cinema')" data-cat="cinema">
+            <span class="cat-chip-icon">🎬</span>
+            <span class="cat-chip-label">Cinema & Bollywood</span>
+            <span class="cat-chip-count">4</span>
+            
+        </div><div class="cat-chip" onclick="filterInsights('evergreen')" data-cat="evergreen">
+            <span class="cat-chip-icon">🌿</span>
+            <span class="cat-chip-label">Evergreen</span>
+            <span class="cat-chip-count">1</span>
+            
+        </div><div class="cat-chip" onclick="filterInsights('photo_editing')" data-cat="photo_editing">
+            <span class="cat-chip-icon">📸</span>
+            <span class="cat-chip-label">Photo Editing</span>
+            <span class="cat-chip-count">1</span>
+            
+        </div>
+        </div>
+        <div id="insight-groups">
+        <div class="cat-group" data-cat="sports">
+            <div class="cat-header" style="border-color:#10b981">
+                <span class="cat-header-icon">🏏</span>
+                <span class="cat-header-label">Sports & IPL</span>
+                <span class="cat-header-count">3 insights</span>
+                <span class="cat-header-top" style="color:#10b981">Top: 90.1</span>
+            </div>
+            
+            <div class="card insight-card" data-cat="sports" style="border-left:4px solid #10b981" id="insight-1">
+                <div class="card-head">
+                    <div class="rank-pill" style="background:#10b981">90.1</div>
+                    <div class="card-title-area">
+                        <h3><span class="conf-dot" style="background:#f59e0b" title="Medium"></span> Cricket hero angle from Competitor cricket portrait ads Indi </h3>
+                        <div class="meta">
+                            <span class="badge" style="background:#ecfdf5;color:#10b981">Run today</span>
+                            <span class="tag">24-72h</span>
+                            <span class="tag">1 sources</span>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="card-body grid-2">
-                <div>
-                    <p><b>Why now:</b> 1 social + 0 measurement proofs; heat 20+0; reason: competition; social_only; appearances 10, first seen 0d ago recurring trend.</p>
-                    <p><b>Consumer tension:</b> Users want to see themselves as cricket heroes in the context of a hot match.</p>
-                    <p><b>Product bridge:</b> Upload photo -&gt; AI transforms into cricket hero/captain/winner pose.</p>
-                    <div class="src-trace"><b>Sources:</b> <span class="src-chip">Meta Ad Library Watch</span></div>
+                <div class="card-body">
+                    <div class="insight-grid">
+                        <div>
+                            <p><b>Why now:</b> 1 social + 0 measurement proofs; heat 20+0; reason: competition; social_only; appearances 10, first seen 0d ago recurrin</p>
+                            <p><b>Tension:</b> Users want to see themselves as cricket heroes in the context of a hot match.</p>
+                            <p><b>Bridge:</b> Upload photo -&gt; AI transforms into cricket hero/captain/winner pose.</p>
+                        </div>
+                        <div>
+                            <p><b>Action:</b> <span style="color:#10b981;font-weight:700">Run now, top budget test</span></p>
+                            <p><b>Plan:</b> Recurring trend — use fresh angles to avoid fatigue.</p>
+                            <div class="bar-row"><span class="bar-label">Heat</span><div class="bar-bg"><div class="bar-fill" style="width:70%"></div></div><span class="bar-val">7</span></div><div class="bar-row"><span class="bar-label">Product</span><div class="bar-bg"><div class="bar-fill" style="width:100%"></div></div><span class="bar-val">10</span></div><div class="bar-row"><span class="bar-label">CTR</span><div class="bar-bg"><div class="bar-fill" style="width:90%"></div></div><span class="bar-val">9</span></div><div class="bar-row"><span class="bar-label">KOL</span><div class="bar-bg"><div class="bar-fill" style="width:0%"></div></div><span class="bar-val">0.0</span></div>
+                        </div>
+                    </div>
+                    <div class="angles"><span class="tag accent">Captain entrance hero shot inspired by: Compe</span><span class="tag accent">Batsman winner pose</span><span class="tag accent">Fan-to-stadium-hero transformation</span></div>
+                    <div class="src-trace"><span class="src-chip">Meta Ad Library Watch</span></div>
                 </div>
-                <div>
-                    <p><b>Action:</b> <span style="color:#10b981;font-weight:700">Run now, top budget test</span></p>
-                    <p><b>Planning:</b> Recurring trend — use fresh angles to avoid fatigue.</p>
-                    <p><b>Learning:</b> category sports: +5.76 | reason competition: +4.8</p>
-                    <div class="bar-row"><span class="bar-label">Heat</span><div class="bar-bg"><div class="bar-fill" style="width:70%;background:var(--accent)"></div></div><span class="bar-val">7</span></div><div class="bar-row"><span class="bar-label">Multi-source</span><div class="bar-bg"><div class="bar-fill" style="width:30%;background:var(--accent)"></div></div><span class="bar-val">3</span></div><div class="bar-row"><span class="bar-label">Culture</span><div class="bar-bg"><div class="bar-fill" style="width:90%;background:var(--accent)"></div></div><span class="bar-val">9</span></div><div class="bar-row"><span class="bar-label">Product Fit</span><div class="bar-bg"><div class="bar-fill" style="width:100%;background:var(--accent)"></div></div><span class="bar-val">10</span></div><div class="bar-row"><span class="bar-label">Before/After</span><div class="bar-bg"><div class="bar-fill" style="width:90%;background:var(--accent)"></div></div><span class="bar-val">9</span></div><div class="bar-row"><span class="bar-label">CTR</span><div class="bar-bg"><div class="bar-fill" style="width:90%;background:var(--accent)"></div></div><span class="bar-val">9</span></div><div class="bar-row"><span class="bar-label">KOL</span><div class="bar-bg"><div class="bar-fill" style="width:0%;background:var(--accent)"></div></div><span class="bar-val">0.0</span></div><div class="bar-row"><span class="bar-label">Risk</span><div class="bar-bg"><div class="bar-fill" style="width:40%;background:#ef4444"></div></div><span class="bar-val">4</span></div>
+                <div class="action-btns">
+                    <button class="btn-brief" onclick="createBrief(1)">Create Brief</button>
+                    <button class="btn-test" onclick="alert('Schedule: Cricket hero angle from Compet')">Schedule Test</button>
+                    <button class="btn-skip" onclick="skipInsight(1)">Skip</button>
                 </div>
             </div>
-            <div class="angles"><b>Creative angles:</b> <span class="tag accent">Captain entrance hero shot inspired by: Competitor</span><span class="tag accent">Batsman winner pose</span><span class="tag accent">Fan-to-stadium-hero transformation</span><span class="tag accent">Cricket poster with dramatic lighting</span></div>
-            <div class="action-btns">
-            <button class="btn-brief" onclick="createBrief(1)">Create Brief</button>
-            <button class="btn-test" onclick="alert('Schedule test for: Cricket hero angle from Competitor crick')">Schedule Test</button>
-            <button class="btn-skip" onclick="skipInsight(1)">Skip</button>
-        </div>
-        </div>
-        <div class="card" style="border-left:4px solid #10b981" id="insight-2">
-            <div class="card-head">
-                <span class="rank">#2</span>
-                <div class="card-title-area">
-                    <h3><span class="conf-dot" style="background:#f59e0b" title="Medium"></span> Cricket hero angle from cricket photo editing ads </h3>
-                    <div class="meta">
-                        <span class="badge" style="background:#ecfdf5;color:#10b981">Run today</span>
-                        <span class="pill">90.1</span>
-                        <span class="tag">sports</span>
-                        <span class="tag">24-72h</span>
-                        <span class="tag">1 sources</span>
+            <div class="card insight-card" data-cat="sports" style="border-left:4px solid #10b981" id="insight-2">
+                <div class="card-head">
+                    <div class="rank-pill" style="background:#10b981">90.1</div>
+                    <div class="card-title-area">
+                        <h3><span class="conf-dot" style="background:#f59e0b" title="Medium"></span> Cricket hero angle from cricket photo editing ads </h3>
+                        <div class="meta">
+                            <span class="badge" style="background:#ecfdf5;color:#10b981">Run today</span>
+                            <span class="tag">24-72h</span>
+                            <span class="tag">1 sources</span>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="card-body grid-2">
-                <div>
-                    <p><b>Why now:</b> 1 social + 0 measurement proofs; heat 20+0; reason: competition; social_only; appearances 10, first seen 0d ago recurring trend.</p>
-                    <p><b>Consumer tension:</b> Users want to see themselves as cricket heroes in the context of a hot match.</p>
-                    <p><b>Product bridge:</b> Upload photo -&gt; AI transforms into cricket hero/captain/winner pose.</p>
-                    <div class="src-trace"><b>Sources:</b> <span class="src-chip">Meta Ad Library</span></div>
+                <div class="card-body">
+                    <div class="insight-grid">
+                        <div>
+                            <p><b>Why now:</b> 1 social + 0 measurement proofs; heat 20+0; reason: competition; social_only; appearances 10, first seen 0d ago recurrin</p>
+                            <p><b>Tension:</b> Users want to see themselves as cricket heroes in the context of a hot match.</p>
+                            <p><b>Bridge:</b> Upload photo -&gt; AI transforms into cricket hero/captain/winner pose.</p>
+                        </div>
+                        <div>
+                            <p><b>Action:</b> <span style="color:#10b981;font-weight:700">Run now, top budget test</span></p>
+                            <p><b>Plan:</b> Recurring trend — use fresh angles to avoid fatigue.</p>
+                            <div class="bar-row"><span class="bar-label">Heat</span><div class="bar-bg"><div class="bar-fill" style="width:70%"></div></div><span class="bar-val">7</span></div><div class="bar-row"><span class="bar-label">Product</span><div class="bar-bg"><div class="bar-fill" style="width:100%"></div></div><span class="bar-val">10</span></div><div class="bar-row"><span class="bar-label">CTR</span><div class="bar-bg"><div class="bar-fill" style="width:90%"></div></div><span class="bar-val">9</span></div><div class="bar-row"><span class="bar-label">KOL</span><div class="bar-bg"><div class="bar-fill" style="width:0%"></div></div><span class="bar-val">0.0</span></div>
+                        </div>
+                    </div>
+                    <div class="angles"><span class="tag accent">Captain entrance hero shot inspired by: crick</span><span class="tag accent">Batsman winner pose</span><span class="tag accent">Fan-to-stadium-hero transformation</span></div>
+                    <div class="src-trace"><span class="src-chip">Meta Ad Library</span></div>
                 </div>
-                <div>
-                    <p><b>Action:</b> <span style="color:#10b981;font-weight:700">Run now, top budget test</span></p>
-                    <p><b>Planning:</b> Recurring trend — use fresh angles to avoid fatigue.</p>
-                    <p><b>Learning:</b> category sports: +5.76 | reason competition: +4.8</p>
-                    <div class="bar-row"><span class="bar-label">Heat</span><div class="bar-bg"><div class="bar-fill" style="width:70%;background:var(--accent)"></div></div><span class="bar-val">7</span></div><div class="bar-row"><span class="bar-label">Multi-source</span><div class="bar-bg"><div class="bar-fill" style="width:30%;background:var(--accent)"></div></div><span class="bar-val">3</span></div><div class="bar-row"><span class="bar-label">Culture</span><div class="bar-bg"><div class="bar-fill" style="width:90%;background:var(--accent)"></div></div><span class="bar-val">9</span></div><div class="bar-row"><span class="bar-label">Product Fit</span><div class="bar-bg"><div class="bar-fill" style="width:100%;background:var(--accent)"></div></div><span class="bar-val">10</span></div><div class="bar-row"><span class="bar-label">Before/After</span><div class="bar-bg"><div class="bar-fill" style="width:90%;background:var(--accent)"></div></div><span class="bar-val">9</span></div><div class="bar-row"><span class="bar-label">CTR</span><div class="bar-bg"><div class="bar-fill" style="width:90%;background:var(--accent)"></div></div><span class="bar-val">9</span></div><div class="bar-row"><span class="bar-label">KOL</span><div class="bar-bg"><div class="bar-fill" style="width:0%;background:var(--accent)"></div></div><span class="bar-val">0.0</span></div><div class="bar-row"><span class="bar-label">Risk</span><div class="bar-bg"><div class="bar-fill" style="width:40%;background:#ef4444"></div></div><span class="bar-val">4</span></div>
+                <div class="action-btns">
+                    <button class="btn-brief" onclick="createBrief(2)">Create Brief</button>
+                    <button class="btn-test" onclick="alert('Schedule: Cricket hero angle from cricke')">Schedule Test</button>
+                    <button class="btn-skip" onclick="skipInsight(2)">Skip</button>
                 </div>
             </div>
-            <div class="angles"><b>Creative angles:</b> <span class="tag accent">Captain entrance hero shot inspired by: cricket ph</span><span class="tag accent">Batsman winner pose</span><span class="tag accent">Fan-to-stadium-hero transformation</span><span class="tag accent">Cricket poster with dramatic lighting</span></div>
-            <div class="action-btns">
-            <button class="btn-brief" onclick="createBrief(2)">Create Brief</button>
-            <button class="btn-test" onclick="alert('Schedule test for: Cricket hero angle from cricket photo ed')">Schedule Test</button>
-            <button class="btn-skip" onclick="skipInsight(2)">Skip</button>
-        </div>
-        </div>
-        <div class="card" style="border-left:4px solid #10b981" id="insight-3">
-            <div class="card-head">
-                <span class="rank">#3</span>
-                <div class="card-title-area">
-                    <h3><span class="conf-dot" style="background:#ef4444" title="Low"></span> Cricket hero angle from IPL 2026 Season — daily fixtures &amp; fan moments </h3>
-                    <div class="meta">
-                        <span class="badge" style="background:#ecfdf5;color:#10b981">Run today</span>
-                        <span class="pill">87.1</span>
-                        <span class="tag">sports</span>
-                        <span class="tag">24-72h</span>
-                        <span class="tag">1 sources</span>
+            <div class="card insight-card" data-cat="sports" style="border-left:4px solid #10b981" id="insight-3">
+                <div class="card-head">
+                    <div class="rank-pill" style="background:#10b981">87.1</div>
+                    <div class="card-title-area">
+                        <h3><span class="conf-dot" style="background:#ef4444" title="Low"></span> Cricket hero angle from IPL 2026 Season — daily fixtures &amp; f </h3>
+                        <div class="meta">
+                            <span class="badge" style="background:#ecfdf5;color:#10b981">Run today</span>
+                            <span class="tag">24-72h</span>
+                            <span class="tag">1 sources</span>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="card-body grid-2">
-                <div>
-                    <p><b>Why now:</b> 1 social + 0 measurement proofs; heat 12+0; reason: competition; social_only; appearances 10, first seen 0d ago recurring trend.</p>
-                    <p><b>Consumer tension:</b> Users want to see themselves as cricket heroes in the context of a hot match.</p>
-                    <p><b>Product bridge:</b> Upload photo -&gt; AI transforms into cricket hero/captain/winner pose.</p>
-                    <div class="src-trace"><b>Sources:</b> <span class="src-chip">IPL Calendar</span></div>
+                <div class="card-body">
+                    <div class="insight-grid">
+                        <div>
+                            <p><b>Why now:</b> 1 social + 0 measurement proofs; heat 12+0; reason: competition; social_only; appearances 10, first seen 0d ago recurrin</p>
+                            <p><b>Tension:</b> Users want to see themselves as cricket heroes in the context of a hot match.</p>
+                            <p><b>Bridge:</b> Upload photo -&gt; AI transforms into cricket hero/captain/winner pose.</p>
+                        </div>
+                        <div>
+                            <p><b>Action:</b> <span style="color:#10b981;font-weight:700">Run now, top budget test</span></p>
+                            <p><b>Plan:</b> Recurring trend — use fresh angles to avoid fatigue.</p>
+                            <div class="bar-row"><span class="bar-label">Heat</span><div class="bar-bg"><div class="bar-fill" style="width:50%"></div></div><span class="bar-val">5</span></div><div class="bar-row"><span class="bar-label">Product</span><div class="bar-bg"><div class="bar-fill" style="width:100%"></div></div><span class="bar-val">10</span></div><div class="bar-row"><span class="bar-label">CTR</span><div class="bar-bg"><div class="bar-fill" style="width:90%"></div></div><span class="bar-val">9</span></div><div class="bar-row"><span class="bar-label">KOL</span><div class="bar-bg"><div class="bar-fill" style="width:0%"></div></div><span class="bar-val">0.0</span></div>
+                        </div>
+                    </div>
+                    <div class="angles"><span class="tag accent">Captain entrance hero shot inspired by: IPL 2</span><span class="tag accent">Batsman winner pose</span><span class="tag accent">Fan-to-stadium-hero transformation</span></div>
+                    <div class="src-trace"><span class="src-chip">IPL Calendar</span></div>
                 </div>
-                <div>
-                    <p><b>Action:</b> <span style="color:#10b981;font-weight:700">Run now, top budget test</span></p>
-                    <p><b>Planning:</b> Recurring trend — use fresh angles to avoid fatigue.</p>
-                    <p><b>Learning:</b> category sports: +5.76 | reason competition: +4.8</p>
-                    <div class="bar-row"><span class="bar-label">Heat</span><div class="bar-bg"><div class="bar-fill" style="width:50%;background:var(--accent)"></div></div><span class="bar-val">5</span></div><div class="bar-row"><span class="bar-label">Multi-source</span><div class="bar-bg"><div class="bar-fill" style="width:30%;background:var(--accent)"></div></div><span class="bar-val">3</span></div><div class="bar-row"><span class="bar-label">Culture</span><div class="bar-bg"><div class="bar-fill" style="width:90%;background:var(--accent)"></div></div><span class="bar-val">9</span></div><div class="bar-row"><span class="bar-label">Product Fit</span><div class="bar-bg"><div class="bar-fill" style="width:100%;background:var(--accent)"></div></div><span class="bar-val">10</span></div><div class="bar-row"><span class="bar-label">Before/After</span><div class="bar-bg"><div class="bar-fill" style="width:90%;background:var(--accent)"></div></div><span class="bar-val">9</span></div><div class="bar-row"><span class="bar-label">CTR</span><div class="bar-bg"><div class="bar-fill" style="width:90%;background:var(--accent)"></div></div><span class="bar-val">9</span></div><div class="bar-row"><span class="bar-label">KOL</span><div class="bar-bg"><div class="bar-fill" style="width:0%;background:var(--accent)"></div></div><span class="bar-val">0.0</span></div><div class="bar-row"><span class="bar-label">Risk</span><div class="bar-bg"><div class="bar-fill" style="width:40%;background:#ef4444"></div></div><span class="bar-val">4</span></div>
+                <div class="action-btns">
+                    <button class="btn-brief" onclick="createBrief(3)">Create Brief</button>
+                    <button class="btn-test" onclick="alert('Schedule: Cricket hero angle from IPL 20')">Schedule Test</button>
+                    <button class="btn-skip" onclick="skipInsight(3)">Skip</button>
                 </div>
             </div>
-            <div class="angles"><b>Creative angles:</b> <span class="tag accent">Captain entrance hero shot inspired by: IPL 2026 S</span><span class="tag accent">Batsman winner pose</span><span class="tag accent">Fan-to-stadium-hero transformation</span><span class="tag accent">Cricket poster with dramatic lighting</span></div>
-            <div class="action-btns">
-            <button class="btn-brief" onclick="createBrief(3)">Create Brief</button>
-            <button class="btn-test" onclick="alert('Schedule test for: Cricket hero angle from IPL 2026 Season ')">Schedule Test</button>
-            <button class="btn-skip" onclick="skipInsight(3)">Skip</button>
         </div>
-        </div>
-        <div class="card" style="border-left:4px solid #f59e0b" id="insight-4">
-            <div class="card-head">
-                <span class="rank">#4</span>
-                <div class="card-title-area">
-                    <h3><span class="conf-dot" style="background:#ef4444" title="Low"></span> Festival transformation angle from India Festival &amp; Cultural Calendar 2026 </h3>
-                    <div class="meta">
-                        <span class="badge" style="background:#fffbeb;color:#f59e0b">Test controlled</span>
-                        <span class="pill">84.3</span>
-                        <span class="tag">festival</span>
-                        <span class="tag">2-7 days</span>
-                        <span class="tag">1 sources</span>
+        <div class="cat-group" data-cat="festival">
+            <div class="cat-header" style="border-color:#ec4899">
+                <span class="cat-header-icon">🎉</span>
+                <span class="cat-header-label">Festivals & Events</span>
+                <span class="cat-header-count">1 insights</span>
+                <span class="cat-header-top" style="color:#ec4899">Top: 84.3</span>
+            </div>
+            
+            <div class="card insight-card" data-cat="festival" style="border-left:4px solid #ec4899" id="insight-4">
+                <div class="card-head">
+                    <div class="rank-pill" style="background:#f59e0b">84.3</div>
+                    <div class="card-title-area">
+                        <h3><span class="conf-dot" style="background:#ef4444" title="Low"></span> Festival transformation angle from India Festival &amp; Cultural </h3>
+                        <div class="meta">
+                            <span class="badge" style="background:#fffbeb;color:#f59e0b">Test controlled</span>
+                            <span class="tag">2-7 days</span>
+                            <span class="tag">1 sources</span>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="card-body grid-2">
-                <div>
-                    <p><b>Why now:</b> 1 social + 0 measurement proofs; heat 12+0; reason: identity/culture; social_only; appearances 10, first seen 0d ago recurring trend.</p>
-                    <p><b>Consumer tension:</b> Users want festive/traditional photos that look premium and shareable.</p>
-                    <p><b>Product bridge:</b> Upload photo -&gt; festive portrait, traditional royal look or clean family portrait.</p>
-                    <div class="src-trace"><b>Sources:</b> <span class="src-chip">India Festival Calendar</span></div>
+                <div class="card-body">
+                    <div class="insight-grid">
+                        <div>
+                            <p><b>Why now:</b> 1 social + 0 measurement proofs; heat 12+0; reason: identity/culture; social_only; appearances 10, first seen 0d ago rec</p>
+                            <p><b>Tension:</b> Users want festive/traditional photos that look premium and shareable.</p>
+                            <p><b>Bridge:</b> Upload photo -&gt; festive portrait, traditional royal look or clean family portrait.</p>
+                        </div>
+                        <div>
+                            <p><b>Action:</b> <span style="color:#f59e0b;font-weight:700">Small controlled test</span></p>
+                            <p><b>Plan:</b> Recurring trend — use fresh angles to avoid fatigue.</p>
+                            <div class="bar-row"><span class="bar-label">Heat</span><div class="bar-bg"><div class="bar-fill" style="width:50%"></div></div><span class="bar-val">5</span></div><div class="bar-row"><span class="bar-label">Product</span><div class="bar-bg"><div class="bar-fill" style="width:100%"></div></div><span class="bar-val">10</span></div><div class="bar-row"><span class="bar-label">CTR</span><div class="bar-bg"><div class="bar-fill" style="width:80%"></div></div><span class="bar-val">8</span></div><div class="bar-row"><span class="bar-label">KOL</span><div class="bar-bg"><div class="bar-fill" style="width:0%"></div></div><span class="bar-val">0.0</span></div>
+                        </div>
+                    </div>
+                    <div class="angles"><span class="tag accent">Traditional royal look inspired by: India Fes</span><span class="tag accent">Festival family portrait upgrade</span><span class="tag accent">Before casual to festive attire</span></div>
+                    <div class="src-trace"><span class="src-chip">India Festival Calendar</span></div>
                 </div>
-                <div>
-                    <p><b>Action:</b> <span style="color:#f59e0b;font-weight:700">Small controlled test</span></p>
-                    <p><b>Planning:</b> Recurring trend — use fresh angles to avoid fatigue.</p>
-                    <p><b>Learning:</b> category festival: +4.81 | reason identity/culture: +4.01</p>
-                    <div class="bar-row"><span class="bar-label">Heat</span><div class="bar-bg"><div class="bar-fill" style="width:50%;background:var(--accent)"></div></div><span class="bar-val">5</span></div><div class="bar-row"><span class="bar-label">Multi-source</span><div class="bar-bg"><div class="bar-fill" style="width:30%;background:var(--accent)"></div></div><span class="bar-val">3</span></div><div class="bar-row"><span class="bar-label">Culture</span><div class="bar-bg"><div class="bar-fill" style="width:90%;background:var(--accent)"></div></div><span class="bar-val">9</span></div><div class="bar-row"><span class="bar-label">Product Fit</span><div class="bar-bg"><div class="bar-fill" style="width:100%;background:var(--accent)"></div></div><span class="bar-val">10</span></div><div class="bar-row"><span class="bar-label">Before/After</span><div class="bar-bg"><div class="bar-fill" style="width:90%;background:var(--accent)"></div></div><span class="bar-val">9</span></div><div class="bar-row"><span class="bar-label">CTR</span><div class="bar-bg"><div class="bar-fill" style="width:80%;background:var(--accent)"></div></div><span class="bar-val">8</span></div><div class="bar-row"><span class="bar-label">KOL</span><div class="bar-bg"><div class="bar-fill" style="width:0%;background:var(--accent)"></div></div><span class="bar-val">0.0</span></div><div class="bar-row"><span class="bar-label">Risk</span><div class="bar-bg"><div class="bar-fill" style="width:30%;background:#ef4444"></div></div><span class="bar-val">3</span></div>
+                <div class="action-btns">
+                    <button class="btn-brief" onclick="createBrief(4)">Create Brief</button>
+                    <button class="btn-test" onclick="alert('Schedule: Festival transformation angle ')">Schedule Test</button>
+                    <button class="btn-skip" onclick="skipInsight(4)">Skip</button>
                 </div>
             </div>
-            <div class="angles"><b>Creative angles:</b> <span class="tag accent">Traditional royal look inspired by: India Festival</span><span class="tag accent">Festival family portrait upgrade</span><span class="tag accent">Before casual to festive attire</span><span class="tag accent">Celebration-ready DP</span></div>
-            <div class="action-btns">
-            <button class="btn-brief" onclick="createBrief(4)">Create Brief</button>
-            <button class="btn-test" onclick="alert('Schedule test for: Festival transformation angle from India')">Schedule Test</button>
-            <button class="btn-skip" onclick="skipInsight(4)">Skip</button>
         </div>
-        </div>
-        <div class="card" style="border-left:4px solid #f59e0b" id="insight-5">
-            <div class="card-head">
-                <span class="rank">#5</span>
-                <div class="card-title-area">
-                    <h3><span class="conf-dot" style="background:#f59e0b" title="Medium"></span> Mass hero cinematic angle from BAJRANG BAAN🚩| JUBIN NAUTIYAL | बजरँग बाण | Bajrang Baan Paa </h3>
-                    <div class="meta">
-                        <span class="badge" style="background:#fffbeb;color:#f59e0b">Test controlled</span>
-                        <span class="pill">81.7</span>
-                        <span class="tag">cinema</span>
-                        <span class="tag">24-72h</span>
-                        <span class="tag">1 sources</span>
+        <div class="cat-group" data-cat="cinema">
+            <div class="cat-header" style="border-color:#f59e0b">
+                <span class="cat-header-icon">🎬</span>
+                <span class="cat-header-label">Cinema & Bollywood</span>
+                <span class="cat-header-count">4 insights</span>
+                <span class="cat-header-top" style="color:#f59e0b">Top: 81.7</span>
+            </div>
+            
+            <div class="card insight-card" data-cat="cinema" style="border-left:4px solid #f59e0b" id="insight-5">
+                <div class="card-head">
+                    <div class="rank-pill" style="background:#f59e0b">81.7</div>
+                    <div class="card-title-area">
+                        <h3><span class="conf-dot" style="background:#f59e0b" title="Medium"></span> Mass hero cinematic angle from BAJRANG BAAN🚩| JUBIN NAUTIYAL </h3>
+                        <div class="meta">
+                            <span class="badge" style="background:#fffbeb;color:#f59e0b">Test controlled</span>
+                            <span class="tag">24-72h</span>
+                            <span class="tag">1 sources</span>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="card-body grid-2">
-                <div>
-                    <p><b>Why now:</b> 2 social + 0 measurement proofs; heat 24+0; reason: aspiration; social_only; appearances 2, first seen 0d ago recurring trend.</p>
-                    <p><b>Consumer tension:</b> Users want a mass hero look with strong cinematic aura worth posting.</p>
-                    <p><b>Product bridge:</b> Upload photo -&gt; AI creates mass hero look/cinematic poster.</p>
-                    <div class="src-trace"><b>Sources:</b> <span class="src-chip">T-Series</span></div>
+                <div class="card-body">
+                    <div class="insight-grid">
+                        <div>
+                            <p><b>Why now:</b> 2 social + 0 measurement proofs; heat 24+0; reason: aspiration; social_only; appearances 2, first seen 0d ago recurring </p>
+                            <p><b>Tension:</b> Users want a mass hero look with strong cinematic aura worth posting.</p>
+                            <p><b>Bridge:</b> Upload photo -&gt; AI creates mass hero look/cinematic poster.</p>
+                        </div>
+                        <div>
+                            <p><b>Action:</b> <span style="color:#f59e0b;font-weight:700">Small controlled test</span></p>
+                            <p><b>Plan:</b> Recurring trend — use fresh angles to avoid fatigue.</p>
+                            <div class="bar-row"><span class="bar-label">Heat</span><div class="bar-bg"><div class="bar-fill" style="width:70%"></div></div><span class="bar-val">7</span></div><div class="bar-row"><span class="bar-label">Product</span><div class="bar-bg"><div class="bar-fill" style="width:100%"></div></div><span class="bar-val">10</span></div><div class="bar-row"><span class="bar-label">CTR</span><div class="bar-bg"><div class="bar-fill" style="width:90%"></div></div><span class="bar-val">9</span></div><div class="bar-row"><span class="bar-label">KOL</span><div class="bar-bg"><div class="bar-fill" style="width:0%"></div></div><span class="bar-val">0.0</span></div>
+                        </div>
+                    </div>
+                    <div class="angles"><span class="tag accent">Mass entry hero reveal inspired by: BAJRANG B</span><span class="tag accent">Action poster transformation</span><span class="tag accent">Fire-and-aura cinematic portrait</span></div>
+                    <div class="src-trace"><span class="src-chip">T-Series</span></div>
                 </div>
-                <div>
-                    <p><b>Action:</b> <span style="color:#f59e0b;font-weight:700">Small controlled test</span></p>
-                    <p><b>Planning:</b> Recurring trend — use fresh angles to avoid fatigue.</p>
-                    <p><b>Learning:</b> category cinema: +1.94</p>
-                    <div class="bar-row"><span class="bar-label">Heat</span><div class="bar-bg"><div class="bar-fill" style="width:70%;background:var(--accent)"></div></div><span class="bar-val">7</span></div><div class="bar-row"><span class="bar-label">Multi-source</span><div class="bar-bg"><div class="bar-fill" style="width:30%;background:var(--accent)"></div></div><span class="bar-val">3</span></div><div class="bar-row"><span class="bar-label">Culture</span><div class="bar-bg"><div class="bar-fill" style="width:90%;background:var(--accent)"></div></div><span class="bar-val">9</span></div><div class="bar-row"><span class="bar-label">Product Fit</span><div class="bar-bg"><div class="bar-fill" style="width:100%;background:var(--accent)"></div></div><span class="bar-val">10</span></div><div class="bar-row"><span class="bar-label">Before/After</span><div class="bar-bg"><div class="bar-fill" style="width:90%;background:var(--accent)"></div></div><span class="bar-val">9</span></div><div class="bar-row"><span class="bar-label">CTR</span><div class="bar-bg"><div class="bar-fill" style="width:90%;background:var(--accent)"></div></div><span class="bar-val">9</span></div><div class="bar-row"><span class="bar-label">KOL</span><div class="bar-bg"><div class="bar-fill" style="width:0%;background:var(--accent)"></div></div><span class="bar-val">0.0</span></div><div class="bar-row"><span class="bar-label">Risk</span><div class="bar-bg"><div class="bar-fill" style="width:40%;background:#ef4444"></div></div><span class="bar-val">4</span></div>
+                <div class="action-btns">
+                    <button class="btn-brief" onclick="createBrief(5)">Create Brief</button>
+                    <button class="btn-test" onclick="alert('Schedule: Mass hero cinematic angle from')">Schedule Test</button>
+                    <button class="btn-skip" onclick="skipInsight(5)">Skip</button>
                 </div>
             </div>
-            <div class="angles"><b>Creative angles:</b> <span class="tag accent">Mass entry hero reveal inspired by: BAJRANG BAAN🚩|</span><span class="tag accent">Action poster transformation</span><span class="tag accent">Fire-and-aura cinematic portrait</span><span class="tag accent">Temple or epic-warrior vibe</span></div>
-            <div class="action-btns">
-            <button class="btn-brief" onclick="createBrief(5)">Create Brief</button>
-            <button class="btn-test" onclick="alert('Schedule test for: Mass hero cinematic angle from BAJRANG B')">Schedule Test</button>
-            <button class="btn-skip" onclick="skipInsight(5)">Skip</button>
-        </div>
-        </div>
-        <div class="card" style="border-left:4px solid #f59e0b" id="insight-6">
-            <div class="card-head">
-                <span class="rank">#6</span>
-                <div class="card-title-area">
-                    <h3><span class="conf-dot" style="background:#ef4444" title="Low"></span> Mass hero cinematic angle from bollywood poster maker ads </h3>
-                    <div class="meta">
-                        <span class="badge" style="background:#fffbeb;color:#f59e0b">Test controlled</span>
-                        <span class="pill">80.3</span>
-                        <span class="tag">cinema</span>
-                        <span class="tag">24-72h</span>
-                        <span class="tag">1 sources</span>
+            <div class="card insight-card" data-cat="cinema" style="border-left:4px solid #f59e0b" id="insight-6">
+                <div class="card-head">
+                    <div class="rank-pill" style="background:#f59e0b">80.3</div>
+                    <div class="card-title-area">
+                        <h3><span class="conf-dot" style="background:#ef4444" title="Low"></span> Mass hero cinematic angle from bollywood poster maker ads </h3>
+                        <div class="meta">
+                            <span class="badge" style="background:#fffbeb;color:#f59e0b">Test controlled</span>
+                            <span class="tag">24-72h</span>
+                            <span class="tag">1 sources</span>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="card-body grid-2">
-                <div>
-                    <p><b>Why now:</b> 1 social + 0 measurement proofs; heat 16+0; reason: celebrity; social_only; appearances 3, first seen 0d ago recurring trend.</p>
-                    <p><b>Consumer tension:</b> Users want a mass hero look with strong cinematic aura worth posting.</p>
-                    <p><b>Product bridge:</b> Upload photo -&gt; AI creates mass hero look/cinematic poster.</p>
-                    <div class="src-trace"><b>Sources:</b> <span class="src-chip">Meta Ad Library</span></div>
+                <div class="card-body">
+                    <div class="insight-grid">
+                        <div>
+                            <p><b>Why now:</b> 1 social + 0 measurement proofs; heat 16+0; reason: celebrity; social_only; appearances 3, first seen 0d ago recurring t</p>
+                            <p><b>Tension:</b> Users want a mass hero look with strong cinematic aura worth posting.</p>
+                            <p><b>Bridge:</b> Upload photo -&gt; AI creates mass hero look/cinematic poster.</p>
+                        </div>
+                        <div>
+                            <p><b>Action:</b> <span style="color:#f59e0b;font-weight:700">Small controlled test</span></p>
+                            <p><b>Plan:</b> Recurring trend — use fresh angles to avoid fatigue.</p>
+                            <div class="bar-row"><span class="bar-label">Heat</span><div class="bar-bg"><div class="bar-fill" style="width:50%"></div></div><span class="bar-val">5</span></div><div class="bar-row"><span class="bar-label">Product</span><div class="bar-bg"><div class="bar-fill" style="width:100%"></div></div><span class="bar-val">10</span></div><div class="bar-row"><span class="bar-label">CTR</span><div class="bar-bg"><div class="bar-fill" style="width:90%"></div></div><span class="bar-val">9</span></div><div class="bar-row"><span class="bar-label">KOL</span><div class="bar-bg"><div class="bar-fill" style="width:0%"></div></div><span class="bar-val">0.0</span></div>
+                        </div>
+                    </div>
+                    <div class="angles"><span class="tag accent">Mass entry hero reveal inspired by: bollywood</span><span class="tag accent">Action poster transformation</span><span class="tag accent">Fire-and-aura cinematic portrait</span></div>
+                    <div class="src-trace"><span class="src-chip">Meta Ad Library</span></div>
                 </div>
-                <div>
-                    <p><b>Action:</b> <span style="color:#f59e0b;font-weight:700">Small controlled test</span></p>
-                    <p><b>Planning:</b> Recurring trend — use fresh angles to avoid fatigue.</p>
-                    <p><b>Learning:</b> category cinema: +1.94 | reason celebrity: +1.62</p>
-                    <div class="bar-row"><span class="bar-label">Heat</span><div class="bar-bg"><div class="bar-fill" style="width:50%;background:var(--accent)"></div></div><span class="bar-val">5</span></div><div class="bar-row"><span class="bar-label">Multi-source</span><div class="bar-bg"><div class="bar-fill" style="width:30%;background:var(--accent)"></div></div><span class="bar-val">3</span></div><div class="bar-row"><span class="bar-label">Culture</span><div class="bar-bg"><div class="bar-fill" style="width:90%;background:var(--accent)"></div></div><span class="bar-val">9</span></div><div class="bar-row"><span class="bar-label">Product Fit</span><div class="bar-bg"><div class="bar-fill" style="width:100%;background:var(--accent)"></div></div><span class="bar-val">10</span></div><div class="bar-row"><span class="bar-label">Before/After</span><div class="bar-bg"><div class="bar-fill" style="width:90%;background:var(--accent)"></div></div><span class="bar-val">9</span></div><div class="bar-row"><span class="bar-label">CTR</span><div class="bar-bg"><div class="bar-fill" style="width:90%;background:var(--accent)"></div></div><span class="bar-val">9</span></div><div class="bar-row"><span class="bar-label">KOL</span><div class="bar-bg"><div class="bar-fill" style="width:0%;background:var(--accent)"></div></div><span class="bar-val">0.0</span></div><div class="bar-row"><span class="bar-label">Risk</span><div class="bar-bg"><div class="bar-fill" style="width:40%;background:#ef4444"></div></div><span class="bar-val">4</span></div>
+                <div class="action-btns">
+                    <button class="btn-brief" onclick="createBrief(6)">Create Brief</button>
+                    <button class="btn-test" onclick="alert('Schedule: Mass hero cinematic angle from')">Schedule Test</button>
+                    <button class="btn-skip" onclick="skipInsight(6)">Skip</button>
                 </div>
             </div>
-            <div class="angles"><b>Creative angles:</b> <span class="tag accent">Mass entry hero reveal inspired by: bollywood post</span><span class="tag accent">Action poster transformation</span><span class="tag accent">Fire-and-aura cinematic portrait</span><span class="tag accent">Temple or epic-warrior vibe</span></div>
-            <div class="action-btns">
-            <button class="btn-brief" onclick="createBrief(6)">Create Brief</button>
-            <button class="btn-test" onclick="alert('Schedule test for: Mass hero cinematic angle from bollywood')">Schedule Test</button>
-            <button class="btn-skip" onclick="skipInsight(6)">Skip</button>
-        </div>
-        </div>
-        <div class="card" style="border-left:4px solid #f59e0b" id="insight-7">
-            <div class="card-head">
-                <span class="rank">#7</span>
-                <div class="card-title-area">
-                    <h3><span class="conf-dot" style="background:#ef4444" title="Low"></span> Mass hero cinematic angle from &#x27;14 Songs In 11 Days&#x27;: Aditya Dhar Applauds Dhurandhar Compo </h3>
-                    <div class="meta">
-                        <span class="badge" style="background:#fffbeb;color:#f59e0b">Test controlled</span>
-                        <span class="pill">80.3</span>
-                        <span class="tag">cinema</span>
-                        <span class="tag">24-72h</span>
-                        <span class="tag">1 sources</span>
+            <div class="card insight-card" data-cat="cinema" style="border-left:4px solid #f59e0b" id="insight-7">
+                <div class="card-head">
+                    <div class="rank-pill" style="background:#f59e0b">80.3</div>
+                    <div class="card-title-area">
+                        <h3><span class="conf-dot" style="background:#ef4444" title="Low"></span> Mass hero cinematic angle from &#x27;14 Songs In 11 Days&#x27;: Aditya </h3>
+                        <div class="meta">
+                            <span class="badge" style="background:#fffbeb;color:#f59e0b">Test controlled</span>
+                            <span class="tag">24-72h</span>
+                            <span class="tag">1 sources</span>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="card-body grid-2">
-                <div>
-                    <p><b>Why now:</b> 1 social + 0 measurement proofs; heat 12+0; reason: celebrity; social_only; appearances 0.</p>
-                    <p><b>Consumer tension:</b> Users want a mass hero look with strong cinematic aura worth posting.</p>
-                    <p><b>Product bridge:</b> Upload photo -&gt; AI creates mass hero look/cinematic poster.</p>
-                    <div class="src-trace"><b>Sources:</b> <span class="src-chip">NDTV Movies</span></div>
+                <div class="card-body">
+                    <div class="insight-grid">
+                        <div>
+                            <p><b>Why now:</b> 1 social + 0 measurement proofs; heat 12+0; reason: celebrity; social_only; appearances 0.</p>
+                            <p><b>Tension:</b> Users want a mass hero look with strong cinematic aura worth posting.</p>
+                            <p><b>Bridge:</b> Upload photo -&gt; AI creates mass hero look/cinematic poster.</p>
+                        </div>
+                        <div>
+                            <p><b>Action:</b> <span style="color:#f59e0b;font-weight:700">Small controlled test</span></p>
+                            <p><b>Plan:</b> Hot on social but needs measurement confirmation before scaling.</p>
+                            <div class="bar-row"><span class="bar-label">Heat</span><div class="bar-bg"><div class="bar-fill" style="width:50%"></div></div><span class="bar-val">5</span></div><div class="bar-row"><span class="bar-label">Product</span><div class="bar-bg"><div class="bar-fill" style="width:100%"></div></div><span class="bar-val">10</span></div><div class="bar-row"><span class="bar-label">CTR</span><div class="bar-bg"><div class="bar-fill" style="width:90%"></div></div><span class="bar-val">9</span></div><div class="bar-row"><span class="bar-label">KOL</span><div class="bar-bg"><div class="bar-fill" style="width:0%"></div></div><span class="bar-val">0.0</span></div>
+                        </div>
+                    </div>
+                    <div class="angles"><span class="tag accent">Mass entry hero reveal inspired by: &#x27;14 Songs</span><span class="tag accent">Action poster transformation</span><span class="tag accent">Fire-and-aura cinematic portrait</span></div>
+                    <div class="src-trace"><span class="src-chip">NDTV Movies</span></div>
                 </div>
-                <div>
-                    <p><b>Action:</b> <span style="color:#f59e0b;font-weight:700">Small controlled test</span></p>
-                    <p><b>Planning:</b> Hot on social but needs measurement confirmation before scaling.</p>
-                    <p><b>Learning:</b> category cinema: +1.94 | reason celebrity: +1.62</p>
-                    <div class="bar-row"><span class="bar-label">Heat</span><div class="bar-bg"><div class="bar-fill" style="width:50%;background:var(--accent)"></div></div><span class="bar-val">5</span></div><div class="bar-row"><span class="bar-label">Multi-source</span><div class="bar-bg"><div class="bar-fill" style="width:30%;background:var(--accent)"></div></div><span class="bar-val">3</span></div><div class="bar-row"><span class="bar-label">Culture</span><div class="bar-bg"><div class="bar-fill" style="width:90%;background:var(--accent)"></div></div><span class="bar-val">9</span></div><div class="bar-row"><span class="bar-label">Product Fit</span><div class="bar-bg"><div class="bar-fill" style="width:100%;background:var(--accent)"></div></div><span class="bar-val">10</span></div><div class="bar-row"><span class="bar-label">Before/After</span><div class="bar-bg"><div class="bar-fill" style="width:90%;background:var(--accent)"></div></div><span class="bar-val">9</span></div><div class="bar-row"><span class="bar-label">CTR</span><div class="bar-bg"><div class="bar-fill" style="width:90%;background:var(--accent)"></div></div><span class="bar-val">9</span></div><div class="bar-row"><span class="bar-label">KOL</span><div class="bar-bg"><div class="bar-fill" style="width:0%;background:var(--accent)"></div></div><span class="bar-val">0.0</span></div><div class="bar-row"><span class="bar-label">Risk</span><div class="bar-bg"><div class="bar-fill" style="width:40%;background:#ef4444"></div></div><span class="bar-val">4</span></div>
+                <div class="action-btns">
+                    <button class="btn-brief" onclick="createBrief(7)">Create Brief</button>
+                    <button class="btn-test" onclick="alert('Schedule: Mass hero cinematic angle from')">Schedule Test</button>
+                    <button class="btn-skip" onclick="skipInsight(7)">Skip</button>
                 </div>
             </div>
-            <div class="angles"><b>Creative angles:</b> <span class="tag accent">Mass entry hero reveal inspired by: &#x27;14 Songs In 1</span><span class="tag accent">Action poster transformation</span><span class="tag accent">Fire-and-aura cinematic portrait</span><span class="tag accent">Temple or epic-warrior vibe</span></div>
-            <div class="action-btns">
-            <button class="btn-brief" onclick="createBrief(7)">Create Brief</button>
-            <button class="btn-test" onclick="alert('Schedule test for: Mass hero cinematic angle from &#x27;14 Songs')">Schedule Test</button>
-            <button class="btn-skip" onclick="skipInsight(7)">Skip</button>
-        </div>
-        </div>
-        <div class="card" style="border-left:4px solid #f59e0b" id="insight-8">
-            <div class="card-head">
-                <span class="rank">#8</span>
-                <div class="card-title-area">
-                    <h3><span class="conf-dot" style="background:#ef4444" title="Low"></span> Mass hero cinematic angle from Aditya Dhar Says &#x27;Ready For National Awards&#x27; As Dhurandhar 2 </h3>
-                    <div class="meta">
-                        <span class="badge" style="background:#fffbeb;color:#f59e0b">Test controlled</span>
-                        <span class="pill">78.7</span>
-                        <span class="tag">cinema</span>
-                        <span class="tag">24-72h</span>
-                        <span class="tag">1 sources</span>
+            <div class="card insight-card" data-cat="cinema" style="border-left:4px solid #f59e0b" id="insight-8">
+                <div class="card-head">
+                    <div class="rank-pill" style="background:#f59e0b">78.7</div>
+                    <div class="card-title-area">
+                        <h3><span class="conf-dot" style="background:#ef4444" title="Low"></span> Mass hero cinematic angle from Aditya Dhar Says &#x27;Ready For N </h3>
+                        <div class="meta">
+                            <span class="badge" style="background:#fffbeb;color:#f59e0b">Test controlled</span>
+                            <span class="tag">24-72h</span>
+                            <span class="tag">1 sources</span>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="card-body grid-2">
-                <div>
-                    <p><b>Why now:</b> 1 social + 0 measurement proofs; heat 12+0; reason: aspiration; social_only; appearances 0.</p>
-                    <p><b>Consumer tension:</b> Users want a mass hero look with strong cinematic aura worth posting.</p>
-                    <p><b>Product bridge:</b> Upload photo -&gt; AI creates mass hero look/cinematic poster.</p>
-                    <div class="src-trace"><b>Sources:</b> <span class="src-chip">NDTV Movies</span></div>
+                <div class="card-body">
+                    <div class="insight-grid">
+                        <div>
+                            <p><b>Why now:</b> 1 social + 0 measurement proofs; heat 12+0; reason: aspiration; social_only; appearances 0.</p>
+                            <p><b>Tension:</b> Users want a mass hero look with strong cinematic aura worth posting.</p>
+                            <p><b>Bridge:</b> Upload photo -&gt; AI creates mass hero look/cinematic poster.</p>
+                        </div>
+                        <div>
+                            <p><b>Action:</b> <span style="color:#f59e0b;font-weight:700">Small controlled test</span></p>
+                            <p><b>Plan:</b> Hot on social but needs measurement confirmation before scaling.</p>
+                            <div class="bar-row"><span class="bar-label">Heat</span><div class="bar-bg"><div class="bar-fill" style="width:50%"></div></div><span class="bar-val">5</span></div><div class="bar-row"><span class="bar-label">Product</span><div class="bar-bg"><div class="bar-fill" style="width:100%"></div></div><span class="bar-val">10</span></div><div class="bar-row"><span class="bar-label">CTR</span><div class="bar-bg"><div class="bar-fill" style="width:90%"></div></div><span class="bar-val">9</span></div><div class="bar-row"><span class="bar-label">KOL</span><div class="bar-bg"><div class="bar-fill" style="width:0%"></div></div><span class="bar-val">0.0</span></div>
+                        </div>
+                    </div>
+                    <div class="angles"><span class="tag accent">Mass entry hero reveal inspired by: Aditya Dh</span><span class="tag accent">Action poster transformation</span><span class="tag accent">Fire-and-aura cinematic portrait</span></div>
+                    <div class="src-trace"><span class="src-chip">NDTV Movies</span></div>
                 </div>
-                <div>
-                    <p><b>Action:</b> <span style="color:#f59e0b;font-weight:700">Small controlled test</span></p>
-                    <p><b>Planning:</b> Hot on social but needs measurement confirmation before scaling.</p>
-                    <p><b>Learning:</b> category cinema: +1.94</p>
-                    <div class="bar-row"><span class="bar-label">Heat</span><div class="bar-bg"><div class="bar-fill" style="width:50%;background:var(--accent)"></div></div><span class="bar-val">5</span></div><div class="bar-row"><span class="bar-label">Multi-source</span><div class="bar-bg"><div class="bar-fill" style="width:30%;background:var(--accent)"></div></div><span class="bar-val">3</span></div><div class="bar-row"><span class="bar-label">Culture</span><div class="bar-bg"><div class="bar-fill" style="width:90%;background:var(--accent)"></div></div><span class="bar-val">9</span></div><div class="bar-row"><span class="bar-label">Product Fit</span><div class="bar-bg"><div class="bar-fill" style="width:100%;background:var(--accent)"></div></div><span class="bar-val">10</span></div><div class="bar-row"><span class="bar-label">Before/After</span><div class="bar-bg"><div class="bar-fill" style="width:90%;background:var(--accent)"></div></div><span class="bar-val">9</span></div><div class="bar-row"><span class="bar-label">CTR</span><div class="bar-bg"><div class="bar-fill" style="width:90%;background:var(--accent)"></div></div><span class="bar-val">9</span></div><div class="bar-row"><span class="bar-label">KOL</span><div class="bar-bg"><div class="bar-fill" style="width:0%;background:var(--accent)"></div></div><span class="bar-val">0.0</span></div><div class="bar-row"><span class="bar-label">Risk</span><div class="bar-bg"><div class="bar-fill" style="width:40%;background:#ef4444"></div></div><span class="bar-val">4</span></div>
+                <div class="action-btns">
+                    <button class="btn-brief" onclick="createBrief(8)">Create Brief</button>
+                    <button class="btn-test" onclick="alert('Schedule: Mass hero cinematic angle from')">Schedule Test</button>
+                    <button class="btn-skip" onclick="skipInsight(8)">Skip</button>
                 </div>
             </div>
-            <div class="angles"><b>Creative angles:</b> <span class="tag accent">Mass entry hero reveal inspired by: Aditya Dhar Sa</span><span class="tag accent">Action poster transformation</span><span class="tag accent">Fire-and-aura cinematic portrait</span><span class="tag accent">Temple or epic-warrior vibe</span></div>
-            <div class="action-btns">
-            <button class="btn-brief" onclick="createBrief(8)">Create Brief</button>
-            <button class="btn-test" onclick="alert('Schedule test for: Mass hero cinematic angle from Aditya Dh')">Schedule Test</button>
-            <button class="btn-skip" onclick="skipInsight(8)">Skip</button>
         </div>
-        </div>
-        <div class="card" style="border-left:4px solid #f59e0b" id="insight-9">
-            <div class="card-head">
-                <span class="rank">#9</span>
-                <div class="card-title-area">
-                    <h3><span class="conf-dot" style="background:#f59e0b" title="Medium"></span> Evergreen old-photo restore angle </h3>
-                    <div class="meta">
-                        <span class="badge" style="background:#fffbeb;color:#f59e0b">Test controlled</span>
-                        <span class="pill">73.5</span>
-                        <span class="tag">evergreen</span>
-                        <span class="tag">3-14 days</span>
-                        <span class="tag">1 sources</span>
+        <div class="cat-group" data-cat="evergreen">
+            <div class="cat-header" style="border-color:#06b6d4">
+                <span class="cat-header-icon">🌿</span>
+                <span class="cat-header-label">Evergreen</span>
+                <span class="cat-header-count">1 insights</span>
+                <span class="cat-header-top" style="color:#06b6d4">Top: 73.5</span>
+            </div>
+            
+            <div class="card insight-card" data-cat="evergreen" style="border-left:4px solid #06b6d4" id="insight-9">
+                <div class="card-head">
+                    <div class="rank-pill" style="background:#f59e0b">73.5</div>
+                    <div class="card-title-area">
+                        <h3><span class="conf-dot" style="background:#f59e0b" title="Medium"></span> Evergreen old-photo restore angle </h3>
+                        <div class="meta">
+                            <span class="badge" style="background:#fffbeb;color:#f59e0b">Test controlled</span>
+                            <span class="tag">3-14 days</span>
+                            <span class="tag">1 sources</span>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="card-body grid-2">
-                <div>
-                    <p><b>Why now:</b> 1 social + 0 measurement proofs; heat 28+0; reason: nostalgia; social_only; appearances 0.</p>
-                    <p><b>Consumer tension:</b> Users want to rescue old memories — blurred or faded family photos — for emotional sharing.</p>
-                    <p><b>Product bridge:</b> Upload old/blurred photo -&gt; restore, enhance for emotional sharing.</p>
-                    <div class="src-trace"><b>Sources:</b> <span class="src-chip">Internal Watch</span></div>
+                <div class="card-body">
+                    <div class="insight-grid">
+                        <div>
+                            <p><b>Why now:</b> 1 social + 0 measurement proofs; heat 28+0; reason: nostalgia; social_only; appearances 0.</p>
+                            <p><b>Tension:</b> Users want to rescue old memories — blurred or faded family photos — for emotional sharing.</p>
+                            <p><b>Bridge:</b> Upload old/blurred photo -&gt; restore, enhance for emotional sharing.</p>
+                        </div>
+                        <div>
+                            <p><b>Action:</b> <span style="color:#f59e0b;font-weight:700">Small controlled test</span></p>
+                            <p><b>Plan:</b> Hot on social but needs measurement confirmation before scaling.</p>
+                            <div class="bar-row"><span class="bar-label">Heat</span><div class="bar-bg"><div class="bar-fill" style="width:70%"></div></div><span class="bar-val">7</span></div><div class="bar-row"><span class="bar-label">Product</span><div class="bar-bg"><div class="bar-fill" style="width:100%"></div></div><span class="bar-val">10</span></div><div class="bar-row"><span class="bar-label">CTR</span><div class="bar-bg"><div class="bar-fill" style="width:70%"></div></div><span class="bar-val">7</span></div><div class="bar-row"><span class="bar-label">KOL</span><div class="bar-bg"><div class="bar-fill" style="width:0%"></div></div><span class="bar-val">0.0</span></div>
+                        </div>
+                    </div>
+                    <div class="angles"><span class="tag accent">Old photo restore emotional reveal inspired b</span><span class="tag accent">Blurred memory to HD portrait</span><span class="tag accent">Family archive cleanup</span></div>
+                    <div class="src-trace"><span class="src-chip">Internal Watch</span></div>
                 </div>
-                <div>
-                    <p><b>Action:</b> <span style="color:#f59e0b;font-weight:700">Small controlled test</span></p>
-                    <p><b>Planning:</b> Hot on social but needs measurement confirmation before scaling.</p>
-                    <p><b>Learning:</b> category evergreen: +1.1 | reason nostalgia: +0.92</p>
-                    <div class="bar-row"><span class="bar-label">Heat</span><div class="bar-bg"><div class="bar-fill" style="width:70%;background:var(--accent)"></div></div><span class="bar-val">7</span></div><div class="bar-row"><span class="bar-label">Multi-source</span><div class="bar-bg"><div class="bar-fill" style="width:30%;background:var(--accent)"></div></div><span class="bar-val">3</span></div><div class="bar-row"><span class="bar-label">Culture</span><div class="bar-bg"><div class="bar-fill" style="width:70%;background:var(--accent)"></div></div><span class="bar-val">7</span></div><div class="bar-row"><span class="bar-label">Product Fit</span><div class="bar-bg"><div class="bar-fill" style="width:100%;background:var(--accent)"></div></div><span class="bar-val">10</span></div><div class="bar-row"><span class="bar-label">Before/After</span><div class="bar-bg"><div class="bar-fill" style="width:80%;background:var(--accent)"></div></div><span class="bar-val">8</span></div><div class="bar-row"><span class="bar-label">CTR</span><div class="bar-bg"><div class="bar-fill" style="width:70%;background:var(--accent)"></div></div><span class="bar-val">7</span></div><div class="bar-row"><span class="bar-label">KOL</span><div class="bar-bg"><div class="bar-fill" style="width:0%;background:var(--accent)"></div></div><span class="bar-val">0.0</span></div><div class="bar-row"><span class="bar-label">Risk</span><div class="bar-bg"><div class="bar-fill" style="width:30%;background:#ef4444"></div></div><span class="bar-val">3</span></div>
+                <div class="action-btns">
+                    <button class="btn-brief" onclick="createBrief(9)">Create Brief</button>
+                    <button class="btn-test" onclick="alert('Schedule: Evergreen old-photo restore an')">Schedule Test</button>
+                    <button class="btn-skip" onclick="skipInsight(9)">Skip</button>
                 </div>
             </div>
-            <div class="angles"><b>Creative angles:</b> <span class="tag accent">Old photo restore emotional reveal inspired by: Ol</span><span class="tag accent">Blurred memory to HD portrait</span><span class="tag accent">Family archive cleanup</span><span class="tag accent">Then-vs-now restoration</span></div>
-            <div class="action-btns">
-            <button class="btn-brief" onclick="createBrief(9)">Create Brief</button>
-            <button class="btn-test" onclick="alert('Schedule test for: Evergreen old-photo restore angle')">Schedule Test</button>
-            <button class="btn-skip" onclick="skipInsight(9)">Skip</button>
         </div>
-        </div>
-        <div class="card" style="border-left:4px solid #3b82f6" id="insight-10">
-            <div class="card-head">
-                <span class="rank">#10</span>
-                <div class="card-title-area">
-                    <h3><span class="conf-dot" style="background:#f59e0b" title="Medium"></span> Transformation angle from Here is the best photo editing software to use in 2026 - Ama </h3>
-                    <div class="meta">
-                        <span class="badge" style="background:#eff6ff;color:#3b82f6">Watchlist</span>
-                        <span class="pill">69.5</span>
-                        <span class="tag">photo_editing</span>
-                        <span class="tag">24h</span>
-                        <span class="tag">2 sources</span>
+        <div class="cat-group" data-cat="photo_editing">
+            <div class="cat-header" style="border-color:#8b5cf6">
+                <span class="cat-header-icon">📸</span>
+                <span class="cat-header-label">Photo Editing</span>
+                <span class="cat-header-count">1 insights</span>
+                <span class="cat-header-top" style="color:#8b5cf6">Top: 69.5</span>
+            </div>
+            
+            <div class="card insight-card" data-cat="photo_editing" style="border-left:4px solid #8b5cf6" id="insight-10">
+                <div class="card-head">
+                    <div class="rank-pill" style="background:#3b82f6">69.5</div>
+                    <div class="card-title-area">
+                        <h3><span class="conf-dot" style="background:#f59e0b" title="Medium"></span> Transformation angle from Here is the best photo editing sof </h3>
+                        <div class="meta">
+                            <span class="badge" style="background:#eff6ff;color:#3b82f6">Watchlist</span>
+                            <span class="tag">24h</span>
+                            <span class="tag">2 sources</span>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="card-body grid-2">
-                <div>
-                    <p><b>Why now:</b> 3 social + 0 measurement proofs; heat 36+0; reason: aspiration; social_only; appearances 0.</p>
-                    <p><b>Consumer tension:</b> Users want an attractive upgraded version of themselves, aligned with current trends.</p>
-                    <p><b>Product bridge:</b> Upload photo -&gt; AI creates an upgraded, shareable version.</p>
-                    <div class="src-trace"><b>Sources:</b> <span class="src-chip">Google News SA</span><span class="src-chip">Google News US</span></div>
+                <div class="card-body">
+                    <div class="insight-grid">
+                        <div>
+                            <p><b>Why now:</b> 3 social + 0 measurement proofs; heat 36+0; reason: aspiration; social_only; appearances 0.</p>
+                            <p><b>Tension:</b> Users want an attractive upgraded version of themselves, aligned with current trends.</p>
+                            <p><b>Bridge:</b> Upload photo -&gt; AI creates an upgraded, shareable version.</p>
+                        </div>
+                        <div>
+                            <p><b>Action:</b> <span style="color:#3b82f6;font-weight:700">Monitor / keep warm</span></p>
+                            <p><b>Plan:</b> Hot on social but needs measurement confirmation before scaling.</p>
+                            <div class="bar-row"><span class="bar-label">Heat</span><div class="bar-bg"><div class="bar-fill" style="width:70%"></div></div><span class="bar-val">7</span></div><div class="bar-row"><span class="bar-label">Product</span><div class="bar-bg"><div class="bar-fill" style="width:100%"></div></div><span class="bar-val">10</span></div><div class="bar-row"><span class="bar-label">CTR</span><div class="bar-bg"><div class="bar-fill" style="width:70%"></div></div><span class="bar-val">7</span></div><div class="bar-row"><span class="bar-label">KOL</span><div class="bar-bg"><div class="bar-fill" style="width:0%"></div></div><span class="bar-val">0.0</span></div>
+                        </div>
+                    </div>
+                    <div class="angles"><span class="tag accent">Before selfie to aspirational portrait inspir</span><span class="tag accent">Upload-photo instant transformation</span><span class="tag accent">Profile-picture upgrade</span></div>
+                    <div class="src-trace"><span class="src-chip">Google News SA</span><span class="src-chip">Google News US</span></div>
                 </div>
-                <div>
-                    <p><b>Action:</b> <span style="color:#3b82f6;font-weight:700">Monitor / keep warm</span></p>
-                    <p><b>Planning:</b> Hot on social but needs measurement confirmation before scaling.</p>
-                    <p><b>Learning:</b> No strong learning signal yet, using default scoring.</p>
-                    <div class="bar-row"><span class="bar-label">Heat</span><div class="bar-bg"><div class="bar-fill" style="width:70%;background:var(--accent)"></div></div><span class="bar-val">7</span></div><div class="bar-row"><span class="bar-label">Multi-source</span><div class="bar-bg"><div class="bar-fill" style="width:40%;background:var(--accent)"></div></div><span class="bar-val">4</span></div><div class="bar-row"><span class="bar-label">Culture</span><div class="bar-bg"><div class="bar-fill" style="width:70%;background:var(--accent)"></div></div><span class="bar-val">7</span></div><div class="bar-row"><span class="bar-label">Product Fit</span><div class="bar-bg"><div class="bar-fill" style="width:100%;background:var(--accent)"></div></div><span class="bar-val">10</span></div><div class="bar-row"><span class="bar-label">Before/After</span><div class="bar-bg"><div class="bar-fill" style="width:70%;background:var(--accent)"></div></div><span class="bar-val">7</span></div><div class="bar-row"><span class="bar-label">CTR</span><div class="bar-bg"><div class="bar-fill" style="width:70%;background:var(--accent)"></div></div><span class="bar-val">7</span></div><div class="bar-row"><span class="bar-label">KOL</span><div class="bar-bg"><div class="bar-fill" style="width:0%;background:var(--accent)"></div></div><span class="bar-val">0.0</span></div><div class="bar-row"><span class="bar-label">Risk</span><div class="bar-bg"><div class="bar-fill" style="width:30%;background:#ef4444"></div></div><span class="bar-val">3</span></div>
+                <div class="action-btns">
+                    <button class="btn-brief" onclick="createBrief(10)">Create Brief</button>
+                    <button class="btn-test" onclick="alert('Schedule: Transformation angle from Here')">Schedule Test</button>
+                    <button class="btn-skip" onclick="skipInsight(10)">Skip</button>
                 </div>
             </div>
-            <div class="angles"><b>Creative angles:</b> <span class="tag accent">Before selfie to aspirational portrait inspired by</span><span class="tag accent">Upload-photo instant transformation</span><span class="tag accent">Profile-picture upgrade</span><span class="tag accent">Visual wow before/after</span></div>
-            <div class="action-btns">
-            <button class="btn-brief" onclick="createBrief(10)">Create Brief</button>
-            <button class="btn-test" onclick="alert('Schedule test for: Transformation angle from Here is the be')">Schedule Test</button>
-            <button class="btn-skip" onclick="skipInsight(10)">Skip</button>
-        </div>
-        </div></div>
+        </div></div></div>
 
-<div id="t-ranking" class="tc"><div class="sec-title">Full Ranking</div>
-<table><thead><tr><th>#</th><th>Insight</th><th>Cat</th><th>Score</th><th>Priority</th><th>Window</th><th>Src</th><th>Action</th></tr></thead><tbody><tr class="row-run">
-            <td>1</td>
-            <td><span class="conf-dot" style="background:#f59e0b" title="Medium"></span> Cricket hero angle from Competitor cricket po </td>
-            <td>sports</td>
-            <td><div class="rank-score-bar"><div class="rank-score-fill" style="width:100%;background:#10b981"></div><span class="rank-score-val">90.1</span></div></td>
-            <td><span class="badge" style="background:#ecfdf5;color:#10b981;font-size:10px">Run today</span></td>
-            <td>24-72h</td>
-            <td>1</td>
-            <td>Run now, top budget test</td>
-        </tr><tr class="row-run">
-            <td>2</td>
-            <td><span class="conf-dot" style="background:#f59e0b" title="Medium"></span> Cricket hero angle from cricket photo editing </td>
-            <td>sports</td>
-            <td><div class="rank-score-bar"><div class="rank-score-fill" style="width:100%;background:#10b981"></div><span class="rank-score-val">90.1</span></div></td>
-            <td><span class="badge" style="background:#ecfdf5;color:#10b981;font-size:10px">Run today</span></td>
-            <td>24-72h</td>
-            <td>1</td>
-            <td>Run now, top budget test</td>
-        </tr><tr class="row-run">
-            <td>3</td>
-            <td><span class="conf-dot" style="background:#ef4444" title="Low"></span> Cricket hero angle from IPL 2026 Season — dai </td>
-            <td>sports</td>
-            <td><div class="rank-score-bar"><div class="rank-score-fill" style="width:96%;background:#10b981"></div><span class="rank-score-val">87.1</span></div></td>
-            <td><span class="badge" style="background:#ecfdf5;color:#10b981;font-size:10px">Run today</span></td>
-            <td>24-72h</td>
-            <td>1</td>
-            <td>Run now, top budget test</td>
-        </tr><tr class="row-test">
-            <td>4</td>
-            <td><span class="conf-dot" style="background:#ef4444" title="Low"></span> Festival transformation angle from India Fest </td>
-            <td>festival</td>
-            <td><div class="rank-score-bar"><div class="rank-score-fill" style="width:93%;background:#f59e0b"></div><span class="rank-score-val">84.3</span></div></td>
-            <td><span class="badge" style="background:#fffbeb;color:#f59e0b;font-size:10px">Test controlled</span></td>
-            <td>2-7 days</td>
-            <td>1</td>
-            <td>Small controlled test</td>
-        </tr><tr class="row-test">
-            <td>5</td>
-            <td><span class="conf-dot" style="background:#f59e0b" title="Medium"></span> Mass hero cinematic angle from BAJRANG BAAN🚩| </td>
-            <td>cinema</td>
-            <td><div class="rank-score-bar"><div class="rank-score-fill" style="width:90%;background:#f59e0b"></div><span class="rank-score-val">81.7</span></div></td>
-            <td><span class="badge" style="background:#fffbeb;color:#f59e0b;font-size:10px">Test controlled</span></td>
-            <td>24-72h</td>
-            <td>1</td>
-            <td>Small controlled test</td>
-        </tr><tr class="row-test">
-            <td>6</td>
-            <td><span class="conf-dot" style="background:#ef4444" title="Low"></span> Mass hero cinematic angle from bollywood post </td>
-            <td>cinema</td>
-            <td><div class="rank-score-bar"><div class="rank-score-fill" style="width:89%;background:#f59e0b"></div><span class="rank-score-val">80.3</span></div></td>
-            <td><span class="badge" style="background:#fffbeb;color:#f59e0b;font-size:10px">Test controlled</span></td>
-            <td>24-72h</td>
-            <td>1</td>
-            <td>Small controlled test</td>
-        </tr><tr class="row-test">
-            <td>7</td>
-            <td><span class="conf-dot" style="background:#ef4444" title="Low"></span> Mass hero cinematic angle from &#x27;14 Songs In 1 </td>
-            <td>cinema</td>
-            <td><div class="rank-score-bar"><div class="rank-score-fill" style="width:89%;background:#f59e0b"></div><span class="rank-score-val">80.3</span></div></td>
-            <td><span class="badge" style="background:#fffbeb;color:#f59e0b;font-size:10px">Test controlled</span></td>
-            <td>24-72h</td>
-            <td>1</td>
-            <td>Small controlled test</td>
-        </tr><tr class="row-test">
-            <td>8</td>
-            <td><span class="conf-dot" style="background:#ef4444" title="Low"></span> Mass hero cinematic angle from Aditya Dhar Sa </td>
-            <td>cinema</td>
-            <td><div class="rank-score-bar"><div class="rank-score-fill" style="width:87%;background:#f59e0b"></div><span class="rank-score-val">78.7</span></div></td>
-            <td><span class="badge" style="background:#fffbeb;color:#f59e0b;font-size:10px">Test controlled</span></td>
-            <td>24-72h</td>
-            <td>1</td>
-            <td>Small controlled test</td>
-        </tr><tr class="row-test">
-            <td>9</td>
-            <td><span class="conf-dot" style="background:#f59e0b" title="Medium"></span> Evergreen old-photo restore angle </td>
-            <td>evergreen</td>
-            <td><div class="rank-score-bar"><div class="rank-score-fill" style="width:81%;background:#f59e0b"></div><span class="rank-score-val">73.5</span></div></td>
-            <td><span class="badge" style="background:#fffbeb;color:#f59e0b;font-size:10px">Test controlled</span></td>
-            <td>3-14 days</td>
-            <td>1</td>
-            <td>Small controlled test</td>
-        </tr><tr class="">
-            <td>10</td>
-            <td><span class="conf-dot" style="background:#f59e0b" title="Medium"></span> Transformation angle from Here is the best ph </td>
-            <td>photo_editing</td>
-            <td><div class="rank-score-bar"><div class="rank-score-fill" style="width:77%;background:#3b82f6"></div><span class="rank-score-val">69.5</span></div></td>
-            <td><span class="badge" style="background:#eff6ff;color:#3b82f6;font-size:10px">Watchlist</span></td>
-            <td>24h</td>
-            <td>2</td>
-            <td>Monitor / keep warm</td>
-        </tr></tbody></table></div>
+<div id="t-ranking" class="tc"><div class="sec-title">Full Ranking</div><div class="rank-list">
+        <div class="rank-item rank-run">
+            <div class="rank-pos">#1</div>
+            <div class="rank-main">
+                <div class="rank-title"><span class="conf-dot" style="background:#f59e0b" title="Medium"></span> <span>🏏</span> Cricket hero angle from Competitor cricket portrai </div>
+                <div class="rank-bar-wrap">
+                    <div class="rank-bar-bg"><div class="rank-bar-fill" style="width:100%;background:#10b981"></div></div>
+                    <span class="rank-bar-score" style="color:#10b981">90.1</span>
+                </div>
+                <div class="rank-meta">
+                    <span class="badge" style="background:#ecfdf5;color:#10b981;font-size:10px">Run today</span>
+                    <span class="tag">sports</span>
+                    <span class="tag">24-72h</span>
+                    <span class="tag">1 src</span>
+                </div>
+            </div>
+        </div>
+        <div class="rank-item rank-run">
+            <div class="rank-pos">#2</div>
+            <div class="rank-main">
+                <div class="rank-title"><span class="conf-dot" style="background:#f59e0b" title="Medium"></span> <span>🏏</span> Cricket hero angle from cricket photo editing ads </div>
+                <div class="rank-bar-wrap">
+                    <div class="rank-bar-bg"><div class="rank-bar-fill" style="width:100%;background:#10b981"></div></div>
+                    <span class="rank-bar-score" style="color:#10b981">90.1</span>
+                </div>
+                <div class="rank-meta">
+                    <span class="badge" style="background:#ecfdf5;color:#10b981;font-size:10px">Run today</span>
+                    <span class="tag">sports</span>
+                    <span class="tag">24-72h</span>
+                    <span class="tag">1 src</span>
+                </div>
+            </div>
+        </div>
+        <div class="rank-item rank-run">
+            <div class="rank-pos">#3</div>
+            <div class="rank-main">
+                <div class="rank-title"><span class="conf-dot" style="background:#ef4444" title="Low"></span> <span>🏏</span> Cricket hero angle from IPL 2026 Season — daily fi </div>
+                <div class="rank-bar-wrap">
+                    <div class="rank-bar-bg"><div class="rank-bar-fill" style="width:96%;background:#10b981"></div></div>
+                    <span class="rank-bar-score" style="color:#10b981">87.1</span>
+                </div>
+                <div class="rank-meta">
+                    <span class="badge" style="background:#ecfdf5;color:#10b981;font-size:10px">Run today</span>
+                    <span class="tag">sports</span>
+                    <span class="tag">24-72h</span>
+                    <span class="tag">1 src</span>
+                </div>
+            </div>
+        </div>
+        <div class="rank-item rank-test">
+            <div class="rank-pos">#4</div>
+            <div class="rank-main">
+                <div class="rank-title"><span class="conf-dot" style="background:#ef4444" title="Low"></span> <span>🎉</span> Festival transformation angle from India Festival  </div>
+                <div class="rank-bar-wrap">
+                    <div class="rank-bar-bg"><div class="rank-bar-fill" style="width:93%;background:#f59e0b"></div></div>
+                    <span class="rank-bar-score" style="color:#f59e0b">84.3</span>
+                </div>
+                <div class="rank-meta">
+                    <span class="badge" style="background:#fffbeb;color:#f59e0b;font-size:10px">Test controlled</span>
+                    <span class="tag">festival</span>
+                    <span class="tag">2-7 days</span>
+                    <span class="tag">1 src</span>
+                </div>
+            </div>
+        </div>
+        <div class="rank-item rank-test">
+            <div class="rank-pos">#5</div>
+            <div class="rank-main">
+                <div class="rank-title"><span class="conf-dot" style="background:#f59e0b" title="Medium"></span> <span>🎬</span> Mass hero cinematic angle from BAJRANG BAAN🚩| JUBI </div>
+                <div class="rank-bar-wrap">
+                    <div class="rank-bar-bg"><div class="rank-bar-fill" style="width:90%;background:#f59e0b"></div></div>
+                    <span class="rank-bar-score" style="color:#f59e0b">81.7</span>
+                </div>
+                <div class="rank-meta">
+                    <span class="badge" style="background:#fffbeb;color:#f59e0b;font-size:10px">Test controlled</span>
+                    <span class="tag">cinema</span>
+                    <span class="tag">24-72h</span>
+                    <span class="tag">1 src</span>
+                </div>
+            </div>
+        </div>
+        <div class="rank-item rank-test">
+            <div class="rank-pos">#6</div>
+            <div class="rank-main">
+                <div class="rank-title"><span class="conf-dot" style="background:#ef4444" title="Low"></span> <span>🎬</span> Mass hero cinematic angle from bollywood poster ma </div>
+                <div class="rank-bar-wrap">
+                    <div class="rank-bar-bg"><div class="rank-bar-fill" style="width:89%;background:#f59e0b"></div></div>
+                    <span class="rank-bar-score" style="color:#f59e0b">80.3</span>
+                </div>
+                <div class="rank-meta">
+                    <span class="badge" style="background:#fffbeb;color:#f59e0b;font-size:10px">Test controlled</span>
+                    <span class="tag">cinema</span>
+                    <span class="tag">24-72h</span>
+                    <span class="tag">1 src</span>
+                </div>
+            </div>
+        </div>
+        <div class="rank-item rank-test">
+            <div class="rank-pos">#7</div>
+            <div class="rank-main">
+                <div class="rank-title"><span class="conf-dot" style="background:#ef4444" title="Low"></span> <span>🎬</span> Mass hero cinematic angle from &#x27;14 Songs In 11 Day </div>
+                <div class="rank-bar-wrap">
+                    <div class="rank-bar-bg"><div class="rank-bar-fill" style="width:89%;background:#f59e0b"></div></div>
+                    <span class="rank-bar-score" style="color:#f59e0b">80.3</span>
+                </div>
+                <div class="rank-meta">
+                    <span class="badge" style="background:#fffbeb;color:#f59e0b;font-size:10px">Test controlled</span>
+                    <span class="tag">cinema</span>
+                    <span class="tag">24-72h</span>
+                    <span class="tag">1 src</span>
+                </div>
+            </div>
+        </div>
+        <div class="rank-item rank-test">
+            <div class="rank-pos">#8</div>
+            <div class="rank-main">
+                <div class="rank-title"><span class="conf-dot" style="background:#ef4444" title="Low"></span> <span>🎬</span> Mass hero cinematic angle from Aditya Dhar Says &#x27;R </div>
+                <div class="rank-bar-wrap">
+                    <div class="rank-bar-bg"><div class="rank-bar-fill" style="width:87%;background:#f59e0b"></div></div>
+                    <span class="rank-bar-score" style="color:#f59e0b">78.7</span>
+                </div>
+                <div class="rank-meta">
+                    <span class="badge" style="background:#fffbeb;color:#f59e0b;font-size:10px">Test controlled</span>
+                    <span class="tag">cinema</span>
+                    <span class="tag">24-72h</span>
+                    <span class="tag">1 src</span>
+                </div>
+            </div>
+        </div>
+        <div class="rank-item rank-test">
+            <div class="rank-pos">#9</div>
+            <div class="rank-main">
+                <div class="rank-title"><span class="conf-dot" style="background:#f59e0b" title="Medium"></span> <span>🌿</span> Evergreen old-photo restore angle </div>
+                <div class="rank-bar-wrap">
+                    <div class="rank-bar-bg"><div class="rank-bar-fill" style="width:81%;background:#f59e0b"></div></div>
+                    <span class="rank-bar-score" style="color:#f59e0b">73.5</span>
+                </div>
+                <div class="rank-meta">
+                    <span class="badge" style="background:#fffbeb;color:#f59e0b;font-size:10px">Test controlled</span>
+                    <span class="tag">evergreen</span>
+                    <span class="tag">3-14 days</span>
+                    <span class="tag">1 src</span>
+                </div>
+            </div>
+        </div>
+        <div class="rank-item rank-watch">
+            <div class="rank-pos">#10</div>
+            <div class="rank-main">
+                <div class="rank-title"><span class="conf-dot" style="background:#f59e0b" title="Medium"></span> <span>📸</span> Transformation angle from Here is the best photo e </div>
+                <div class="rank-bar-wrap">
+                    <div class="rank-bar-bg"><div class="rank-bar-fill" style="width:77%;background:#3b82f6"></div></div>
+                    <span class="rank-bar-score" style="color:#3b82f6">69.5</span>
+                </div>
+                <div class="rank-meta">
+                    <span class="badge" style="background:#eff6ff;color:#3b82f6;font-size:10px">Watchlist</span>
+                    <span class="tag">photo_editing</span>
+                    <span class="tag">24h</span>
+                    <span class="tag">2 src</span>
+                </div>
+            </div>
+        </div></div></div>
 
 <div id="t-kol" class="tc"><div class="sec-title">KOL / KOC Tracker</div>
 <p style="color:var(--muted);font-size:12px;margin-bottom:12px">Creators matched against app capabilities. Relevance = topic match. Hot = engagement quality.</p>
@@ -3419,10 +3573,17 @@ Easy 3D</a>
 <div class="learn-sec"><h4>Insight Families</h4><p class="learn-desc">Which insight themes perform best historically</p><div class="learn-row"><span class="learn-key">cricket-hero-angle</span><div class="learn-bar-bg"><div class="learn-bar-fill" style="width:98%;background:#10b981"></div></div><span class="learn-val" style="color:#10b981">0.98</span></div><div class="learn-row"><span class="learn-key">festival-transformation-angle</span><div class="learn-bar-bg"><div class="learn-bar-fill" style="width:90%;background:#10b981"></div></div><span class="learn-val" style="color:#10b981">0.90</span></div><div class="learn-row"><span class="learn-key">mass-hero-cinematic-angle</span><div class="learn-bar-bg"><div class="learn-bar-fill" style="width:66%;background:#10b981"></div></div><span class="learn-val" style="color:#10b981">0.66</span></div><div class="learn-row"><span class="learn-key">evergreen-old-photo</span><div class="learn-bar-bg"><div class="learn-bar-fill" style="width:59%;background:#f59e0b"></div></div><span class="learn-val" style="color:#f59e0b">0.59</span></div></div><div class="learn-sec"><h4>Categories</h4><p class="learn-desc">Which content categories win</p><div class="learn-row"><span class="learn-key">sports</span><div class="learn-bar-bg"><div class="learn-bar-fill" style="width:98%;background:#10b981"></div></div><span class="learn-val" style="color:#10b981">0.98</span></div><div class="learn-row"><span class="learn-key">festival</span><div class="learn-bar-bg"><div class="learn-bar-fill" style="width:90%;background:#10b981"></div></div><span class="learn-val" style="color:#10b981">0.90</span></div><div class="learn-row"><span class="learn-key">cinema</span><div class="learn-bar-bg"><div class="learn-bar-fill" style="width:66%;background:#10b981"></div></div><span class="learn-val" style="color:#10b981">0.66</span></div><div class="learn-row"><span class="learn-key">evergreen</span><div class="learn-bar-bg"><div class="learn-bar-fill" style="width:59%;background:#f59e0b"></div></div><span class="learn-val" style="color:#f59e0b">0.59</span></div></div><div class="learn-sec"><h4>Trending Reasons</h4><p class="learn-desc">Why things are trending — which reasons lead to ROI</p><div class="learn-row"><span class="learn-key">competition</span><div class="learn-bar-bg"><div class="learn-bar-fill" style="width:98%;background:#10b981"></div></div><span class="learn-val" style="color:#10b981">0.98</span></div><div class="learn-row"><span class="learn-key">identity/culture</span><div class="learn-bar-bg"><div class="learn-bar-fill" style="width:90%;background:#10b981"></div></div><span class="learn-val" style="color:#10b981">0.90</span></div><div class="learn-row"><span class="learn-key">celebrity</span><div class="learn-bar-bg"><div class="learn-bar-fill" style="width:66%;background:#10b981"></div></div><span class="learn-val" style="color:#10b981">0.66</span></div><div class="learn-row"><span class="learn-key">nostalgia</span><div class="learn-bar-bg"><div class="learn-bar-fill" style="width:59%;background:#f59e0b"></div></div><span class="learn-val" style="color:#f59e0b">0.59</span></div></div><div class="learn-sec"><h4>Data Sources</h4><p class="learn-desc">Which sources contribute to winning insights</p><div class="learn-row"><span class="learn-key">google_trends</span><div class="learn-bar-bg"><div class="learn-bar-fill" style="width:97%;background:#10b981"></div></div><span class="learn-val" style="color:#10b981">0.97</span></div><div class="learn-row"><span class="learn-key">calendar</span><div class="learn-bar-bg"><div class="learn-bar-fill" style="width:90%;background:#10b981"></div></div><span class="learn-val" style="color:#10b981">0.90</span></div><div class="learn-row"><span class="learn-key">youtube_watchlist</span><div class="learn-bar-bg"><div class="learn-bar-fill" style="width:88%;background:#10b981"></div></div><span class="learn-val" style="color:#10b981">0.89</span></div><div class="learn-row"><span class="learn-key">manual_internal</span><div class="learn-bar-bg"><div class="learn-bar-fill" style="width:59%;background:#f59e0b"></div></div><span class="learn-val" style="color:#f59e0b">0.59</span></div><div class="learn-row"><span class="learn-key">rss_watchlist</span><div class="learn-bar-bg"><div class="learn-bar-fill" style="width:54%;background:#f59e0b"></div></div><span class="learn-val" style="color:#f59e0b">0.54</span></div></div>
 <div class="note">Top winning insight families: cricket-hero-angle (2), festival-transformation-angle (1), mass-hero-cinematic-angle (1)</div></div>
 
-<footer>Apero Creative Insight Bot V7 &mdash; 2026-04-07 17:00 &mdash; 279 signals from 9 sources &mdash; <a href="https://github.com/binh171/apero-insight-dashboard">GitHub</a></footer>
+<footer>Apero Creative Insight Bot V7 &mdash; 2026-04-07 17:05 &mdash; 279 signals from 9 sources &mdash; <a href="https://github.com/binh171/apero-insight-dashboard">GitHub</a></footer>
 </div>
 <script>
 function sw(n){document.querySelectorAll('.tc').forEach(e=>e.classList.remove('active'));document.querySelectorAll('.tab').forEach(e=>e.classList.remove('active'));document.getElementById('t-'+n).classList.add('active');event.target.classList.add('active')}
+function filterInsights(cat){
+  document.querySelectorAll('.cat-chip').forEach(function(c){c.classList.remove('active')});
+  event.target.closest('.cat-chip').classList.add('active');
+  document.querySelectorAll('.cat-group').forEach(function(g){
+    g.style.display=(cat==='all'||g.getAttribute('data-cat')===cat)?'block':'none';
+  });
+}
 function createBrief(idx){var card=document.getElementById('insight-'+idx);if(!card)return;var h3=card.querySelector('h3');var name=h3?h3.textContent.trim():'Insight #'+idx;var ps=card.querySelectorAll('.card-body p');var angles=card.querySelector('.angles');var brief='CREATIVE BRIEF\n============\nInsight: '+name+'\n\n';for(var i=0;i<ps.length;i++)brief+=ps[i].textContent.trim()+'\n';brief+='\n'+(angles?angles.textContent.trim():'')+'\nGenerated: '+new Date().toLocaleString();var blob=new Blob([brief],{type:'text/plain'});var a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='brief-'+idx+'.txt';a.click();var btn=card.querySelector('.btn-brief');if(btn){btn.textContent='Downloaded';btn.style.opacity='0.5'}}
 function skipInsight(idx){var card=document.getElementById('insight-'+idx);if(!card)return;card.style.opacity='0.3';var btn=card.querySelector('.btn-skip');if(btn){btn.textContent='Skipped';btn.disabled=true}}
 function filterKOL(){var country=document.getElementById('kol-country').value;var sortBy=document.getElementById('kol-sort').value;var grid=document.getElementById('kol-grid');var cards=Array.from(grid.querySelectorAll('.kol-card'));cards.forEach(function(c){c.style.display=(!country||c.getAttribute('data-country')===country)?'block':'none'});cards.sort(function(a,b){var va,vb;if(sortBy==='hot'){va=parseInt(a.getAttribute('data-hot'))||0;vb=parseInt(b.getAttribute('data-hot'))||0}else if(sortBy==='views'){va=parseInt(a.getAttribute('data-views'))||0;vb=parseInt(b.getAttribute('data-views'))||0}else if(sortBy==='likes'){va=parseInt(a.getAttribute('data-likes'))||0;vb=parseInt(b.getAttribute('data-likes'))||0}else if(sortBy==='ratio'){va=parseFloat(a.getAttribute('data-ratio'))||0;vb=parseFloat(b.getAttribute('data-ratio'))||0}else{va=parseInt(a.getAttribute('data-match'))||0;vb=parseInt(b.getAttribute('data-match'))||0}return vb-va});cards.forEach(function(c){grid.appendChild(c)})}
