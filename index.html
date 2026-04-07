@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Apero Insight Dashboard — 2026-04-07</title>
+<style>
+:root { --bg: #0f172a; --card: #1e293b; --border: #334155; --text: #e2e8f0; --muted: #94a3b8; --accent: #38bdf8; }
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+.container { max-width: 1200px; margin: 0 auto; padding: 24px 16px; }
+header { text-align: center; padding: 32px 0 24px; border-bottom: 1px solid var(--border); margin-bottom: 32px; }
+header h1 { font-size: 28px; font-weight: 700; color: #fff; }
+header p { color: var(--muted); margin-top: 8px; font-size: 14px; }
+.metrics { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px; margin-bottom: 32px; }
+.metric-card { background: var(--card); border-radius: 12px; padding: 16px; text-align: center; border: 1px solid var(--border); }
+.metric-value { font-size: 28px; font-weight: 700; color: var(--accent); }
+.metric-label { font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; margin-top: 4px; }
+.section-title { font-size: 20px; font-weight: 600; margin: 32px 0 16px; color: #fff; display: flex; align-items: center; gap: 8px; }
+.insight-card { background: var(--card); border-radius: 12px; padding: 20px; margin-bottom: 16px; border: 1px solid var(--border); transition: transform 0.15s; }
+.insight-card:hover { transform: translateY(-2px); }
+.card-header { display: flex; gap: 16px; align-items: flex-start; }
+.card-rank { font-size: 32px; font-weight: 800; color: var(--accent); min-width: 48px; }
+.card-title { font-size: 16px; font-weight: 600; color: #fff; margin-bottom: 8px; }
+.card-meta { display: flex; flex-wrap: wrap; gap: 8px; }
+.badge { padding: 2px 10px; border-radius: 20px; font-size: 12px; font-weight: 600; }
+.score-pill { background: var(--accent); color: #0f172a; padding: 2px 10px; border-radius: 20px; font-size: 12px; font-weight: 700; }
+.category-tag, .window-tag { background: rgba(255,255,255,0.08); color: var(--muted); padding: 2px 10px; border-radius: 20px; font-size: 12px; }
+.card-body { margin-top: 16px; }
+.card-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.field { font-size: 13px; color: var(--muted); margin-bottom: 8px; }
+.field strong { color: var(--text); }
+.angles-row { margin-top: 12px; font-size: 13px; }
+.angle-tag { display: inline-block; background: rgba(56,189,248,0.1); color: var(--accent); padding: 3px 10px; border-radius: 6px; font-size: 12px; margin: 4px 4px 0 0; }
+.score-bars { margin-top: 8px; }
+.score-bar-row { display: flex; align-items: center; gap: 8px; margin-bottom: 4px; }
+.score-label { font-size: 11px; color: var(--muted); min-width: 80px; }
+.score-bar-bg { flex: 1; height: 6px; background: rgba(255,255,255,0.08); border-radius: 3px; overflow: hidden; }
+.score-bar-fill { height: 100%; background: var(--accent); border-radius: 3px; transition: width 0.5s; }
+.score-val { font-size: 11px; color: var(--muted); min-width: 20px; text-align: right; }
+table { width: 100%; border-collapse: collapse; margin-top: 12px; }
+th { background: var(--card); color: var(--muted); font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; padding: 10px 12px; text-align: left; border-bottom: 2px solid var(--border); }
+td { padding: 10px 12px; font-size: 13px; border-bottom: 1px solid var(--border); }
+tr:hover { background: rgba(255,255,255,0.03); }
+.row-run { background: rgba(16,185,129,0.06); }
+.row-test { background: rgba(245,158,11,0.06); }
+.source-row { display: flex; align-items: center; gap: 12px; margin-bottom: 6px; }
+.source-name { min-width: 160px; font-size: 13px; }
+.source-bar { height: 8px; background: var(--accent); border-radius: 4px; min-width: 4px; transition: width 0.5s; }
+.source-count { font-size: 12px; color: var(--muted); }
+.error-banner { background: rgba(239,68,68,0.1); border: 1px solid rgba(239,68,68,0.3); color: #fca5a5; padding: 10px 16px; border-radius: 8px; margin-bottom: 16px; font-size: 13px; }
+.sources-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+.learn-section { margin-bottom: 16px; }
+.learn-section h4 { color: var(--muted); font-size: 13px; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px; }
+.learn-pills { display: flex; flex-wrap: wrap; gap: 8px; }
+.learn-pill { border: 1px solid; padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: 600; }
+.learn-notes { background: var(--card); border-radius: 8px; padding: 12px 16px; margin-top: 12px; }
+.note-item { font-size: 13px; color: var(--muted); padding: 4px 0; }
+.tabs { display: flex; gap: 4px; margin-bottom: 24px; border-bottom: 2px solid var(--border); }
+.tab { padding: 10px 20px; cursor: pointer; color: var(--muted); font-size: 14px; font-weight: 500; border-bottom: 2px solid transparent; margin-bottom: -2px; transition: all 0.2s; }
+.tab:hover { color: var(--text); }
+.tab.active { color: var(--accent); border-bottom-color: var(--accent); }
+.tab-content { display: none; }
+.tab-content.active { display: block; }
+footer { text-align: center; padding: 32px 0; color: var(--muted); font-size: 12px; border-top: 1px solid var(--border); margin-top: 40px; }
+@media (max-width: 768px) { .card-grid { grid-template-columns: 1fr; } .sources-grid { grid-template-columns: 1fr; } .metrics { grid-template-columns: repeat(2, 1fr); } }
+</style>
+</head>
+<body>
+<div class="container">
+    <header>
+        <h1>Apero Creative Insight Dashboard</h1>
+        <p>Daily market research for UA/Creative team &mdash; 2026-04-07 &mdash; Market: IN</p>
+    </header>
+
+    <div class="metrics">
+        <div class="metric-card"><div class="metric-value">26</div><div class="metric-label">Raw Signals</div></div>
+        <div class="metric-card"><div class="metric-value">25</div><div class="metric-label">Validated</div></div>
+        <div class="metric-card"><div class="metric-value">10</div><div class="metric-label">Insights</div></div>
+        <div class="metric-card"><div class="metric-value">Run today</div><div class="metric-label">Top Priority</div></div>
+        <div class="metric-card"><div class="metric-value">90.1</div><div class="metric-label">Top Score</div></div>
+    </div>
+
+    <div class="tabs">
+        <div class="tab active" onclick="switchTab('insights')">Insight Board</div>
+        <div class="tab" onclick="switchTab('ranking')">Ranking</div>
+        <div class="tab" onclick="switchTab('sources')">Sources</div>
+        <div class="tab" onclick="switchTab('learning')">Learning Loop</div>
+    </div>
+
+    <div id="tab-insights" class="tab-content active">
+        <div class="section-title">Top Insights</div>
+        
+        <div class="insight-card" style="border-left: 4px solid #10b981">
+            <div class="card-header">
+                <div class="card-rank">#1</div>
+                <div class="card-title-block">
+                    <h3 class="card-title">Cricket hero angle from Competitor cricket portrait ads India</h3>
+                    <div class="card-meta">
+                        <span class="badge" style="background:#ecfdf5;color:#10b981">Run today</span>
+                        <span class="score-pill">90.1</span>
+                        <span class="category-tag">sports</span>
+                        <span class="window-tag">24-72h</span>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="card-grid">
+                    <div>
+                        <div class="field"><strong>Why now:</strong> 1 social + 0 measurement proofs; heat 20+0; reason: competition; social_only; appearances 2, first seen 0d ago recurring trend.</div>
+                        <div class="field"><strong>Consumer tension:</strong> Users want to see themselves as cricket heroes in the context of a hot match.</div>
+                        <div class="field"><strong>Product bridge:</strong> Upload photo -&gt; AI transforms into cricket hero/captain/winner pose.</div>
+                        <div class="field"><strong>Planning:</strong> Recurring trend — use fresh angles to avoid fatigue.</div>
+                    </div>
+                    <div>
+                        <div class="field"><strong>Action:</strong> <span style="color:#10b981;font-weight:600">Run now, top budget test</span></div>
+                        <div class="field"><strong>Learning:</strong> category sports: +5.76 | reason competition: +4.8</div>
+                        <div class="score-bars"><div class="score-bar-row"><span class="score-label">Heat</span><div class="score-bar-bg"><div class="score-bar-fill" style="width:70%"></div></div><span class="score-val">7</span></div><div class="score-bar-row"><span class="score-label">Culture Fit</span><div class="score-bar-bg"><div class="score-bar-fill" style="width:90%"></div></div><span class="score-val">9</span></div><div class="score-bar-row"><span class="score-label">Product Fit</span><div class="score-bar-bg"><div class="score-bar-fill" style="width:100%"></div></div><span class="score-val">10</span></div><div class="score-bar-row"><span class="score-label">CTR Potential</span><div class="score-bar-bg"><div class="score-bar-fill" style="width:90%"></div></div><span class="score-val">9</span></div><div class="score-bar-row"><span class="score-label">Before/After</span><div class="score-bar-bg"><div class="score-bar-fill" style="width:90%"></div></div><span class="score-val">9</span></div></div>
+                    </div>
+                </div>
+                <div class="angles-row"><strong>Creative angles:</strong> <span class="angle-tag">Captain entrance hero shot inspired by: Competitor</span><span class="angle-tag">Batsman winner pose</span><span class="angle-tag">Fan-to-stadium-hero transformation</span></div>
+            </div>
+        </div>
+        
+        <div class="insight-card" style="border-left: 4px solid #10b981">
+            <div class="card-header">
+                <div class="card-rank">#2</div>
+                <div class="card-title-block">
+                    <h3 class="card-title">Cricket hero angle from cricket photo editing ads</h3>
+                    <div class="card-meta">
+                        <span class="badge" style="background:#ecfdf5;color:#10b981">Run today</span>
+                        <span class="score-pill">90.1</span>
+                        <span class="category-tag">sports</span>
+                        <span class="window-tag">24-72h</span>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="card-grid">
+                    <div>
+                        <div class="field"><strong>Why now:</strong> 1 social + 0 measurement proofs; heat 20+0; reason: competition; social_only; appearances 2, first seen 0d ago recurring trend.</div>
+                        <div class="field"><strong>Consumer tension:</strong> Users want to see themselves as cricket heroes in the context of a hot match.</div>
+                        <div class="field"><strong>Product bridge:</strong> Upload photo -&gt; AI transforms into cricket hero/captain/winner pose.</div>
+                        <div class="field"><strong>Planning:</strong> Recurring trend — use fresh angles to avoid fatigue.</div>
+                    </div>
+                    <div>
+                        <div class="field"><strong>Action:</strong> <span style="color:#10b981;font-weight:600">Run now, top budget test</span></div>
+                        <div class="field"><strong>Learning:</strong> category sports: +5.76 | reason competition: +4.8</div>
+                        <div class="score-bars"><div class="score-bar-row"><span class="score-label">Heat</span><div class="score-bar-bg"><div class="score-bar-fill" style="width:70%"></div></div><span class="score-val">7</span></div><div class="score-bar-row"><span class="score-label">Culture Fit</span><div class="score-bar-bg"><div class="score-bar-fill" style="width:90%"></div></div><span class="score-val">9</span></div><div class="score-bar-row"><span class="score-label">Product Fit</span><div class="score-bar-bg"><div class="score-bar-fill" style="width:100%"></div></div><span class="score-val">10</span></div><div class="score-bar-row"><span class="score-label">CTR Potential</span><div class="score-bar-bg"><div class="score-bar-fill" style="width:90%"></div></div><span class="score-val">9</span></div><div class="score-bar-row"><span class="score-label">Before/After</span><div class="score-bar-bg"><div class="score-bar-fill" style="width:90%"></div></div><span class="score-val">9</span></div></div>
+                    </div>
+                </div>
+                <div class="angles-row"><strong>Creative angles:</strong> <span class="angle-tag">Captain entrance hero shot inspired by: cricket ph</span><span class="angle-tag">Batsman winner pose</span><span class="angle-tag">Fan-to-stadium-hero transformation</span></div>
+            </div>
+        </div>
+        
+        <div class="insight-card" style="border-left: 4px solid #10b981">
+            <div class="card-header">
+                <div class="card-rank">#3</div>
+                <div class="card-title-block">
+                    <h3 class="card-title">Cricket hero angle from IPL 2026 points table</h3>
+                    <div class="card-meta">
+                        <span class="badge" style="background:#ecfdf5;color:#10b981">Run today</span>
+                        <span class="score-pill">87.1</span>
+                        <span class="category-tag">sports</span>
+                        <span class="window-tag">24-72h</span>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="card-grid">
+                    <div>
+                        <div class="field"><strong>Why now:</strong> 0 social + 1 measurement proofs; heat 0+16; reason: competition; measurement_only; appearances 3, first seen 0d ago recurring trend.</div>
+                        <div class="field"><strong>Consumer tension:</strong> Users want to see themselves as cricket heroes in the context of a hot match.</div>
+                        <div class="field"><strong>Product bridge:</strong> Upload photo -&gt; AI transforms into cricket hero/captain/winner pose.</div>
+                        <div class="field"><strong>Planning:</strong> Recurring trend — use fresh angles to avoid fatigue.</div>
+                    </div>
+                    <div>
+                        <div class="field"><strong>Action:</strong> <span style="color:#10b981;font-weight:600">Run now, top budget test</span></div>
+                        <div class="field"><strong>Learning:</strong> category sports: +5.76 | reason competition: +4.8</div>
+                        <div class="score-bars"><div class="score-bar-row"><span class="score-label">Heat</span><div class="score-bar-bg"><div class="score-bar-fill" style="width:50%"></div></div><span class="score-val">5</span></div><div class="score-bar-row"><span class="score-label">Culture Fit</span><div class="score-bar-bg"><div class="score-bar-fill" style="width:90%"></div></div><span class="score-val">9</span></div><div class="score-bar-row"><span class="score-label">Product Fit</span><div class="score-bar-bg"><div class="score-bar-fill" style="width:100%"></div></div><span class="score-val">10</span></div><div class="score-bar-row"><span class="score-label">CTR Potential</span><div class="score-bar-bg"><div class="score-bar-fill" style="width:90%"></div></div><span class="score-val">9</span></div><div class="score-bar-row"><span class="score-label">Before/After</span><div class="score-bar-bg"><div class="score-bar-fill" style="width:90%"></div></div><span class="score-val">9</span></div></div>
+                    </div>
+                </div>
+                <div class="angles-row"><strong>Creative angles:</strong> <span class="angle-tag">Captain entrance hero shot inspired by: IPL 2026 p</span><span class="angle-tag">Batsman winner pose</span><span class="angle-tag">Fan-to-stadium-hero transformation</span></div>
+            </div>
+        </div>
+        
+        <div class="insight-card" style="border-left: 4px solid #10b981">
+            <div class="card-header">
+                <div class="card-rank">#4</div>
+                <div class="card-title-block">
+                    <h3 class="card-title">Cricket hero angle from Cricket hero photo editing</h3>
+                    <div class="card-meta">
+                        <span class="badge" style="background:#ecfdf5;color:#10b981">Run today</span>
+                        <span class="score-pill">87.1</span>
+                        <span class="category-tag">sports</span>
+                        <span class="window-tag">24-72h</span>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="card-grid">
+                    <div>
+                        <div class="field"><strong>Why now:</strong> 0 social + 1 measurement proofs; heat 0+16; reason: competition; measurement_only; appearances 2, first seen 0d ago recurring trend.</div>
+                        <div class="field"><strong>Consumer tension:</strong> Users want to see themselves as cricket heroes in the context of a hot match.</div>
+                        <div class="field"><strong>Product bridge:</strong> Upload photo -&gt; AI transforms into cricket hero/captain/winner pose.</div>
+                        <div class="field"><strong>Planning:</strong> Recurring trend — use fresh angles to avoid fatigue.</div>
+                    </div>
+                    <div>
+                        <div class="field"><strong>Action:</strong> <span style="color:#10b981;font-weight:600">Run now, top budget test</span></div>
+                        <div class="field"><strong>Learning:</strong> category sports: +5.76 | reason competition: +4.8</div>
+                        <div class="score-bars"><div class="score-bar-row"><span class="score-label">Heat</span><div class="score-bar-bg"><div class="score-bar-fill" style="width:50%"></div></div><span class="score-val">5</span></div><div class="score-bar-row"><span class="score-label">Culture Fit</span><div class="score-bar-bg"><div class="score-bar-fill" style="width:90%"></div></div><span class="score-val">9</span></div><div class="score-bar-row"><span class="score-label">Product Fit</span><div class="score-bar-bg"><div class="score-bar-fill" style="width:100%"></div></div><span class="score-val">10</span></div><div class="score-bar-row"><span class="score-label">CTR Potential</span><div class="score-bar-bg"><div class="score-bar-fill" style="width:90%"></div></div><span class="score-val">9</span></div><div class="score-bar-row"><span class="score-label">Before/After</span><div class="score-bar-bg"><div class="score-bar-fill" style="width:90%"></div></div><span class="score-val">9</span></div></div>
+                    </div>
+                </div>
+                <div class="angles-row"><strong>Creative angles:</strong> <span class="angle-tag">Captain entrance hero shot inspired by: Cricket he</span><span class="angle-tag">Batsman winner pose</span><span class="angle-tag">Fan-to-stadium-hero transformation</span></div>
+            </div>
+        </div>
+        
+        <div class="insight-card" style="border-left: 4px solid #10b981">
+            <div class="card-header">
+                <div class="card-rank">#5</div>
+                <div class="card-title-block">
+                    <h3 class="card-title">Cricket hero angle from IPL 2026 Season — daily fixtures &amp; fan moments</h3>
+                    <div class="card-meta">
+                        <span class="badge" style="background:#ecfdf5;color:#10b981">Run today</span>
+                        <span class="score-pill">87.1</span>
+                        <span class="category-tag">sports</span>
+                        <span class="window-tag">24-72h</span>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="card-grid">
+                    <div>
+                        <div class="field"><strong>Why now:</strong> 1 social + 0 measurement proofs; heat 12+0; reason: competition; social_only; appearances 2, first seen 0d ago recurring trend.</div>
+                        <div class="field"><strong>Consumer tension:</strong> Users want to see themselves as cricket heroes in the context of a hot match.</div>
+                        <div class="field"><strong>Product bridge:</strong> Upload photo -&gt; AI transforms into cricket hero/captain/winner pose.</div>
+                        <div class="field"><strong>Planning:</strong> Recurring trend — use fresh angles to avoid fatigue.</div>
+                    </div>
+                    <div>
+                        <div class="field"><strong>Action:</strong> <span style="color:#10b981;font-weight:600">Run now, top budget test</span></div>
+                        <div class="field"><strong>Learning:</strong> category sports: +5.76 | reason competition: +4.8</div>
+                        <div class="score-bars"><div class="score-bar-row"><span class="score-label">Heat</span><div class="score-bar-bg"><div class="score-bar-fill" style="width:50%"></div></div><span class="score-val">5</span></div><div class="score-bar-row"><span class="score-label">Culture Fit</span><div class="score-bar-bg"><div class="score-bar-fill" style="width:90%"></div></div><span class="score-val">9</span></div><div class="score-bar-row"><span class="score-label">Product Fit</span><div class="score-bar-bg"><div class="score-bar-fill" style="width:100%"></div></div><span class="score-val">10</span></div><div class="score-bar-row"><span class="score-label">CTR Potential</span><div class="score-bar-bg"><div class="score-bar-fill" style="width:90%"></div></div><span class="score-val">9</span></div><div class="score-bar-row"><span class="score-label">Before/After</span><div class="score-bar-bg"><div class="score-bar-fill" style="width:90%"></div></div><span class="score-val">9</span></div></div>
+                    </div>
+                </div>
+                <div class="angles-row"><strong>Creative angles:</strong> <span class="angle-tag">Captain entrance hero shot inspired by: IPL 2026 S</span><span class="angle-tag">Batsman winner pose</span><span class="angle-tag">Fan-to-stadium-hero transformation</span></div>
+            </div>
+        </div>
+        
+        <div class="insight-card" style="border-left: 4px solid #f59e0b">
+            <div class="card-header">
+                <div class="card-rank">#6</div>
+                <div class="card-title-block">
+                    <h3 class="card-title">Festival transformation angle from Vaisakhi festival look</h3>
+                    <div class="card-meta">
+                        <span class="badge" style="background:#fffbeb;color:#f59e0b">Test controlled</span>
+                        <span class="score-pill">84.3</span>
+                        <span class="category-tag">festival</span>
+                        <span class="window-tag">2-7 days</span>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="card-grid">
+                    <div>
+                        <div class="field"><strong>Why now:</strong> 0 social + 1 measurement proofs; heat 0+16; reason: identity/culture; measurement_only; appearances 2, first seen 0d ago recurring trend.</div>
+                        <div class="field"><strong>Consumer tension:</strong> Users want festive/traditional photos that look premium and shareable.</div>
+                        <div class="field"><strong>Product bridge:</strong> Upload photo -&gt; festive portrait, traditional royal look or clean family portrait.</div>
+                        <div class="field"><strong>Planning:</strong> Recurring trend — use fresh angles to avoid fatigue.</div>
+                    </div>
+                    <div>
+                        <div class="field"><strong>Action:</strong> <span style="color:#f59e0b;font-weight:600">Small controlled test</span></div>
+                        <div class="field"><strong>Learning:</strong> category festival: +4.81 | reason identity/culture: +4.01</div>
+                        <div class="score-bars"><div class="score-bar-row"><span class="score-label">Heat</span><div class="score-bar-bg"><div class="score-bar-fill" style="width:50%"></div></div><span class="score-val">5</span></div><div class="score-bar-row"><span class="score-label">Culture Fit</span><div class="score-bar-bg"><div class="score-bar-fill" style="width:90%"></div></div><span class="score-val">9</span></div><div class="score-bar-row"><span class="score-label">Product Fit</span><div class="score-bar-bg"><div class="score-bar-fill" style="width:100%"></div></div><span class="score-val">10</span></div><div class="score-bar-row"><span class="score-label">CTR Potential</span><div class="score-bar-bg"><div class="score-bar-fill" style="width:80%"></div></div><span class="score-val">8</span></div><div class="score-bar-row"><span class="score-label">Before/After</span><div class="score-bar-bg"><div class="score-bar-fill" style="width:90%"></div></div><span class="score-val">9</span></div></div>
+                    </div>
+                </div>
+                <div class="angles-row"><strong>Creative angles:</strong> <span class="angle-tag">Traditional royal look inspired by: Vaisakhi festi</span><span class="angle-tag">Festival family portrait upgrade</span><span class="angle-tag">Before casual to festive attire</span></div>
+            </div>
+        </div>
+        
+        <div class="insight-card" style="border-left: 4px solid #f59e0b">
+            <div class="card-header">
+                <div class="card-rank">#7</div>
+                <div class="card-title-block">
+                    <h3 class="card-title">Festival transformation angle from Wedding season India 2026</h3>
+                    <div class="card-meta">
+                        <span class="badge" style="background:#fffbeb;color:#f59e0b">Test controlled</span>
+                        <span class="score-pill">84.3</span>
+                        <span class="category-tag">festival</span>
+                        <span class="window-tag">2-7 days</span>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="card-grid">
+                    <div>
+                        <div class="field"><strong>Why now:</strong> 0 social + 1 measurement proofs; heat 0+16; reason: identity/culture; measurement_only; appearances 2, first seen 0d ago recurring trend.</div>
+                        <div class="field"><strong>Consumer tension:</strong> Users want festive/traditional photos that look premium and shareable.</div>
+                        <div class="field"><strong>Product bridge:</strong> Upload photo -&gt; festive portrait, traditional royal look or clean family portrait.</div>
+                        <div class="field"><strong>Planning:</strong> Recurring trend — use fresh angles to avoid fatigue.</div>
+                    </div>
+                    <div>
+                        <div class="field"><strong>Action:</strong> <span style="color:#f59e0b;font-weight:600">Small controlled test</span></div>
+                        <div class="field"><strong>Learning:</strong> category festival: +4.81 | reason identity/culture: +4.01</div>
+                        <div class="score-bars"><div class="score-bar-row"><span class="score-label">Heat</span><div class="score-bar-bg"><div class="score-bar-fill" style="width:50%"></div></div><span class="score-val">5</span></div><div class="score-bar-row"><span class="score-label">Culture Fit</span><div class="score-bar-bg"><div class="score-bar-fill" style="width:90%"></div></div><span class="score-val">9</span></div><div class="score-bar-row"><span class="score-label">Product Fit</span><div class="score-bar-bg"><div class="score-bar-fill" style="width:100%"></div></div><span class="score-val">10</span></div><div class="score-bar-row"><span class="score-label">CTR Potential</span><div class="score-bar-bg"><div class="score-bar-fill" style="width:80%"></div></div><span class="score-val">8</span></div><div class="score-bar-row"><span class="score-label">Before/After</span><div class="score-bar-bg"><div class="score-bar-fill" style="width:90%"></div></div><span class="score-val">9</span></div></div>
+                    </div>
+                </div>
+                <div class="angles-row"><strong>Creative angles:</strong> <span class="angle-tag">Traditional royal look inspired by: Wedding season</span><span class="angle-tag">Festival family portrait upgrade</span><span class="angle-tag">Before casual to festive attire</span></div>
+            </div>
+        </div>
+        
+        <div class="insight-card" style="border-left: 4px solid #f59e0b">
+            <div class="card-header">
+                <div class="card-rank">#8</div>
+                <div class="card-title-block">
+                    <h3 class="card-title">Festival transformation angle from India Festival &amp; Cultural Calendar 2026</h3>
+                    <div class="card-meta">
+                        <span class="badge" style="background:#fffbeb;color:#f59e0b">Test controlled</span>
+                        <span class="score-pill">84.3</span>
+                        <span class="category-tag">festival</span>
+                        <span class="window-tag">2-7 days</span>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="card-grid">
+                    <div>
+                        <div class="field"><strong>Why now:</strong> 1 social + 0 measurement proofs; heat 12+0; reason: identity/culture; social_only; appearances 2, first seen 0d ago recurring trend.</div>
+                        <div class="field"><strong>Consumer tension:</strong> Users want festive/traditional photos that look premium and shareable.</div>
+                        <div class="field"><strong>Product bridge:</strong> Upload photo -&gt; festive portrait, traditional royal look or clean family portrait.</div>
+                        <div class="field"><strong>Planning:</strong> Recurring trend — use fresh angles to avoid fatigue.</div>
+                    </div>
+                    <div>
+                        <div class="field"><strong>Action:</strong> <span style="color:#f59e0b;font-weight:600">Small controlled test</span></div>
+                        <div class="field"><strong>Learning:</strong> category festival: +4.81 | reason identity/culture: +4.01</div>
+                        <div class="score-bars"><div class="score-bar-row"><span class="score-label">Heat</span><div class="score-bar-bg"><div class="score-bar-fill" style="width:50%"></div></div><span class="score-val">5</span></div><div class="score-bar-row"><span class="score-label">Culture Fit</span><div class="score-bar-bg"><div class="score-bar-fill" style="width:90%"></div></div><span class="score-val">9</span></div><div class="score-bar-row"><span class="score-label">Product Fit</span><div class="score-bar-bg"><div class="score-bar-fill" style="width:100%"></div></div><span class="score-val">10</span></div><div class="score-bar-row"><span class="score-label">CTR Potential</span><div class="score-bar-bg"><div class="score-bar-fill" style="width:80%"></div></div><span class="score-val">8</span></div><div class="score-bar-row"><span class="score-label">Before/After</span><div class="score-bar-bg"><div class="score-bar-fill" style="width:90%"></div></div><span class="score-val">9</span></div></div>
+                    </div>
+                </div>
+                <div class="angles-row"><strong>Creative angles:</strong> <span class="angle-tag">Traditional royal look inspired by: India Festival</span><span class="angle-tag">Festival family portrait upgrade</span><span class="angle-tag">Before casual to festive attire</span></div>
+            </div>
+        </div>
+        
+        <div class="insight-card" style="border-left: 4px solid #f59e0b">
+            <div class="card-header">
+                <div class="card-rank">#9</div>
+                <div class="card-title-block">
+                    <h3 class="card-title">Mass hero cinematic angle from Watch: Alia Bhatt Carries Sleepy Raha As They Travel With Ra</h3>
+                    <div class="card-meta">
+                        <span class="badge" style="background:#fffbeb;color:#f59e0b">Test controlled</span>
+                        <span class="score-pill">82.7</span>
+                        <span class="category-tag">cinema</span>
+                        <span class="window-tag">24-72h</span>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="card-grid">
+                    <div>
+                        <div class="field"><strong>Why now:</strong> 1 social + 0 measurement proofs; heat 12+0; reason: identity/culture; social_only; appearances 2, first seen 0d ago recurring trend.</div>
+                        <div class="field"><strong>Consumer tension:</strong> Users want a mass hero look with strong cinematic aura worth posting.</div>
+                        <div class="field"><strong>Product bridge:</strong> Upload photo -&gt; AI creates mass hero look/cinematic poster.</div>
+                        <div class="field"><strong>Planning:</strong> Recurring trend — use fresh angles to avoid fatigue.</div>
+                    </div>
+                    <div>
+                        <div class="field"><strong>Action:</strong> <span style="color:#f59e0b;font-weight:600">Small controlled test</span></div>
+                        <div class="field"><strong>Learning:</strong> category cinema: +1.94 | reason identity/culture: +4.01</div>
+                        <div class="score-bars"><div class="score-bar-row"><span class="score-label">Heat</span><div class="score-bar-bg"><div class="score-bar-fill" style="width:50%"></div></div><span class="score-val">5</span></div><div class="score-bar-row"><span class="score-label">Culture Fit</span><div class="score-bar-bg"><div class="score-bar-fill" style="width:90%"></div></div><span class="score-val">9</span></div><div class="score-bar-row"><span class="score-label">Product Fit</span><div class="score-bar-bg"><div class="score-bar-fill" style="width:100%"></div></div><span class="score-val">10</span></div><div class="score-bar-row"><span class="score-label">CTR Potential</span><div class="score-bar-bg"><div class="score-bar-fill" style="width:90%"></div></div><span class="score-val">9</span></div><div class="score-bar-row"><span class="score-label">Before/After</span><div class="score-bar-bg"><div class="score-bar-fill" style="width:90%"></div></div><span class="score-val">9</span></div></div>
+                    </div>
+                </div>
+                <div class="angles-row"><strong>Creative angles:</strong> <span class="angle-tag">Mass entry hero reveal inspired by: Watch: Alia Bh</span><span class="angle-tag">Action poster transformation</span><span class="angle-tag">Fire-and-aura cinematic portrait</span></div>
+            </div>
+        </div>
+        
+        <div class="insight-card" style="border-left: 4px solid #f59e0b">
+            <div class="card-header">
+                <div class="card-rank">#10</div>
+                <div class="card-title-block">
+                    <h3 class="card-title">Mass hero cinematic angle from Ramayana teaser</h3>
+                    <div class="card-meta">
+                        <span class="badge" style="background:#fffbeb;color:#f59e0b">Test controlled</span>
+                        <span class="score-pill">80.3</span>
+                        <span class="category-tag">cinema</span>
+                        <span class="window-tag">24-72h</span>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="card-grid">
+                    <div>
+                        <div class="field"><strong>Why now:</strong> 0 social + 1 measurement proofs; heat 0+16; reason: celebrity; measurement_only; appearances 3, first seen 0d ago recurring trend.</div>
+                        <div class="field"><strong>Consumer tension:</strong> Users want a mass hero look with strong cinematic aura worth posting.</div>
+                        <div class="field"><strong>Product bridge:</strong> Upload photo -&gt; AI creates mass hero look/cinematic poster.</div>
+                        <div class="field"><strong>Planning:</strong> Recurring trend — use fresh angles to avoid fatigue.</div>
+                    </div>
+                    <div>
+                        <div class="field"><strong>Action:</strong> <span style="color:#f59e0b;font-weight:600">Small controlled test</span></div>
+                        <div class="field"><strong>Learning:</strong> category cinema: +1.94 | reason celebrity: +1.62</div>
+                        <div class="score-bars"><div class="score-bar-row"><span class="score-label">Heat</span><div class="score-bar-bg"><div class="score-bar-fill" style="width:50%"></div></div><span class="score-val">5</span></div><div class="score-bar-row"><span class="score-label">Culture Fit</span><div class="score-bar-bg"><div class="score-bar-fill" style="width:90%"></div></div><span class="score-val">9</span></div><div class="score-bar-row"><span class="score-label">Product Fit</span><div class="score-bar-bg"><div class="score-bar-fill" style="width:100%"></div></div><span class="score-val">10</span></div><div class="score-bar-row"><span class="score-label">CTR Potential</span><div class="score-bar-bg"><div class="score-bar-fill" style="width:90%"></div></div><span class="score-val">9</span></div><div class="score-bar-row"><span class="score-label">Before/After</span><div class="score-bar-bg"><div class="score-bar-fill" style="width:90%"></div></div><span class="score-val">9</span></div></div>
+                    </div>
+                </div>
+                <div class="angles-row"><strong>Creative angles:</strong> <span class="angle-tag">Mass entry hero reveal inspired by: Ramayana tease</span><span class="angle-tag">Action poster transformation</span><span class="angle-tag">Fire-and-aura cinematic portrait</span></div>
+            </div>
+        </div>
+        
+    </div>
+
+    <div id="tab-ranking" class="tab-content">
+        <div class="section-title">Full Ranking Table</div>
+        <table>
+            <thead><tr><th>#</th><th>Insight</th><th>Category</th><th>Score</th><th>Priority</th><th>Window</th><th>Action</th></tr></thead>
+            <tbody><tr class="row-run"><td>1</td><td>Cricket hero angle from Competitor cricket po</td><td>sports</td><td><strong>90.1</strong></td><td>Run today</td><td>24-72h</td><td>Run now, top budget test</td></tr><tr class="row-run"><td>2</td><td>Cricket hero angle from cricket photo editing</td><td>sports</td><td><strong>90.1</strong></td><td>Run today</td><td>24-72h</td><td>Run now, top budget test</td></tr><tr class="row-run"><td>3</td><td>Cricket hero angle from IPL 2026 points table</td><td>sports</td><td><strong>87.1</strong></td><td>Run today</td><td>24-72h</td><td>Run now, top budget test</td></tr><tr class="row-run"><td>4</td><td>Cricket hero angle from Cricket hero photo ed</td><td>sports</td><td><strong>87.1</strong></td><td>Run today</td><td>24-72h</td><td>Run now, top budget test</td></tr><tr class="row-run"><td>5</td><td>Cricket hero angle from IPL 2026 Season — dai</td><td>sports</td><td><strong>87.1</strong></td><td>Run today</td><td>24-72h</td><td>Run now, top budget test</td></tr><tr class="row-test"><td>6</td><td>Festival transformation angle from Vaisakhi f</td><td>festival</td><td><strong>84.3</strong></td><td>Test controlled</td><td>2-7 days</td><td>Small controlled test</td></tr><tr class="row-test"><td>7</td><td>Festival transformation angle from Wedding se</td><td>festival</td><td><strong>84.3</strong></td><td>Test controlled</td><td>2-7 days</td><td>Small controlled test</td></tr><tr class="row-test"><td>8</td><td>Festival transformation angle from India Fest</td><td>festival</td><td><strong>84.3</strong></td><td>Test controlled</td><td>2-7 days</td><td>Small controlled test</td></tr><tr class="row-test"><td>9</td><td>Mass hero cinematic angle from Watch: Alia Bh</td><td>cinema</td><td><strong>82.7</strong></td><td>Test controlled</td><td>24-72h</td><td>Small controlled test</td></tr><tr class="row-test"><td>10</td><td>Mass hero cinematic angle from Ramayana tease</td><td>cinema</td><td><strong>80.3</strong></td><td>Test controlled</td><td>24-72h</td><td>Small controlled test</td></tr></tbody>
+        </table>
+    </div>
+
+    <div id="tab-sources" class="tab-content">
+        <div class="section-title">Source Signal Distribution</div>
+        
+        <div class="sources-grid">
+            <div><div class="source-row"><span class="source-name">Google Trends India</span><div class="source-bar" style="width:64%"></div><span class="source-count">8</span></div><div class="source-row"><span class="source-name">NDTV Movies</span><div class="source-bar" style="width:40%"></div><span class="source-count">5</span></div><div class="source-row"><span class="source-name">India Today Movies</span><div class="source-bar" style="width:40%"></div><span class="source-count">5</span></div><div class="source-row"><span class="source-name">Meta Ad Library</span><div class="source-bar" style="width:24%"></div><span class="source-count">3</span></div><div class="source-row"><span class="source-name">Meta Ad Library Watch</span><div class="source-bar" style="width:16%"></div><span class="source-count">2</span></div><div class="source-row"><span class="source-name">IPL Calendar</span><div class="source-bar" style="width:8%"></div><span class="source-count">1</span></div><div class="source-row"><span class="source-name">India Festival Calendar</span><div class="source-bar" style="width:8%"></div><span class="source-count">1</span></div><div class="source-row"><span class="source-name">Internal Watch</span><div class="source-bar" style="width:8%"></div><span class="source-count">1</span></div></div>
+            <div>
+                <div class="field" style="margin-bottom:12px"><strong>Total signals:</strong> 26 raw &rarr; 25 validated &rarr; 10 scored</div>
+                <div class="field"><strong>Sources active:</strong> 8</div>
+                <div class="field"><strong>Source errors:</strong> 0</div>
+            </div>
+        </div>
+    </div>
+
+    <div id="tab-learning" class="tab-content">
+        <div class="section-title">Learning Loop</div>
+        <div class="learn-section"><h4>Category Scores</h4><div class="learn-pills"><span class="learn-pill" style="border-color:#10b981;color:#10b981">sports: 0.980</span><span class="learn-pill" style="border-color:#10b981;color:#10b981">festival: 0.901</span><span class="learn-pill" style="border-color:#10b981;color:#10b981">cinema: 0.662</span><span class="learn-pill" style="border-color:#f59e0b;color:#f59e0b">evergreen: 0.592</span></div></div><div class="learn-section"><h4>Reason Scores</h4><div class="learn-pills"><span class="learn-pill" style="border-color:#10b981;color:#10b981">competition: 0.980</span><span class="learn-pill" style="border-color:#10b981;color:#10b981">identity/culture: 0.901</span><span class="learn-pill" style="border-color:#10b981;color:#10b981">celebrity: 0.662</span><span class="learn-pill" style="border-color:#f59e0b;color:#f59e0b">nostalgia: 0.592</span></div></div><div class="learn-section"><h4>Family Scores</h4><div class="learn-pills"><span class="learn-pill" style="border-color:#10b981;color:#10b981">cricket-hero-angle: 0.980</span><span class="learn-pill" style="border-color:#10b981;color:#10b981">festival-transformation-angle: 0.901</span><span class="learn-pill" style="border-color:#10b981;color:#10b981">mass-hero-cinematic-angle: 0.662</span><span class="learn-pill" style="border-color:#f59e0b;color:#f59e0b">evergreen-old-photo: 0.592</span></div></div>
+        <div class='learn-notes'><div class='note-item'>Top winning insight families: cricket-hero-angle (2), festival-transformation-angle (1), mass-hero-cinematic-angle (1)</div></div>
+    </div>
+
+    <footer>
+        Apero Creative Insight Bot V5 &mdash; Generated 2026-04-07 13:13 &mdash; Share this file with anyone
+    </footer>
+</div>
+<script>
+function switchTab(name) {
+    document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+    document.querySelectorAll('.tab').forEach(el => el.classList.remove('active'));
+    document.getElementById('tab-' + name).classList.add('active');
+    event.target.classList.add('active');
+}
+</script>
+</body>
+</html>
