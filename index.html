@@ -7,21 +7,24 @@
 <style>
 /* ─── RESET & BASE ─────────────────────────────────── */
 :root {
-  --bg:     #0d1117;
-  --surface:#161b22;
-  --card:   #1c2333;
-  --border: #30363d;
-  --border2:#21262d;
-  --text:   #e6edf3;
-  --muted:  #8b949e;
-  --muted2: #6e7681;
-  --accent: #58a6ff;
-  --green:  #3fb950;
-  --amber:  #d29922;
-  --red:    #f85149;
-  --purple: #bc8cff;
+  --bg:     #0f1419;
+  --surface:#1a2332;
+  --card:   #1e2d3d;
+  --card-hi:#243447;
+  --border: #3d5a80;
+  --border2:#2c4160;
+  --text:   #f0f6fc;
+  --muted:  #a3b8cc;
+  --muted2: #7a8fa3;
+  --accent: #5bc0ff;
+  --green:  #4ade80;
+  --amber:  #fbbf24;
+  --red:    #f87171;
+  --purple: #c084fc;
+  --pink:   #f472b6;
+  --cyan:   #22d3ee;
   --radius: 10px;
-  --shadow: 0 1px 3px rgba(0,0,0,0.4),0 4px 16px rgba(0,0,0,0.2);
+  --shadow: 0 2px 8px rgba(0,0,0,0.3),0 8px 24px rgba(0,0,0,0.15);
 }
 *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
 body {
@@ -306,19 +309,22 @@ strong, b { font-weight: 600; }
 /* ─── KOL/KOC ───────────────────────────────────────── */
 .kol-toolbar {
   display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 16px; align-items: center;
+  background: var(--surface); padding: 12px 16px; border-radius: var(--radius); border: 1px solid var(--border2);
 }
-.kol-toolbar select {
-  background: var(--card); color: var(--text);
+.kol-toolbar select, .kol-toolbar input {
+  background: var(--card-hi); color: var(--text);
   border: 1px solid var(--border); border-radius: 8px;
-  padding: 7px 12px; font-size: 12px; cursor: pointer; outline: none;
+  padding: 8px 14px; font-size: 12px; cursor: pointer; outline: none;
   transition: border-color 0.15s;
 }
-.kol-toolbar select:focus { border-color: var(--accent); }
+.kol-toolbar select:focus, .kol-toolbar input:focus { border-color: var(--accent); box-shadow: 0 0 0 2px rgba(91,192,255,.15); }
+.kol-toolbar input { min-width: 180px; }
+.kol-toolbar .filter-label { font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; }
 .kol-grid {
   display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 12px;
 }
 .kol-card {
-  background: var(--card); border: 1px solid var(--border2);
+  background: var(--card-hi); border: 1px solid var(--border);
   border-radius: var(--radius); padding: 14px;
   box-shadow: var(--shadow); transition: transform 0.15s, border-color 0.15s;
   display: flex; flex-direction: column; gap: 10px;
@@ -350,6 +356,10 @@ strong, b { font-weight: 600; }
 .kbar-fill { height: 100%; border-radius: 2px; transition: width 0.3s; }
 .kbar-val  { font-size: 9px; color: var(--muted2); min-width: 36px; text-align: right; }
 
+.kol-video { background: var(--surface); border-radius: 8px; padding: 10px 12px; margin-top: 8px; border: 1px solid var(--border2); }
+.kol-video-label { font-size: 9px; color: var(--accent); text-transform: uppercase; letter-spacing: .6px; margin-bottom: 4px; font-weight: 600; }
+.kol-video-title { font-size: 12px; color: #fff; text-decoration: none; display: block; margin-bottom: 6px; line-height: 1.4; }
+.kol-video-title:hover { color: var(--accent); text-decoration: underline; }
 .kol-stats-grid {
   display: grid; grid-template-columns: repeat(4, 1fr); gap: 4px;
   background: rgba(255,255,255,.03); border-radius: 8px; padding: 8px;
@@ -513,7 +523,7 @@ strong, b { font-weight: 600; }
   </div>
   <div class="site-header-meta">
     <strong>2026-04-07</strong> &nbsp;|&nbsp; Market: <strong>IN</strong> &nbsp;|&nbsp; V8<br>
-    9 sources active &nbsp;&bull;&nbsp; Generated 2026-04-07 17:35
+    9 sources active &nbsp;&bull;&nbsp; Generated 2026-04-07 17:40
   </div>
 </header>
 
@@ -1236,23 +1246,42 @@ strong, b { font-weight: 600; }
   <div class="sec-title">KOL / KOC Tracker</div>
   <p class="sec-sub">
     YouTube creators: Relevance &amp; Hot Score shown. &nbsp;|&nbsp;
-    TikTok creators: Engagement Rate &amp; Followers shown. &nbsp;|&nbsp;
-    Like% and Comment% computed from raw counts if not provided.
+    <span id="kol-count" style="color:var(--accent);font-weight:600">105 creators</span> tracked.
+    YouTube: Relevance + Hot Score. TikTok: Engagement Rate + Followers.
   </p>
   <div class="kol-toolbar">
-    <select id="kol-country" onchange="filterKOL()">
-      <option value="">All Countries</option>
-      <option value="BR">Brazil (BR)</option><option value="ID">Indonesia (ID)</option><option value="IN">India (IN)</option><option value="PH">Philippines (PH)</option><option value="SA">Saudi Arabia (SA)</option><option value="TH">Thailand (TH)</option><option value="US">United States (US)</option>
-    </select>
-    <select id="kol-sort" onchange="filterKOL()">
-      <option value="match">Sort: Relevance / Engagement</option>
-      <option value="views">Sort: Views</option>
-      <option value="likes">Sort: Likes</option>
-      <option value="eng">Sort: Engagement Rate</option>
-    </select>
+    <div>
+      <div class="filter-label">Country</div>
+      <select id="kol-country" onchange="filterKOL()">
+        <option value="">All Countries</option>
+        <option value="BR">Brazil (BR)</option><option value="ID">Indonesia (ID)</option><option value="IN">India (IN)</option><option value="PH">Philippines (PH)</option><option value="SA">Saudi Arabia (SA)</option><option value="TH">Thailand (TH)</option><option value="US">United States (US)</option>
+      </select>
+    </div>
+    <div>
+      <div class="filter-label">Platform</div>
+      <select id="kol-platform" onchange="filterKOL()">
+        <option value="">All Platforms</option>
+        <option value="youtube">YouTube</option>
+        <option value="tiktok">TikTok</option>
+      </select>
+    </div>
+    <div>
+      <div class="filter-label">Sort by</div>
+      <select id="kol-sort" onchange="filterKOL()">
+        <option value="match">Relevance / Engagement</option>
+        <option value="views">Views (high to low)</option>
+        <option value="likes">Likes (high to low)</option>
+        <option value="eng">Engagement Rate</option>
+        <option value="followers">Followers</option>
+      </select>
+    </div>
+    <div>
+      <div class="filter-label">Search</div>
+      <input type="text" id="kol-search" placeholder="Search creator..." oninput="filterKOL()">
+    </div>
   </div>
   <div id="kol-grid" class="kol-grid">
-        <div class="kol-card" data-country="US" data-match="18293" data-hot="0" data-views="123" data-likes="225" data-ratio="0" data-eng="182.93">
+        <div class="kol-card" data-country="US" data-platform="tiktok" data-match="18293" data-hot="0" data-views="123" data-likes="225" data-ratio="0" data-eng="182.93" data-followers="1511">
             <div class="kol-head">
                 <span class="kol-plat-icon">🎵</span>
                 <div class="kol-info">
@@ -1295,7 +1324,7 @@ strong, b { font-weight: 600; }
                 <a href="https://www.tiktok.com/@xiaobapfkkv/video/7625834261878295809" target="_blank" class="kvid-title">Photo production special effects, all the special effects you like are here,100%</a>
             </div>
         </div>
-        <div class="kol-card" data-country="IN" data-match="2070" data-hot="0" data-views="84600" data-likes="17400" data-ratio="0" data-eng="20.7">
+        <div class="kol-card" data-country="IN" data-platform="tiktok" data-match="2070" data-hot="0" data-views="84600" data-likes="17400" data-ratio="0" data-eng="20.7" data-followers="856800">
             <div class="kol-head">
                 <span class="kol-plat-icon">🎵</span>
                 <div class="kol-info">
@@ -1340,7 +1369,7 @@ strong, b { font-weight: 600; }
 Comment “Restore” and I’ll sen</a>
             </div>
         </div>
-        <div class="kol-card" data-country="PH" data-match="1431" data-hot="0" data-views="340900" data-likes="45700" data-ratio="0" data-eng="14.31">
+        <div class="kol-card" data-country="PH" data-platform="tiktok" data-match="1431" data-hot="0" data-views="340900" data-likes="45700" data-ratio="0" data-eng="14.31" data-followers="4468">
             <div class="kol-head">
                 <span class="kol-plat-icon">🎵</span>
                 <div class="kol-info">
@@ -1385,7 +1414,7 @@ Comment “Restore” and I’ll sen</a>
 ────୨ৎ─────</a>
             </div>
         </div>
-        <div class="kol-card" data-country="PH" data-match="985" data-hot="0" data-views="3200000" data-likes="310200" data-ratio="0" data-eng="9.85">
+        <div class="kol-card" data-country="PH" data-platform="tiktok" data-match="985" data-hot="0" data-views="3200000" data-likes="310200" data-ratio="0" data-eng="9.85" data-followers="1200000">
             <div class="kol-head">
                 <span class="kol-plat-icon">🎵</span>
                 <div class="kol-info">
@@ -1428,7 +1457,7 @@ Comment “Restore” and I’ll sen</a>
                 <a href="https://www.tiktok.com/@griggen/video/7385166238651026721" target="_blank" class="kvid-title">Aesthetic Blur 📸 Creative Phone Tutorial Edit #Picsart #picsartpartner @Picsart </a>
             </div>
         </div>
-        <div class="kol-card" data-country="PH" data-match="976" data-hot="0" data-views="63900" data-likes="5743" data-ratio="0" data-eng="9.76">
+        <div class="kol-card" data-country="PH" data-platform="tiktok" data-match="976" data-hot="0" data-views="63900" data-likes="5743" data-ratio="0" data-eng="9.76" data-followers="103400">
             <div class="kol-head">
                 <span class="kol-plat-icon">🎵</span>
                 <div class="kol-info">
@@ -1471,7 +1500,7 @@ Comment “Restore” and I’ll sen</a>
                 <a href="https://www.tiktok.com/@hosqo/video/7585261947113835798" target="_blank" class="kvid-title">You don’t always have to do a lot of complicated things to create something that</a>
             </div>
         </div>
-        <div class="kol-card" data-country="IN" data-match="966" data-hot="0" data-views="1300000" data-likes="125400" data-ratio="0" data-eng="9.66">
+        <div class="kol-card" data-country="IN" data-platform="tiktok" data-match="966" data-hot="0" data-views="1300000" data-likes="125400" data-ratio="0" data-eng="9.66" data-followers="991">
             <div class="kol-head">
                 <span class="kol-plat-icon">🎵</span>
                 <div class="kol-info">
@@ -1515,7 +1544,7 @@ Comment “Restore” and I’ll sen</a>
 #photography #editing #seniorpictures #photoshoot #ins</a>
             </div>
         </div>
-        <div class="kol-card" data-country="TH" data-match="966" data-hot="0" data-views="1843" data-likes="48" data-ratio="0" data-eng="9.66">
+        <div class="kol-card" data-country="TH" data-platform="tiktok" data-match="966" data-hot="0" data-views="1843" data-likes="48" data-ratio="0" data-eng="9.66" data-followers="10500">
             <div class="kol-head">
                 <span class="kol-plat-icon">🎵</span>
                 <div class="kol-info">
@@ -1558,7 +1587,7 @@ Comment “Restore” and I’ll sen</a>
                 <a href="https://www.tiktok.com/@yu143572/video/7625645176094035220" target="_blank" class="kvid-title">❤️‍🔥 จะสร้างภาพแบบเดียวกันได้ฟรีอย่างไร 💞 💖 แชร์วิธีสร้างภาพสวยด้วย AI ฟรี ✅ ด้ว</a>
             </div>
         </div>
-        <div class="kol-card" data-country="IN" data-match="944" data-hot="0" data-views="1100000" data-likes="94700" data-ratio="0" data-eng="9.45">
+        <div class="kol-card" data-country="IN" data-platform="tiktok" data-match="944" data-hot="0" data-views="1100000" data-likes="94700" data-ratio="0" data-eng="9.45" data-followers="252200">
             <div class="kol-head">
                 <span class="kol-plat-icon">🎵</span>
                 <div class="kol-info">
@@ -1602,7 +1631,7 @@ Comment “Restore” and I’ll sen</a>
 We a</a>
             </div>
         </div>
-        <div class="kol-card" data-country="IN" data-match="876" data-hot="0" data-views="172500" data-likes="11800" data-ratio="0" data-eng="8.76">
+        <div class="kol-card" data-country="IN" data-platform="tiktok" data-match="876" data-hot="0" data-views="172500" data-likes="11800" data-ratio="0" data-eng="8.76" data-followers="41700">
             <div class="kol-head">
                 <span class="kol-plat-icon">🎵</span>
                 <div class="kol-info">
@@ -1647,7 +1676,7 @@ We a</a>
 Easy 3D picture t</a>
             </div>
         </div>
-        <div class="kol-card" data-country="PH" data-match="876" data-hot="0" data-views="172500" data-likes="11800" data-ratio="0" data-eng="8.76">
+        <div class="kol-card" data-country="PH" data-platform="tiktok" data-match="876" data-hot="0" data-views="172500" data-likes="11800" data-ratio="0" data-eng="8.76" data-followers="41700">
             <div class="kol-head">
                 <span class="kol-plat-icon">🎵</span>
                 <div class="kol-info">
@@ -1692,7 +1721,7 @@ Easy 3D picture t</a>
 Easy 3D picture t</a>
             </div>
         </div>
-        <div class="kol-card" data-country="PH" data-match="758" data-hot="0" data-views="198100" data-likes="14000" data-ratio="0" data-eng="7.58">
+        <div class="kol-card" data-country="PH" data-platform="tiktok" data-match="758" data-hot="0" data-views="198100" data-likes="14000" data-ratio="0" data-eng="7.58" data-followers="10300">
             <div class="kol-head">
                 <span class="kol-plat-icon">🎵</span>
                 <div class="kol-info">
@@ -1735,7 +1764,7 @@ Easy 3D picture t</a>
                 <a href="https://www.tiktok.com/@cut.knight/video/7615622825407286535" target="_blank" class="kvid-title">Part9: How to make a super fast photo effect in CapCut#capcut #capcutpioneer #Ca</a>
             </div>
         </div>
-        <div class="kol-card" data-country="ID" data-match="671" data-hot="0" data-views="160000" data-likes="9871" data-ratio="0" data-eng="6.71">
+        <div class="kol-card" data-country="ID" data-platform="tiktok" data-match="671" data-hot="0" data-views="160000" data-likes="9871" data-ratio="0" data-eng="6.71" data-followers="168900">
             <div class="kol-head">
                 <span class="kol-plat-icon">🎵</span>
                 <div class="kol-info">
@@ -1778,7 +1807,7 @@ Easy 3D picture t</a>
                 <a href="https://www.tiktok.com/@adilennavarro/video/7537870150687575351" target="_blank" class="kvid-title">such a game changer 🤯 Also check out the other features on the app like layers, </a>
             </div>
         </div>
-        <div class="kol-card" data-country="IN" data-match="655" data-hot="0" data-views="977" data-likes="46" data-ratio="0" data-eng="6.55">
+        <div class="kol-card" data-country="IN" data-platform="tiktok" data-match="655" data-hot="0" data-views="977" data-likes="46" data-ratio="0" data-eng="6.55" data-followers="11500">
             <div class="kol-head">
                 <span class="kol-plat-icon">🎵</span>
                 <div class="kol-info">
@@ -1824,7 +1853,7 @@ Easy 3D picture t</a>
 “Enhance the image to true</a>
             </div>
         </div>
-        <div class="kol-card" data-country="TH" data-match="646" data-hot="0" data-views="4506" data-likes="103" data-ratio="0" data-eng="6.46">
+        <div class="kol-card" data-country="TH" data-platform="tiktok" data-match="646" data-hot="0" data-views="4506" data-likes="103" data-ratio="0" data-eng="6.46" data-followers="10500">
             <div class="kol-head">
                 <span class="kol-plat-icon">🎵</span>
                 <div class="kol-info">
@@ -1867,7 +1896,7 @@ Easy 3D picture t</a>
                 <a href="https://www.tiktok.com/@yu143572/video/7623404312735026452" target="_blank" class="kvid-title">❤️‍🔥 จะสร้างภาพแบบเดียวกันได้ฟรีอย่างไร 💞 💖 แชร์วิธีสร้างภาพสวยด้วย AI ฟรี ✅ ด้ว</a>
             </div>
         </div>
-        <div class="kol-card" data-country="ID" data-match="597" data-hot="0" data-views="509100" data-likes="28800" data-ratio="0" data-eng="5.97">
+        <div class="kol-card" data-country="ID" data-platform="tiktok" data-match="597" data-hot="0" data-views="509100" data-likes="28800" data-ratio="0" data-eng="5.97" data-followers="1512">
             <div class="kol-head">
                 <span class="kol-plat-icon">🎵</span>
                 <div class="kol-info">
@@ -1910,7 +1939,7 @@ Easy 3D picture t</a>
                 <a href="https://www.tiktok.com/@briiacosstaa_/video/7574443388821359892" target="_blank" class="kvid-title">Ahora podes editar las fotos con AI sin salir de insta🥺🥺#ia #fyp #instagram #act</a>
             </div>
         </div>
-        <div class="kol-card" data-country="US" data-match="572" data-hot="0" data-views="340800" data-likes="17100" data-ratio="0" data-eng="5.72">
+        <div class="kol-card" data-country="US" data-platform="tiktok" data-match="572" data-hot="0" data-views="340800" data-likes="17100" data-ratio="0" data-eng="5.72" data-followers="173900">
             <div class="kol-head">
                 <span class="kol-plat-icon">🎵</span>
                 <div class="kol-info">
@@ -1953,7 +1982,7 @@ Easy 3D picture t</a>
                 <a href="https://www.tiktok.com/@big_tennet/video/7590927341233196308" target="_blank" class="kvid-title">How to edit photos using AI easily #GeminiAI #PhotoEditing #AI #PhotographyTips </a>
             </div>
         </div>
-        <div class="kol-card" data-country="ID" data-match="572" data-hot="0" data-views="340800" data-likes="17100" data-ratio="0" data-eng="5.72">
+        <div class="kol-card" data-country="ID" data-platform="tiktok" data-match="572" data-hot="0" data-views="340800" data-likes="17100" data-ratio="0" data-eng="5.72" data-followers="173900">
             <div class="kol-head">
                 <span class="kol-plat-icon">🎵</span>
                 <div class="kol-info">
@@ -1996,7 +2025,7 @@ Easy 3D picture t</a>
                 <a href="https://www.tiktok.com/@big_tennet/video/7590927341233196308" target="_blank" class="kvid-title">How to edit photos using AI easily #GeminiAI #PhotoEditing #AI #PhotographyTips </a>
             </div>
         </div>
-        <div class="kol-card" data-country="IN" data-match="569" data-hot="0" data-views="114500" data-likes="6284" data-ratio="0" data-eng="5.69">
+        <div class="kol-card" data-country="IN" data-platform="tiktok" data-match="569" data-hot="0" data-views="114500" data-likes="6284" data-ratio="0" data-eng="5.69" data-followers="683000">
             <div class="kol-head">
                 <span class="kol-plat-icon">🎵</span>
                 <div class="kol-info">
@@ -2039,7 +2068,7 @@ Easy 3D picture t</a>
                 <a href="https://www.tiktok.com/@nanas..nyspam/video/7622527113261780255" target="_blank" class="kvid-title">Use the PrettyUp app now 💕#prettyup #outfitinspo #fyp #photoediting #photohack </a>
             </div>
         </div>
-        <div class="kol-card" data-country="IN" data-match="569" data-hot="0" data-views="114500" data-likes="6284" data-ratio="0" data-eng="5.69">
+        <div class="kol-card" data-country="IN" data-platform="tiktok" data-match="569" data-hot="0" data-views="114500" data-likes="6284" data-ratio="0" data-eng="5.69" data-followers="683000">
             <div class="kol-head">
                 <span class="kol-plat-icon">🎵</span>
                 <div class="kol-info">
@@ -2082,7 +2111,7 @@ Easy 3D picture t</a>
                 <a href="https://www.tiktok.com/@nanas..nyspam/video/7622527113261780255" target="_blank" class="kvid-title">Use the PrettyUp app now 💕#prettyup #outfitinspo #fyp #photoediting #photohack </a>
             </div>
         </div>
-        <div class="kol-card" data-country="ID" data-match="569" data-hot="0" data-views="114500" data-likes="6284" data-ratio="0" data-eng="5.69">
+        <div class="kol-card" data-country="ID" data-platform="tiktok" data-match="569" data-hot="0" data-views="114500" data-likes="6284" data-ratio="0" data-eng="5.69" data-followers="683000">
             <div class="kol-head">
                 <span class="kol-plat-icon">🎵</span>
                 <div class="kol-info">
@@ -2125,7 +2154,7 @@ Easy 3D picture t</a>
                 <a href="https://www.tiktok.com/@nanas..nyspam/video/7622527113261780255" target="_blank" class="kvid-title">Use the PrettyUp app now 💕#prettyup #outfitinspo #fyp #photoediting #photohack </a>
             </div>
         </div>
-        <div class="kol-card" data-country="ID" data-match="551" data-hot="0" data-views="80400" data-likes="4284" data-ratio="0" data-eng="5.51">
+        <div class="kol-card" data-country="ID" data-platform="tiktok" data-match="551" data-hot="0" data-views="80400" data-likes="4284" data-ratio="0" data-eng="5.51" data-followers="191100">
             <div class="kol-head">
                 <span class="kol-plat-icon">🎵</span>
                 <div class="kol-info">
@@ -2168,7 +2197,7 @@ Easy 3D picture t</a>
                 <a href="https://www.tiktok.com/@totalplaymx/video/7425775240841596166" target="_blank" class="kvid-title">Sube las mejores fotos con estas #Apps. 😉📷 #App #Tech #Techtok #Totalplaymx</a>
             </div>
         </div>
-        <div class="kol-card" data-country="IN" data-match="541" data-hot="0" data-views="230900" data-likes="7868" data-ratio="0" data-eng="5.41">
+        <div class="kol-card" data-country="IN" data-platform="tiktok" data-match="541" data-hot="0" data-views="230900" data-likes="7868" data-ratio="0" data-eng="5.41" data-followers="470100">
             <div class="kol-head">
                 <span class="kol-plat-icon">🎵</span>
                 <div class="kol-info">
@@ -2211,7 +2240,7 @@ Easy 3D picture t</a>
                 <a href="https://www.tiktok.com/@oderatech/video/7564836557719391510" target="_blank" class="kvid-title">You have Old photos? Here is how to restore your old photos and revive sweet old</a>
             </div>
         </div>
-        <div class="kol-card" data-country="ID" data-match="537" data-hot="0" data-views="6600000" data-likes="310500" data-ratio="0" data-eng="5.37">
+        <div class="kol-card" data-country="ID" data-platform="tiktok" data-match="537" data-hot="0" data-views="6600000" data-likes="310500" data-ratio="0" data-eng="5.37" data-followers="70900">
             <div class="kol-head">
                 <span class="kol-plat-icon">🎵</span>
                 <div class="kol-info">
@@ -2254,7 +2283,7 @@ Easy 3D picture t</a>
                 <a href="https://www.tiktok.com/@unixknown/video/7473004357496147218" target="_blank" class="kvid-title">G7X look a like with a phone 📸✨ #editingtips, #editingapps, #dazzcam #tutorial #</a>
             </div>
         </div>
-        <div class="kol-card" data-country="IN" data-match="500" data-hot="0" data-views="6938" data-likes="345" data-ratio="0" data-eng="5.0">
+        <div class="kol-card" data-country="IN" data-platform="tiktok" data-match="500" data-hot="0" data-views="6938" data-likes="345" data-ratio="0" data-eng="5.0" data-followers="66">
             <div class="kol-head">
                 <span class="kol-plat-icon">🎵</span>
                 <div class="kol-info">
@@ -2299,7 +2328,7 @@ Easy 3D picture t</a>
 No Photoshop. No design</a>
             </div>
         </div>
-        <div class="kol-card" data-country="IN" data-match="499" data-hot="0" data-views="137500" data-likes="6432" data-ratio="0" data-eng="4.99">
+        <div class="kol-card" data-country="IN" data-platform="tiktok" data-match="499" data-hot="0" data-views="137500" data-likes="6432" data-ratio="0" data-eng="4.99" data-followers="8786">
             <div class="kol-head">
                 <span class="kol-plat-icon">🎵</span>
                 <div class="kol-info">
@@ -2342,7 +2371,7 @@ No Photoshop. No design</a>
                 <a href="https://www.tiktok.com/@_katie.32_/video/7260665872983919914" target="_blank" class="kvid-title">Replying to @heaventurk3 here you go 😊 i used the free trial, but for some reaso</a>
             </div>
         </div>
-        <div class="kol-card" data-country="IN" data-match="493" data-hot="0" data-views="698400" data-likes="32900" data-ratio="0" data-eng="4.93">
+        <div class="kol-card" data-country="IN" data-platform="tiktok" data-match="493" data-hot="0" data-views="698400" data-likes="32900" data-ratio="0" data-eng="4.93" data-followers="10800">
             <div class="kol-head">
                 <span class="kol-plat-icon">🎵</span>
                 <div class="kol-info">
@@ -2385,7 +2414,7 @@ No Photoshop. No design</a>
                 <a href="https://www.tiktok.com/@hector.edits798/video/7617032805545004302" target="_blank" class="kvid-title">Here’s a super tuff Blurry face edit that literally takes 20 seconds to finish a</a>
             </div>
         </div>
-        <div class="kol-card" data-country="PH" data-match="493" data-hot="0" data-views="698400" data-likes="32900" data-ratio="0" data-eng="4.93">
+        <div class="kol-card" data-country="PH" data-platform="tiktok" data-match="493" data-hot="0" data-views="698400" data-likes="32900" data-ratio="0" data-eng="4.93" data-followers="10800">
             <div class="kol-head">
                 <span class="kol-plat-icon">🎵</span>
                 <div class="kol-info">
@@ -2428,7 +2457,7 @@ No Photoshop. No design</a>
                 <a href="https://www.tiktok.com/@hector.edits798/video/7617032805545004302" target="_blank" class="kvid-title">Here’s a super tuff Blurry face edit that literally takes 20 seconds to finish a</a>
             </div>
         </div>
-        <div class="kol-card" data-country="PH" data-match="486" data-hot="0" data-views="896600" data-likes="40300" data-ratio="0" data-eng="4.86">
+        <div class="kol-card" data-country="PH" data-platform="tiktok" data-match="486" data-hot="0" data-views="896600" data-likes="40300" data-ratio="0" data-eng="4.86" data-followers="26400">
             <div class="kol-head">
                 <span class="kol-plat-icon">🎵</span>
                 <div class="kol-info">
@@ -2471,7 +2500,7 @@ No Photoshop. No design</a>
                 <a href="https://www.tiktok.com/@rachelllllmarie/video/7448407855079656747" target="_blank" class="kvid-title">Replying to @Brandi Nicole  How I edit Instagram pictures✨ Honestly lighting and</a>
             </div>
         </div>
-        <div class="kol-card" data-country="IN" data-match="469" data-hot="0" data-views="1854" data-likes="80" data-ratio="0" data-eng="4.69">
+        <div class="kol-card" data-country="IN" data-platform="tiktok" data-match="469" data-hot="0" data-views="1854" data-likes="80" data-ratio="0" data-eng="4.69" data-followers="765700">
             <div class="kol-head">
                 <span class="kol-plat-icon">🎵</span>
                 <div class="kol-info">
@@ -2514,7 +2543,7 @@ No Photoshop. No design</a>
                 <a href="https://www.tiktok.com/@jordynnehahn/video/7625822709963951390" target="_blank" class="kvid-title">obsessed with @Airbrush app-Best photo editor #fypシ #editing #jordynnehahn </a>
             </div>
         </div>
-        <div class="kol-card" data-country="TH" data-match="441" data-hot="0" data-views="3149" data-likes="69" data-ratio="0" data-eng="4.41">
+        <div class="kol-card" data-country="TH" data-platform="tiktok" data-match="441" data-hot="0" data-views="3149" data-likes="69" data-ratio="0" data-eng="4.41" data-followers="19500">
             <div class="kol-head">
                 <span class="kol-plat-icon">🎵</span>
                 <div class="kol-info">
@@ -2559,7 +2588,7 @@ No Photoshop. No design</a>
 ด้ว</a>
             </div>
         </div>
-        <div class="kol-card" data-country="IN" data-match="434" data-hot="0" data-views="805" data-likes="35" data-ratio="0" data-eng="4.35">
+        <div class="kol-card" data-country="IN" data-platform="tiktok" data-match="434" data-hot="0" data-views="805" data-likes="35" data-ratio="0" data-eng="4.35" data-followers="4168">
             <div class="kol-head">
                 <span class="kol-plat-icon">🎵</span>
                 <div class="kol-info">
@@ -2604,7 +2633,7 @@ No Photoshop. No design</a>
 #reminipartner #aiedit #ai #ph</a>
             </div>
         </div>
-        <div class="kol-card" data-country="TH" data-match="429" data-hot="0" data-views="8608" data-likes="263" data-ratio="0" data-eng="4.29">
+        <div class="kol-card" data-country="TH" data-platform="tiktok" data-match="429" data-hot="0" data-views="8608" data-likes="263" data-ratio="0" data-eng="4.29" data-followers="23100">
             <div class="kol-head">
                 <span class="kol-plat-icon">🎵</span>
                 <div class="kol-info">
@@ -2649,7 +2678,7 @@ No Photoshop. No design</a>
 วิธีท</a>
             </div>
         </div>
-        <div class="kol-card" data-country="IN" data-match="417" data-hot="0" data-views="696400" data-likes="25600" data-ratio="0" data-eng="4.17">
+        <div class="kol-card" data-country="IN" data-platform="tiktok" data-match="417" data-hot="0" data-views="696400" data-likes="25600" data-ratio="0" data-eng="4.17" data-followers="9459">
             <div class="kol-head">
                 <span class="kol-plat-icon">🎵</span>
                 <div class="kol-info">
@@ -2692,7 +2721,7 @@ No Photoshop. No design</a>
                 <a href="https://www.tiktok.com/@lupa_upscaler/video/7584494471795019030" target="_blank" class="kvid-title"></a>
             </div>
         </div>
-        <div class="kol-card" data-country="IN" data-match="389" data-hot="0" data-views="601300" data-likes="22400" data-ratio="0" data-eng="3.89">
+        <div class="kol-card" data-country="IN" data-platform="tiktok" data-match="389" data-hot="0" data-views="601300" data-likes="22400" data-ratio="0" data-eng="3.89" data-followers="231700">
             <div class="kol-head">
                 <span class="kol-plat-icon">🎵</span>
                 <div class="kol-info">
@@ -2735,7 +2764,7 @@ No Photoshop. No design</a>
                 <a href="https://www.tiktok.com/@renzkye/video/7493837410162199830" target="_blank" class="kvid-title">save for later 📍@hypic_global #hypic #hypiccreator #aesthetic #photoideas #fashi</a>
             </div>
         </div>
-        <div class="kol-card" data-country="ID" data-match="389" data-hot="0" data-views="601300" data-likes="22400" data-ratio="0" data-eng="3.89">
+        <div class="kol-card" data-country="ID" data-platform="tiktok" data-match="389" data-hot="0" data-views="601300" data-likes="22400" data-ratio="0" data-eng="3.89" data-followers="231700">
             <div class="kol-head">
                 <span class="kol-plat-icon">🎵</span>
                 <div class="kol-info">
@@ -2778,7 +2807,7 @@ No Photoshop. No design</a>
                 <a href="https://www.tiktok.com/@renzkye/video/7493837410162199830" target="_blank" class="kvid-title">save for later 📍@hypic_global #hypic #hypiccreator #aesthetic #photoideas #fashi</a>
             </div>
         </div>
-        <div class="kol-card" data-country="ID" data-match="388" data-hot="0" data-views="36200" data-likes="944" data-ratio="0" data-eng="3.88">
+        <div class="kol-card" data-country="ID" data-platform="tiktok" data-match="388" data-hot="0" data-views="36200" data-likes="944" data-ratio="0" data-eng="3.88" data-followers="39700">
             <div class="kol-head">
                 <span class="kol-plat-icon">🎵</span>
                 <div class="kol-info">
@@ -2821,7 +2850,7 @@ No Photoshop. No design</a>
                 <a href="https://www.tiktok.com/@carter.braydon/video/7583134168201121054" target="_blank" class="kvid-title">ChatGPT now has a Photoshop integration! Now making it so that you can throw in </a>
             </div>
         </div>
-        <div class="kol-card" data-country="IN" data-match="387" data-hot="0" data-views="5000000" data-likes="186800" data-ratio="0" data-eng="3.87">
+        <div class="kol-card" data-country="IN" data-platform="tiktok" data-match="387" data-hot="0" data-views="5000000" data-likes="186800" data-ratio="0" data-eng="3.87" data-followers="4217">
             <div class="kol-head">
                 <span class="kol-plat-icon">🎵</span>
                 <div class="kol-info">
@@ -2865,7 +2894,7 @@ No Photoshop. No design</a>
 #photoediting #insstory #instagram#photo #hypic #hypiccreator</a>
             </div>
         </div>
-        <div class="kol-card" data-country="PH" data-match="384" data-hot="0" data-views="546900" data-likes="20000" data-ratio="0" data-eng="3.84">
+        <div class="kol-card" data-country="PH" data-platform="tiktok" data-match="384" data-hot="0" data-views="546900" data-likes="20000" data-ratio="0" data-eng="3.84" data-followers="851">
             <div class="kol-head">
                 <span class="kol-plat-icon">🎵</span>
                 <div class="kol-info">
@@ -2909,7 +2938,7 @@ No Photoshop. No design</a>
 #tutorial #viral #fyp #fyppppppppppppppppppppppp #fashiontiktok #</a>
             </div>
         </div>
-        <div class="kol-card" data-country="IN" data-match="382" data-hot="0" data-views="12000" data-likes="442" data-ratio="0" data-eng="3.82">
+        <div class="kol-card" data-country="IN" data-platform="tiktok" data-match="382" data-hot="0" data-views="12000" data-likes="442" data-ratio="0" data-eng="3.82" data-followers="279800">
             <div class="kol-head">
                 <span class="kol-plat-icon">🎵</span>
                 <div class="kol-info">
@@ -2952,7 +2981,7 @@ No Photoshop. No design</a>
                 <a href="https://www.tiktok.com/@lovekennedygrace/video/7623234684738194718" target="_blank" class="kvid-title">lighting is everything ☀️☀️ @Airbrush app-Best photo editor #trend #trending #ed</a>
             </div>
         </div>
-        <div class="kol-card" data-country="ID" data-match="382" data-hot="0" data-views="61100" data-likes="1865" data-ratio="0" data-eng="3.82">
+        <div class="kol-card" data-country="ID" data-platform="tiktok" data-match="382" data-hot="0" data-views="61100" data-likes="1865" data-ratio="0" data-eng="3.82" data-followers="2000000">
             <div class="kol-head">
                 <span class="kol-plat-icon">🎵</span>
                 <div class="kol-info">
@@ -2995,7 +3024,7 @@ No Photoshop. No design</a>
                 <a href="https://www.tiktok.com/@tecnologiaparami/video/7615396877676186898" target="_blank" class="kvid-title">🚨📸 Esta edición viral ya la puedes hacer con la IA de tu propio smartphone. Func</a>
             </div>
         </div>
-        <div class="kol-card" data-country="IN" data-match="362" data-hot="0" data-views="18400" data-likes="631" data-ratio="0" data-eng="3.62">
+        <div class="kol-card" data-country="IN" data-platform="tiktok" data-match="362" data-hot="0" data-views="18400" data-likes="631" data-ratio="0" data-eng="3.62" data-followers="312400">
             <div class="kol-head">
                 <span class="kol-plat-icon">🎵</span>
                 <div class="kol-info">
@@ -3038,7 +3067,7 @@ No Photoshop. No design</a>
                 <a href="https://www.tiktok.com/@frizzandfrillzz/video/6984521797865721094" target="_blank" class="kvid-title">Use these apps and I promise your photos will start popping off! Follow for more</a>
             </div>
         </div>
-        <div class="kol-card" data-country="PH" data-match="360" data-hot="0" data-views="3100000" data-likes="107400" data-ratio="0" data-eng="3.6">
+        <div class="kol-card" data-country="PH" data-platform="tiktok" data-match="360" data-hot="0" data-views="3100000" data-likes="107400" data-ratio="0" data-eng="3.6" data-followers="99100">
             <div class="kol-head">
                 <span class="kol-plat-icon">🎵</span>
                 <div class="kol-info">
@@ -3081,7 +3110,7 @@ No Photoshop. No design</a>
                 <a href="https://www.tiktok.com/@sincerelyninasophia/video/7371546411722083614" target="_blank" class="kvid-title">Replying to @vanyilla_ These settings work for pretty much any photo ❤️</a>
             </div>
         </div>
-        <div class="kol-card" data-country="ID" data-match="357" data-hot="0" data-views="1200000" data-likes="41700" data-ratio="0" data-eng="3.57">
+        <div class="kol-card" data-country="ID" data-platform="tiktok" data-match="357" data-hot="0" data-views="1200000" data-likes="41700" data-ratio="0" data-eng="3.57" data-followers="75400">
             <div class="kol-head">
                 <span class="kol-plat-icon">🎵</span>
                 <div class="kol-info">
@@ -3125,7 +3154,7 @@ No Photoshop. No design</a>
 Apa Aplikasi Favorit Kamu? Coba komen</a>
             </div>
         </div>
-        <div class="kol-card" data-country="ID" data-match="356" data-hot="0" data-views="3100000" data-likes="104600" data-ratio="0" data-eng="3.56">
+        <div class="kol-card" data-country="ID" data-platform="tiktok" data-match="356" data-hot="0" data-views="3100000" data-likes="104600" data-ratio="0" data-eng="3.56" data-followers="162600">
             <div class="kol-head">
                 <span class="kol-plat-icon">🎵</span>
                 <div class="kol-info">
@@ -3170,7 +3199,7 @@ Apa Aplikasi Favorit Kamu? Coba komen</a>
 Tulis aja “Gas” di Comment, nanti aku b</a>
             </div>
         </div>
-        <div class="kol-card" data-country="TH" data-match="354" data-hot="0" data-views="34500" data-likes="959" data-ratio="0" data-eng="3.54">
+        <div class="kol-card" data-country="TH" data-platform="tiktok" data-match="354" data-hot="0" data-views="34500" data-likes="959" data-ratio="0" data-eng="3.54" data-followers="174100">
             <div class="kol-head">
                 <span class="kol-plat-icon">🎵</span>
                 <div class="kol-info">
@@ -3215,7 +3244,7 @@ Tulis aja “Gas” di Comment, nanti aku b</a>
 #แต่งรูปด้วยai #แต่งรูปai </a>
             </div>
         </div>
-        <div class="kol-card" data-country="PH" data-match="350" data-hot="0" data-views="1100000" data-likes="35400" data-ratio="0" data-eng="3.5">
+        <div class="kol-card" data-country="PH" data-platform="tiktok" data-match="350" data-hot="0" data-views="1100000" data-likes="35400" data-ratio="0" data-eng="3.5" data-followers="92200">
             <div class="kol-head">
                 <span class="kol-plat-icon">🎵</span>
                 <div class="kol-info">
@@ -3258,7 +3287,7 @@ Tulis aja “Gas” di Comment, nanti aku b</a>
                 <a href="https://www.tiktok.com/@billykissazeez/video/7463600389628153110" target="_blank" class="kvid-title">Replying to @Perryberry here’s how I edited these photos, I used @Lightroom 🤍🤍 #</a>
             </div>
         </div>
-        <div class="kol-card" data-country="US" data-match="337" data-hot="0" data-views="7477" data-likes="147" data-ratio="0" data-eng="3.37">
+        <div class="kol-card" data-country="US" data-platform="tiktok" data-match="337" data-hot="0" data-views="7477" data-likes="147" data-ratio="0" data-eng="3.37" data-followers="31000">
             <div class="kol-head">
                 <span class="kol-plat-icon">🎵</span>
                 <div class="kol-info">
@@ -3301,7 +3330,7 @@ Tulis aja “Gas” di Comment, nanti aku b</a>
                 <a href="https://www.tiktok.com/@sebintel/video/7615170304687492355" target="_blank" class="kvid-title">Turn blurry images into sharp 4K quality in seconds with Gemini and Nano Banana </a>
             </div>
         </div>
-        <div class="kol-card" data-country="IN" data-match="318" data-hot="0" data-views="3000000" data-likes="75300" data-ratio="0" data-eng="3.18">
+        <div class="kol-card" data-country="IN" data-platform="tiktok" data-match="318" data-hot="0" data-views="3000000" data-likes="75300" data-ratio="0" data-eng="3.18" data-followers="439100">
             <div class="kol-head">
                 <span class="kol-plat-icon">🎵</span>
                 <div class="kol-info">
@@ -3344,7 +3373,7 @@ Tulis aja “Gas” di Comment, nanti aku b</a>
                 <a href="https://www.tiktok.com/@brandnat/video/7257335065737301255" target="_blank" class="kvid-title">Replying to @datsun1965 How to create FREE Linkedin Headshots using A.I. #brandn</a>
             </div>
         </div>
-        <div class="kol-card" data-country="IN" data-match="317" data-hot="0" data-views="94700" data-likes="2905" data-ratio="0" data-eng="3.17">
+        <div class="kol-card" data-country="IN" data-platform="tiktok" data-match="317" data-hot="0" data-views="94700" data-likes="2905" data-ratio="0" data-eng="3.17" data-followers="1658">
             <div class="kol-head">
                 <span class="kol-plat-icon">🎵</span>
                 <div class="kol-info">
@@ -3387,7 +3416,7 @@ Tulis aja “Gas” di Comment, nanti aku b</a>
                 <a href="https://www.tiktok.com/@ingridsmoodboard/video/7581562066150903070" target="_blank" class="kvid-title">Here’s the edit so you can copy and paste it 💋: “add a warm y2k disposable camer</a>
             </div>
         </div>
-        <div class="kol-card" data-country="IN" data-match="308" data-hot="0" data-views="48400" data-likes="1356" data-ratio="0" data-eng="3.08">
+        <div class="kol-card" data-country="IN" data-platform="tiktok" data-match="308" data-hot="0" data-views="48400" data-likes="1356" data-ratio="0" data-eng="3.08" data-followers="161600">
             <div class="kol-head">
                 <span class="kol-plat-icon">🎵</span>
                 <div class="kol-info">
@@ -3430,7 +3459,7 @@ Tulis aja “Gas” di Comment, nanti aku b</a>
                 <a href="https://www.tiktok.com/@andrewoptics/video/7536993291221388575" target="_blank" class="kvid-title">Most people think photography ends once the shutter is pressed...but post produc</a>
             </div>
         </div>
-        <div class="kol-card" data-country="IN" data-match="290" data-hot="0" data-views="301400" data-likes="8470" data-ratio="0" data-eng="2.9">
+        <div class="kol-card" data-country="IN" data-platform="tiktok" data-match="290" data-hot="0" data-views="301400" data-likes="8470" data-ratio="0" data-eng="2.9" data-followers="570400">
             <div class="kol-head">
                 <span class="kol-plat-icon">🎵</span>
                 <div class="kol-info">
@@ -3473,7 +3502,7 @@ Tulis aja “Gas” di Comment, nanti aku b</a>
                 <a href="https://www.tiktok.com/@noellesimpson_/video/7306979847803292970" target="_blank" class="kvid-title">Replying to @uty900 photo editing apps you need!! #photoediting #editingapps #ed</a>
             </div>
         </div>
-        <div class="kol-card" data-country="ID" data-match="290" data-hot="0" data-views="2500000" data-likes="70500" data-ratio="0" data-eng="2.9">
+        <div class="kol-card" data-country="ID" data-platform="tiktok" data-match="290" data-hot="0" data-views="2500000" data-likes="70500" data-ratio="0" data-eng="2.9" data-followers="111700">
             <div class="kol-head">
                 <span class="kol-plat-icon">🎵</span>
                 <div class="kol-info">
@@ -3516,7 +3545,7 @@ Tulis aja “Gas” di Comment, nanti aku b</a>
                 <a href="https://www.tiktok.com/@gavinvisual/video/7223970933319503130" target="_blank" class="kvid-title">Aplikasi editing foto apa yang paling sering lo pake? Mau belajar setting kamera</a>
             </div>
         </div>
-        <div class="kol-card" data-country="IN" data-match="289" data-hot="0" data-views="1300000" data-likes="15600" data-ratio="0" data-eng="2.89">
+        <div class="kol-card" data-country="IN" data-platform="tiktok" data-match="289" data-hot="0" data-views="1300000" data-likes="15600" data-ratio="0" data-eng="2.89" data-followers="619400">
             <div class="kol-head">
                 <span class="kol-plat-icon">🎵</span>
                 <div class="kol-info">
@@ -3560,7 +3589,7 @@ Tulis aja “Gas” di Comment, nanti aku b</a>
 capcut membantu saya memulihkan foto-foto lam</a>
             </div>
         </div>
-        <div class="kol-card" data-country="IN" data-match="279" data-hot="0" data-views="1600000" data-likes="43400" data-ratio="0" data-eng="2.79">
+        <div class="kol-card" data-country="IN" data-platform="tiktok" data-match="279" data-hot="0" data-views="1600000" data-likes="43400" data-ratio="0" data-eng="2.79" data-followers="171200">
             <div class="kol-head">
                 <span class="kol-plat-icon">🎵</span>
                 <div class="kol-info">
@@ -3603,7 +3632,7 @@ capcut membantu saya memulihkan foto-foto lam</a>
                 <a href="https://www.tiktok.com/@aikapacheng_/video/7364425245811379462" target="_blank" class="kvid-title">Replying to @eunicehojilla6 Here&#x27;s the TUTORIAL.. 🥰❤️ (Plus, how to edit in Remi</a>
             </div>
         </div>
-        <div class="kol-card" data-country="IN" data-match="268" data-hot="0" data-views="829600" data-likes="19400" data-ratio="0" data-eng="2.68">
+        <div class="kol-card" data-country="IN" data-platform="tiktok" data-match="268" data-hot="0" data-views="829600" data-likes="19400" data-ratio="0" data-eng="2.68" data-followers="10400">
             <div class="kol-head">
                 <span class="kol-plat-icon">🎵</span>
                 <div class="kol-info">
@@ -3646,7 +3675,7 @@ capcut membantu saya memulihkan foto-foto lam</a>
                 <a href="https://www.tiktok.com/@ximm.cs/video/7253976624419409157" target="_blank" class="kvid-title">Respuesta a @Karen Reyes tutorial de como hacer las fotos con el bebé en la app </a>
             </div>
         </div>
-        <div class="kol-card" data-country="ID" data-match="262" data-hot="0" data-views="13800000" data-likes="299300" data-ratio="0" data-eng="2.62">
+        <div class="kol-card" data-country="ID" data-platform="tiktok" data-match="262" data-hot="0" data-views="13800000" data-likes="299300" data-ratio="0" data-eng="2.62" data-followers="2834">
             <div class="kol-head">
                 <span class="kol-plat-icon">🎵</span>
                 <div class="kol-info">
@@ -3691,7 +3720,7 @@ capcut membantu saya memulihkan foto-foto lam</a>
 #Gemini #IA #JuniorH #tutoriales #creatorsearchinsights </a>
             </div>
         </div>
-        <div class="kol-card" data-country="IN" data-match="248" data-hot="0" data-views="41300" data-likes="754" data-ratio="0" data-eng="2.48">
+        <div class="kol-card" data-country="IN" data-platform="tiktok" data-match="248" data-hot="0" data-views="41300" data-likes="754" data-ratio="0" data-eng="2.48" data-followers="459">
             <div class="kol-head">
                 <span class="kol-plat-icon">🎵</span>
                 <div class="kol-info">
@@ -3734,7 +3763,7 @@ capcut membantu saya memulihkan foto-foto lam</a>
                 <a href="https://www.tiktok.com/@j3151392dsj/video/7620784083681021206" target="_blank" class="kvid-title">Old Photo Restoration How to make old pictures look 4K ready | Tutorial I just c</a>
             </div>
         </div>
-        <div class="kol-card" data-country="IN" data-match="247" data-hot="0" data-views="70400" data-likes="1503" data-ratio="0" data-eng="2.47">
+        <div class="kol-card" data-country="IN" data-platform="tiktok" data-match="247" data-hot="0" data-views="70400" data-likes="1503" data-ratio="0" data-eng="2.47" data-followers="43800">
             <div class="kol-head">
                 <span class="kol-plat-icon">🎵</span>
                 <div class="kol-info">
@@ -3777,7 +3806,7 @@ capcut membantu saya memulihkan foto-foto lam</a>
                 <a href="https://www.tiktok.com/@royalzim/video/7562649233803726092" target="_blank" class="kvid-title">Prompt: “Enhance and restore this old physical photograph. Remove scratches, dus</a>
             </div>
         </div>
-        <div class="kol-card" data-country="TH" data-match="243" data-hot="0" data-views="11400000" data-likes="219500" data-ratio="0" data-eng="2.43">
+        <div class="kol-card" data-country="TH" data-platform="tiktok" data-match="243" data-hot="0" data-views="11400000" data-likes="219500" data-ratio="0" data-eng="2.43" data-followers="15300">
             <div class="kol-head">
                 <span class="kol-plat-icon">🎵</span>
                 <div class="kol-info">
@@ -3820,7 +3849,7 @@ capcut membantu saya memulihkan foto-foto lam</a>
                 <a href="https://www.tiktok.com/@zommi.pakinpateaw/video/7549892079120354568" target="_blank" class="kvid-title">ทำรูปคู่กับดาราในดวงใจด้วย Ai gemini ✨ เหมือนจริงมากก อยากได้แบบจับหัว โอบไหล่ ก</a>
             </div>
         </div>
-        <div class="kol-card" data-country="US" data-match="240" data-hot="0" data-views="2300000" data-likes="17200" data-ratio="0" data-eng="2.4">
+        <div class="kol-card" data-country="US" data-platform="tiktok" data-match="240" data-hot="0" data-views="2300000" data-likes="17200" data-ratio="0" data-eng="2.4" data-followers="8390">
             <div class="kol-head">
                 <span class="kol-plat-icon">🎵</span>
                 <div class="kol-info">
@@ -3863,7 +3892,7 @@ capcut membantu saya memulihkan foto-foto lam</a>
                 <a href="https://www.tiktok.com/@uet6k8bbt5/video/7586644212717096213" target="_blank" class="kvid-title">✨ The AI Couple Embrace in the Rain — Google Gemini Rain AI Effect Tutorial 🌧️ T</a>
             </div>
         </div>
-        <div class="kol-card" data-country="IN" data-match="235" data-hot="0" data-views="1600000" data-likes="31600" data-ratio="0" data-eng="2.35">
+        <div class="kol-card" data-country="IN" data-platform="tiktok" data-match="235" data-hot="0" data-views="1600000" data-likes="31600" data-ratio="0" data-eng="2.35" data-followers="140800">
             <div class="kol-head">
                 <span class="kol-plat-icon">🎵</span>
                 <div class="kol-info">
@@ -3906,7 +3935,7 @@ capcut membantu saya memulihkan foto-foto lam</a>
                 <a href="https://www.tiktok.com/@kabod_7/video/7254294682505612549" target="_blank" class="kvid-title">Replying to @Confidence   #pregnancyfilter #tutorial #fypage #viralvideo #fypシ #</a>
             </div>
         </div>
-        <div class="kol-card" data-country="US" data-match="223" data-hot="0" data-views="477900" data-likes="10300" data-ratio="0" data-eng="2.23">
+        <div class="kol-card" data-country="US" data-platform="tiktok" data-match="223" data-hot="0" data-views="477900" data-likes="10300" data-ratio="0" data-eng="2.23" data-followers="465600">
             <div class="kol-head">
                 <span class="kol-plat-icon">🎵</span>
                 <div class="kol-info">
@@ -3951,7 +3980,7 @@ photo editing tutorial
 best edit</a>
             </div>
         </div>
-        <div class="kol-card" data-country="ID" data-match="222" data-hot="0" data-views="478000" data-likes="10300" data-ratio="0" data-eng="2.22">
+        <div class="kol-card" data-country="ID" data-platform="tiktok" data-match="222" data-hot="0" data-views="478000" data-likes="10300" data-ratio="0" data-eng="2.22" data-followers="465600">
             <div class="kol-head">
                 <span class="kol-plat-icon">🎵</span>
                 <div class="kol-info">
@@ -3996,7 +4025,7 @@ photo editing tutorial
 best edit</a>
             </div>
         </div>
-        <div class="kol-card" data-country="US" data-match="208" data-hot="0" data-views="912" data-likes="19" data-ratio="0" data-eng="2.08">
+        <div class="kol-card" data-country="US" data-platform="tiktok" data-match="208" data-hot="0" data-views="912" data-likes="19" data-ratio="0" data-eng="2.08" data-followers="33">
             <div class="kol-head">
                 <span class="kol-plat-icon">🎵</span>
                 <div class="kol-info">
@@ -4041,7 +4070,7 @@ Try it yourself on Picsart ✨
 #Pics</a>
             </div>
         </div>
-        <div class="kol-card" data-country="ID" data-match="208" data-hot="0" data-views="82900" data-likes="1538" data-ratio="0" data-eng="2.08">
+        <div class="kol-card" data-country="ID" data-platform="tiktok" data-match="208" data-hot="0" data-views="82900" data-likes="1538" data-ratio="0" data-eng="2.08" data-followers="4373">
             <div class="kol-head">
                 <span class="kol-plat-icon">🎵</span>
                 <div class="kol-info">
@@ -4086,7 +4115,7 @@ Try it yourself on Picsart ✨
 Upload a photo, type a prompt, and</a>
             </div>
         </div>
-        <div class="kol-card" data-country="IN" data-match="206" data-hot="0" data-views="631" data-likes="7" data-ratio="0" data-eng="2.06">
+        <div class="kol-card" data-country="IN" data-platform="tiktok" data-match="206" data-hot="0" data-views="631" data-likes="7" data-ratio="0" data-eng="2.06" data-followers="5">
             <div class="kol-head">
                 <span class="kol-plat-icon">🎵</span>
                 <div class="kol-info">
@@ -4131,7 +4160,7 @@ Upload a photo, type a prompt, and</a>
 Use Cover Craft (https://apps.a</a>
             </div>
         </div>
-        <div class="kol-card" data-country="IN" data-match="202" data-hot="0" data-views="229000" data-likes="4332" data-ratio="0" data-eng="2.03">
+        <div class="kol-card" data-country="IN" data-platform="tiktok" data-match="202" data-hot="0" data-views="229000" data-likes="4332" data-ratio="0" data-eng="2.03" data-followers="370600">
             <div class="kol-head">
                 <span class="kol-plat-icon">🎵</span>
                 <div class="kol-info">
@@ -4176,7 +4205,7 @@ Use Cover Craft (https://apps.a</a>
 Looki</a>
             </div>
         </div>
-        <div class="kol-card" data-country="ID" data-match="202" data-hot="0" data-views="229000" data-likes="4332" data-ratio="0" data-eng="2.03">
+        <div class="kol-card" data-country="ID" data-platform="tiktok" data-match="202" data-hot="0" data-views="229000" data-likes="4332" data-ratio="0" data-eng="2.03" data-followers="370600">
             <div class="kol-head">
                 <span class="kol-plat-icon">🎵</span>
                 <div class="kol-info">
@@ -4221,7 +4250,7 @@ Looki</a>
 Looki</a>
             </div>
         </div>
-        <div class="kol-card" data-country="ID" data-match="193" data-hot="0" data-views="1900000" data-likes="35500" data-ratio="0" data-eng="1.93">
+        <div class="kol-card" data-country="ID" data-platform="tiktok" data-match="193" data-hot="0" data-views="1900000" data-likes="35500" data-ratio="0" data-eng="1.93" data-followers="1400000">
             <div class="kol-head">
                 <span class="kol-plat-icon">🎵</span>
                 <div class="kol-info">
@@ -4264,7 +4293,7 @@ Looki</a>
                 <a href="https://www.tiktok.com/@ystrdynow/video/7229645892729523483" target="_blank" class="kvid-title">Ngedit foto selfie jadi ga ribet karena semua fitur ada di satu aplikasi EPIK. K</a>
             </div>
         </div>
-        <div class="kol-card" data-country="IN" data-match="191" data-hot="0" data-views="972900" data-likes="17600" data-ratio="0" data-eng="1.91">
+        <div class="kol-card" data-country="IN" data-platform="tiktok" data-match="191" data-hot="0" data-views="972900" data-likes="17600" data-ratio="0" data-eng="1.91" data-followers="6109">
             <div class="kol-head">
                 <span class="kol-plat-icon">🎵</span>
                 <div class="kol-info">
@@ -4307,7 +4336,7 @@ Looki</a>
                 <a href="https://www.tiktok.com/@veronicaavilang/video/7390930803468897542" target="_blank" class="kvid-title">Respuesta a @bracho_2004 Aqui esta 👀 #remini #tutorial </a>
             </div>
         </div>
-        <div class="kol-card" data-country="TH" data-match="170" data-hot="0" data-views="130000" data-likes="1717" data-ratio="0" data-eng="1.7">
+        <div class="kol-card" data-country="TH" data-platform="tiktok" data-match="170" data-hot="0" data-views="130000" data-likes="1717" data-ratio="0" data-eng="1.7" data-followers="174100">
             <div class="kol-head">
                 <span class="kol-plat-icon">🎵</span>
                 <div class="kol-info">
@@ -4352,7 +4381,7 @@ Looki</a>
 #รีวิวแอป #แอปดีบอกต่อ </a>
             </div>
         </div>
-        <div class="kol-card" data-country="IN" data-match="161" data-hot="0" data-views="886500" data-likes="14100" data-ratio="0" data-eng="1.61">
+        <div class="kol-card" data-country="IN" data-platform="tiktok" data-match="161" data-hot="0" data-views="886500" data-likes="14100" data-ratio="0" data-eng="1.61" data-followers="474200">
             <div class="kol-head">
                 <span class="kol-plat-icon">🎵</span>
                 <div class="kol-info">
@@ -4395,7 +4424,7 @@ Looki</a>
                 <a href="https://www.tiktok.com/@manymias/video/7619751718422678806" target="_blank" class="kvid-title">Best app! @meitu global </a>
             </div>
         </div>
-        <div class="kol-card" data-country="IN" data-match="158" data-hot="0" data-views="284800" data-likes="4126" data-ratio="0" data-eng="1.58">
+        <div class="kol-card" data-country="IN" data-platform="tiktok" data-match="158" data-hot="0" data-views="284800" data-likes="4126" data-ratio="0" data-eng="1.58" data-followers="291">
             <div class="kol-head">
                 <span class="kol-plat-icon">🎵</span>
                 <div class="kol-info">
@@ -4439,7 +4468,7 @@ Looki</a>
 #canoncamera #canonr50 #photoediting #photoedits #photo</a>
             </div>
         </div>
-        <div class="kol-card" data-country="ID" data-match="155" data-hot="0" data-views="608300" data-likes="8792" data-ratio="0" data-eng="1.55">
+        <div class="kol-card" data-country="ID" data-platform="tiktok" data-match="155" data-hot="0" data-views="608300" data-likes="8792" data-ratio="0" data-eng="1.55" data-followers="3000000">
             <div class="kol-head">
                 <span class="kol-plat-icon">🎵</span>
                 <div class="kol-info">
@@ -4482,7 +4511,7 @@ Looki</a>
                 <a href="https://www.tiktok.com/@alcala.creativo/video/7470326387946179845" target="_blank" class="kvid-title">Esto es increíble - editar fotos con IA </a>
             </div>
         </div>
-        <div class="kol-card" data-country="IN" data-match="153" data-hot="0" data-views="993800" data-likes="12500" data-ratio="0" data-eng="1.53">
+        <div class="kol-card" data-country="IN" data-platform="tiktok" data-match="153" data-hot="0" data-views="993800" data-likes="12500" data-ratio="0" data-eng="1.53" data-followers="111900">
             <div class="kol-head">
                 <span class="kol-plat-icon">🎵</span>
                 <div class="kol-info">
@@ -4526,7 +4555,7 @@ Looki</a>
 #photoshop #adobe #photorestoration #res</a>
             </div>
         </div>
-        <div class="kol-card" data-country="IN" data-match="142" data-hot="0" data-views="20800" data-likes="273" data-ratio="0" data-eng="1.42">
+        <div class="kol-card" data-country="IN" data-platform="tiktok" data-match="142" data-hot="0" data-views="20800" data-likes="273" data-ratio="0" data-eng="1.42" data-followers="53800">
             <div class="kol-head">
                 <span class="kol-plat-icon">🎵</span>
                 <div class="kol-info">
@@ -4569,7 +4598,7 @@ Looki</a>
                 <a href="https://www.tiktok.com/@carolmashava/video/7273624536464018694" target="_blank" class="kvid-title">Replying to @talempofu How to use Remini app, #tiktokdatshau #tiktokthatshau #ca</a>
             </div>
         </div>
-        <div class="kol-card" data-country="US" data-match="140" data-hot="0" data-views="58700" data-likes="692" data-ratio="0" data-eng="1.4">
+        <div class="kol-card" data-country="US" data-platform="tiktok" data-match="140" data-hot="0" data-views="58700" data-likes="692" data-ratio="0" data-eng="1.4" data-followers="25800">
             <div class="kol-head">
                 <span class="kol-plat-icon">🎵</span>
                 <div class="kol-info">
@@ -4612,7 +4641,7 @@ Looki</a>
                 <a href="https://www.tiktok.com/@theaiimpact/video/7545458959331642631" target="_blank" class="kvid-title">Google’s hidden FREE AI image editor just changed the game. It’s buried inside G</a>
             </div>
         </div>
-        <div class="kol-card" data-country="TH" data-match="134" data-hot="0" data-views="2200000" data-likes="23300" data-ratio="0" data-eng="1.34">
+        <div class="kol-card" data-country="TH" data-platform="tiktok" data-match="134" data-hot="0" data-views="2200000" data-likes="23300" data-ratio="0" data-eng="1.34" data-followers="21400">
             <div class="kol-head">
                 <span class="kol-plat-icon">🎵</span>
                 <div class="kol-info">
@@ -4655,7 +4684,7 @@ Looki</a>
                 <a href="https://www.tiktok.com/@nokshop_ubon/video/7471703840673320199" target="_blank" class="kvid-title">วิธีเปลี่ยนชุดด้วยAi #แอพbeautycam #เสื้อผีเสื้อ </a>
             </div>
         </div>
-        <div class="kol-card" data-country="IN" data-match="106" data-hot="0" data-views="48800" data-likes="454" data-ratio="0" data-eng="1.06">
+        <div class="kol-card" data-country="IN" data-platform="tiktok" data-match="106" data-hot="0" data-views="48800" data-likes="454" data-ratio="0" data-eng="1.06" data-followers="6274">
             <div class="kol-head">
                 <span class="kol-plat-icon">🎵</span>
                 <div class="kol-info">
@@ -4698,7 +4727,7 @@ Looki</a>
                 <a href="https://www.tiktok.com/@aureliustjin/video/7204633330975919362" target="_blank" class="kvid-title">This useful AI website restores old and blurry photos for free. #aiwebsite #aito</a>
             </div>
         </div>
-        <div class="kol-card" data-country="IN" data-match="102" data-hot="0" data-views="16500000" data-likes="166000" data-ratio="0" data-eng="1.02">
+        <div class="kol-card" data-country="IN" data-platform="tiktok" data-match="102" data-hot="0" data-views="16500000" data-likes="166000" data-ratio="0" data-eng="1.02" data-followers="70300">
             <div class="kol-head">
                 <span class="kol-plat-icon">🎵</span>
                 <div class="kol-info">
@@ -4742,7 +4771,7 @@ Looki</a>
 #hypiccreator #hypicforu #oldp</a>
             </div>
         </div>
-        <div class="kol-card" data-country="IN" data-match="95" data-hot="0" data-views="144400" data-likes="1308" data-ratio="0" data-eng="0.95">
+        <div class="kol-card" data-country="IN" data-platform="tiktok" data-match="95" data-hot="0" data-views="144400" data-likes="1308" data-ratio="0" data-eng="0.95" data-followers="284">
             <div class="kol-head">
                 <span class="kol-plat-icon">🎵</span>
                 <div class="kol-info">
@@ -4785,7 +4814,7 @@ Looki</a>
                 <a href="https://www.tiktok.com/@valentina_prettyup/video/7584214015790927126" target="_blank" class="kvid-title">I love!! #fyp #ai #pics </a>
             </div>
         </div>
-        <div class="kol-card" data-country="IN" data-match="92" data-hot="0" data-views="11100" data-likes="80" data-ratio="0" data-eng="0.92">
+        <div class="kol-card" data-country="IN" data-platform="tiktok" data-match="92" data-hot="0" data-views="11100" data-likes="80" data-ratio="0" data-eng="0.92" data-followers="880">
             <div class="kol-head">
                 <span class="kol-plat-icon">🎵</span>
                 <div class="kol-info">
@@ -4828,7 +4857,7 @@ Looki</a>
                 <a href="https://www.tiktok.com/@theylove.jenei/video/7253988154686917934" target="_blank" class="kvid-title">Replying to @soy Eli  🦋! I hoped it helped lmaooo, it was so bad 😂😂 but i tried </a>
             </div>
         </div>
-        <div class="kol-card" data-country="ID" data-match="87" data-hot="0" data-views="380700" data-likes="3178" data-ratio="0" data-eng="0.87">
+        <div class="kol-card" data-country="ID" data-platform="tiktok" data-match="87" data-hot="0" data-views="380700" data-likes="3178" data-ratio="0" data-eng="0.87" data-followers="298">
             <div class="kol-head">
                 <span class="kol-plat-icon">🎵</span>
                 <div class="kol-info">
@@ -4871,7 +4900,7 @@ Looki</a>
                 <a href="https://www.tiktok.com/@elletakespics/video/7573829756672625933" target="_blank" class="kvid-title">sorry not sorry #pixelcut #edit #phototips #editingtutorial #generativeai </a>
             </div>
         </div>
-        <div class="kol-card" data-country="IN" data-match="76" data-hot="0" data-views="3809" data-likes="29" data-ratio="0" data-eng="0.76">
+        <div class="kol-card" data-country="IN" data-platform="tiktok" data-match="76" data-hot="0" data-views="3809" data-likes="29" data-ratio="0" data-eng="0.76" data-followers="1261">
             <div class="kol-head">
                 <span class="kol-plat-icon">🎵</span>
                 <div class="kol-info">
@@ -4916,7 +4945,7 @@ Looki</a>
 #aibeauty#photoediting #beforeafter </a>
             </div>
         </div>
-        <div class="kol-card" data-country="IN" data-match="73" data-hot="0" data-views="85400" data-likes="473" data-ratio="0" data-eng="0.73">
+        <div class="kol-card" data-country="IN" data-platform="tiktok" data-match="73" data-hot="0" data-views="85400" data-likes="473" data-ratio="0" data-eng="0.73" data-followers="11500">
             <div class="kol-head">
                 <span class="kol-plat-icon">🎵</span>
                 <div class="kol-info">
@@ -4959,7 +4988,7 @@ Looki</a>
                 <a href="https://www.tiktok.com/@ai_jhoms/video/7594282668083236116" target="_blank" class="kvid-title">Restore old photo using gogle gemini. Prompt? Check the comment</a>
             </div>
         </div>
-        <div class="kol-card" data-country="US" data-match="71" data-hot="0" data-views="240100" data-likes="1613" data-ratio="0" data-eng="0.71">
+        <div class="kol-card" data-country="US" data-platform="tiktok" data-match="71" data-hot="0" data-views="240100" data-likes="1613" data-ratio="0" data-eng="0.71" data-followers="23000">
             <div class="kol-head">
                 <span class="kol-plat-icon">🎵</span>
                 <div class="kol-info">
@@ -5002,7 +5031,7 @@ Looki</a>
                 <a href="https://www.tiktok.com/@tamara.mei/video/7269952012446338310" target="_blank" class="kvid-title">really exposing myself here BUT it was my first time trying AI and I have to adm</a>
             </div>
         </div>
-        <div class="kol-card" data-country="IN" data-match="65" data-hot="0" data-views="3235" data-likes="20" data-ratio="0" data-eng="0.65">
+        <div class="kol-card" data-country="IN" data-platform="tiktok" data-match="65" data-hot="0" data-views="3235" data-likes="20" data-ratio="0" data-eng="0.65" data-followers="32000">
             <div class="kol-head">
                 <span class="kol-plat-icon">🎵</span>
                 <div class="kol-info">
@@ -5047,7 +5076,7 @@ Looki</a>
 #epikapp #body #photoed</a>
             </div>
         </div>
-        <div class="kol-card" data-country="IN" data-match="63" data-hot="0" data-views="262200" data-likes="1600" data-ratio="0" data-eng="0.63">
+        <div class="kol-card" data-country="IN" data-platform="tiktok" data-match="63" data-hot="0" data-views="262200" data-likes="1600" data-ratio="0" data-eng="0.63" data-followers="2353">
             <div class="kol-head">
                 <span class="kol-plat-icon">🎵</span>
                 <div class="kol-info">
@@ -5090,7 +5119,7 @@ Looki</a>
                 <a href="https://www.tiktok.com/@pierced.princesss/video/7526710664199539999" target="_blank" class="kvid-title">WHY IS MY FYP LIKE THIS 😭</a>
             </div>
         </div>
-        <div class="kol-card" data-country="IN" data-match="57" data-hot="0" data-views="135900" data-likes="596" data-ratio="0" data-eng="0.58">
+        <div class="kol-card" data-country="IN" data-platform="tiktok" data-match="57" data-hot="0" data-views="135900" data-likes="596" data-ratio="0" data-eng="0.58" data-followers="22800">
             <div class="kol-head">
                 <span class="kol-plat-icon">🎵</span>
                 <div class="kol-info">
@@ -5136,7 +5165,7 @@ Looki</a>
 Photo Res</a>
             </div>
         </div>
-        <div class="kol-card" data-country="IN" data-match="56" data-hot="0" data-views="94200" data-likes="427" data-ratio="0" data-eng="0.57">
+        <div class="kol-card" data-country="IN" data-platform="tiktok" data-match="56" data-hot="0" data-views="94200" data-likes="427" data-ratio="0" data-eng="0.57" data-followers="99400">
             <div class="kol-head">
                 <span class="kol-plat-icon">🎵</span>
                 <div class="kol-info">
@@ -5179,7 +5208,7 @@ Photo Res</a>
                 <a href="https://www.tiktok.com/@myheritage/video/7244476210267376898" target="_blank" class="kvid-title">Surprise a loved one by restoring their old photos! ✨ Download: @Reimagine: Scan</a>
             </div>
         </div>
-        <div class="kol-card" data-country="TH" data-match="48" data-hot="0" data-views="2932" data-likes="10" data-ratio="0" data-eng="0.48">
+        <div class="kol-card" data-country="TH" data-platform="tiktok" data-match="48" data-hot="0" data-views="2932" data-likes="10" data-ratio="0" data-eng="0.48" data-followers="1151">
             <div class="kol-head">
                 <span class="kol-plat-icon">🎵</span>
                 <div class="kol-info">
@@ -5222,7 +5251,7 @@ Photo Res</a>
                 <a href="https://www.tiktok.com/@kru_fhon/video/7219683591184256283" target="_blank" class="kvid-title">วิธีแต่งรูปให้เป็นภาพวาด AI #ถ่ายคลิปด้วยมือถือ #tiktokhowto #tiktokth #วิธีตัดต</a>
             </div>
         </div>
-        <div class="kol-card" data-country="IN" data-match="45" data-hot="0" data-views="67900" data-likes="291" data-ratio="0" data-eng="0.45">
+        <div class="kol-card" data-country="IN" data-platform="tiktok" data-match="45" data-hot="0" data-views="67900" data-likes="291" data-ratio="0" data-eng="0.45" data-followers="65">
             <div class="kol-head">
                 <span class="kol-plat-icon">🎵</span>
                 <div class="kol-info">
@@ -5265,7 +5294,7 @@ Photo Res</a>
                 <a href="https://www.tiktok.com/@celebcamapp/video/7598936281439161618" target="_blank" class="kvid-title">Ever wondered what a photo with your favorite celebrity would look like? #TateMc</a>
             </div>
         </div>
-        <div class="kol-card" data-country="IN" data-match="44" data-hot="0" data-views="228" data-likes="1" data-ratio="0" data-eng="0.44">
+        <div class="kol-card" data-country="IN" data-platform="tiktok" data-match="44" data-hot="0" data-views="228" data-likes="1" data-ratio="0" data-eng="0.44" data-followers="0">
             <div class="kol-head">
                 <span class="kol-plat-icon">🎵</span>
                 <div class="kol-info">
@@ -5308,7 +5337,7 @@ Photo Res</a>
                 <a href="https://www.tiktok.com/@iguvjcj/video/7625709668458941718" target="_blank" class="kvid-title">Free AI Art Tutorial Alert 🚨 Type in your ideas → Get stunning renderings INSTAN</a>
             </div>
         </div>
-        <div class="kol-card" data-country="TH" data-match="40" data-hot="0" data-views="159300" data-likes="516" data-ratio="0" data-eng="0.4">
+        <div class="kol-card" data-country="TH" data-platform="tiktok" data-match="40" data-hot="0" data-views="159300" data-likes="516" data-ratio="0" data-eng="0.4" data-followers="306">
             <div class="kol-head">
                 <span class="kol-plat-icon">🎵</span>
                 <div class="kol-info">
@@ -5354,7 +5383,7 @@ Photo Res</a>
 1.</a>
             </div>
         </div>
-        <div class="kol-card" data-country="ID" data-match="36" data-hot="0" data-views="8200000" data-likes="28300" data-ratio="0" data-eng="0.36">
+        <div class="kol-card" data-country="ID" data-platform="tiktok" data-match="36" data-hot="0" data-views="8200000" data-likes="28300" data-ratio="0" data-eng="0.36" data-followers="38400">
             <div class="kol-head">
                 <span class="kol-plat-icon">🎵</span>
                 <div class="kol-info">
@@ -5398,7 +5427,7 @@ Photo Res</a>
 #hypic #AIEdit #AIPhoto #AIFilter #AIEnhance #Bef</a>
             </div>
         </div>
-        <div class="kol-card" data-country="US" data-match="33" data-hot="0" data-views="2800000" data-likes="8990" data-ratio="0" data-eng="0.33">
+        <div class="kol-card" data-country="US" data-platform="tiktok" data-match="33" data-hot="0" data-views="2800000" data-likes="8990" data-ratio="0" data-eng="0.33" data-followers="20200">
             <div class="kol-head">
                 <span class="kol-plat-icon">🎵</span>
                 <div class="kol-info">
@@ -5442,7 +5471,7 @@ Photo Res</a>
 #hypic #AIEditing #AI #hypiccreator #AIphoto</a>
             </div>
         </div>
-        <div class="kol-card" data-country="IN" data-match="27" data-hot="0" data-views="97400" data-likes="246" data-ratio="0" data-eng="0.27">
+        <div class="kol-card" data-country="IN" data-platform="tiktok" data-match="27" data-hot="0" data-views="97400" data-likes="246" data-ratio="0" data-eng="0.27" data-followers="35">
             <div class="kol-head">
                 <span class="kol-plat-icon">🎵</span>
                 <div class="kol-info">
@@ -5486,7 +5515,7 @@ Photo Res</a>
 #photogeniq #aiphoto #aitrend #fyp #prompt </a>
             </div>
         </div>
-        <div class="kol-card" data-country="US" data-match="24" data-hot="0" data-views="12600000" data-likes="30300" data-ratio="0" data-eng="0.24">
+        <div class="kol-card" data-country="US" data-platform="tiktok" data-match="24" data-hot="0" data-views="12600000" data-likes="30300" data-ratio="0" data-eng="0.24" data-followers="127600">
             <div class="kol-head">
                 <span class="kol-plat-icon">🎵</span>
                 <div class="kol-info">
@@ -5529,7 +5558,7 @@ Photo Res</a>
                 <a href="https://www.tiktok.com/@libbymorleyy/video/7605682199664315670" target="_blank" class="kvid-title">#dola #uk </a>
             </div>
         </div>
-        <div class="kol-card" data-country="IN" data-match="22" data-hot="0" data-views="36400000" data-likes="76100" data-ratio="0" data-eng="0.22">
+        <div class="kol-card" data-country="IN" data-platform="tiktok" data-match="22" data-hot="0" data-views="36400000" data-likes="76100" data-ratio="0" data-eng="0.22" data-followers="170200">
             <div class="kol-head">
                 <span class="kol-plat-icon">🎵</span>
                 <div class="kol-info">
@@ -5572,7 +5601,7 @@ Photo Res</a>
                 <a href="https://www.tiktok.com/@remini/video/7558478313157676319" target="_blank" class="kvid-title">#remini link in bio!</a>
             </div>
         </div>
-        <div class="kol-card" data-country="IN" data-match="19" data-hot="0" data-views="1060" data-likes="2" data-ratio="0" data-eng="0.19">
+        <div class="kol-card" data-country="IN" data-platform="tiktok" data-match="19" data-hot="0" data-views="1060" data-likes="2" data-ratio="0" data-eng="0.19" data-followers="0">
             <div class="kol-head">
                 <span class="kol-plat-icon">🎵</span>
                 <div class="kol-info">
@@ -5615,7 +5644,7 @@ Photo Res</a>
                 <a href="https://www.tiktok.com/@ukgfdx5/video/7624626229492092182" target="_blank" class="kvid-title">Free AI Art Tutorial Alert 🚨 Type in your ideas → Get stunning renderings INSTAN</a>
             </div>
         </div>
-        <div class="kol-card" data-country="SA" data-match="0" data-hot="0" data-views="0" data-likes="0" data-ratio="0" data-eng="0.0">
+        <div class="kol-card" data-country="SA" data-platform="tiktok" data-match="0" data-hot="0" data-views="0" data-likes="0" data-ratio="0" data-eng="0.0" data-followers="0">
             <div class="kol-head">
                 <span class="kol-plat-icon">🎵</span>
                 <div class="kol-info">
@@ -5658,7 +5687,7 @@ Photo Res</a>
                 <a href="" target="_blank" class="kvid-title">تعديل الصور AI</a>
             </div>
         </div>
-        <div class="kol-card" data-country="SA" data-match="0" data-hot="0" data-views="0" data-likes="0" data-ratio="0" data-eng="0.0">
+        <div class="kol-card" data-country="SA" data-platform="tiktok" data-match="0" data-hot="0" data-views="0" data-likes="0" data-ratio="0" data-eng="0.0" data-followers="0">
             <div class="kol-head">
                 <span class="kol-plat-icon">🎵</span>
                 <div class="kol-info">
@@ -5701,7 +5730,7 @@ Photo Res</a>
                 <a href="" target="_blank" class="kvid-title">تحسين الصور القديمة</a>
             </div>
         </div>
-        <div class="kol-card" data-country="US" data-match="0" data-hot="0" data-views="0" data-likes="0" data-ratio="0" data-eng="0.0">
+        <div class="kol-card" data-country="US" data-platform="tiktok" data-match="0" data-hot="0" data-views="0" data-likes="0" data-ratio="0" data-eng="0.0" data-followers="0">
             <div class="kol-head">
                 <span class="kol-plat-icon">🎵</span>
                 <div class="kol-info">
@@ -5744,7 +5773,7 @@ Photo Res</a>
                 <a href="" target="_blank" class="kvid-title">glow up photo transformation</a>
             </div>
         </div>
-        <div class="kol-card" data-country="US" data-match="0" data-hot="0" data-views="0" data-likes="0" data-ratio="0" data-eng="0.0">
+        <div class="kol-card" data-country="US" data-platform="tiktok" data-match="0" data-hot="0" data-views="0" data-likes="0" data-ratio="0" data-eng="0.0" data-followers="0">
             <div class="kol-head">
                 <span class="kol-plat-icon">🎵</span>
                 <div class="kol-info">
@@ -5787,7 +5816,7 @@ Photo Res</a>
                 <a href="" target="_blank" class="kvid-title">old photo restore app</a>
             </div>
         </div>
-        <div class="kol-card" data-country="BR" data-match="0" data-hot="0" data-views="0" data-likes="0" data-ratio="0" data-eng="0.0">
+        <div class="kol-card" data-country="BR" data-platform="tiktok" data-match="0" data-hot="0" data-views="0" data-likes="0" data-ratio="0" data-eng="0.0" data-followers="0">
             <div class="kol-head">
                 <span class="kol-plat-icon">🎵</span>
                 <div class="kol-info">
@@ -6147,7 +6176,7 @@ Photo Res</a>
 
 <!-- FOOTER -->
 <footer class="site-footer">
-  Apero Creative Insight Bot V8 &nbsp;&bull;&nbsp; 2026-04-07 17:35 &nbsp;&bull;&nbsp;
+  Apero Creative Insight Bot V8 &nbsp;&bull;&nbsp; 2026-04-07 17:40 &nbsp;&bull;&nbsp;
   279 signals from 9 sources &nbsp;&bull;&nbsp;
   <a href="https://github.com/binh171/apero-insight-dashboard" target="_blank">GitHub</a>
 </footer>
@@ -6236,26 +6265,41 @@ function skipInsight(idx) {
 }
 
 function filterKOL() {
-  var country = document.getElementById('kol-country').value;
-  var sortBy  = document.getElementById('kol-sort').value;
-  var grid    = document.getElementById('kol-grid');
-  var cards   = Array.from(grid.querySelectorAll('.kol-card'));
+  var country  = document.getElementById('kol-country').value;
+  var platform = document.getElementById('kol-platform').value;
+  var sortBy   = document.getElementById('kol-sort').value;
+  var search   = (document.getElementById('kol-search').value || '').toLowerCase();
+  var grid     = document.getElementById('kol-grid');
+  var cards    = Array.from(grid.querySelectorAll('.kol-card'));
+  var shown = 0;
 
   cards.forEach(function(c) {
-    var match = !country || c.getAttribute('data-country') === country;
-    c.style.display = match ? '' : 'none';
+    var cc = c.getAttribute('data-country') || '';
+    var plat = c.getAttribute('data-platform') || '';
+    var name = (c.querySelector('.kol-name') || {}).textContent || '';
+    var matchCC   = !country  || cc === country;
+    var matchPlat = !platform || plat === platform;
+    var matchSearch = !search || name.toLowerCase().indexOf(search) >= 0;
+    var vis = matchCC && matchPlat && matchSearch;
+    c.style.display = vis ? '' : 'none';
+    if (vis) shown++;
   });
 
   var visible = cards.filter(function(c) { return c.style.display !== 'none'; });
   visible.sort(function(a, b) {
     var va, vb;
-    if (sortBy === 'views')  { va = parseInt(a.getAttribute('data-views') || 0);  vb = parseInt(b.getAttribute('data-views') || 0); }
-    else if (sortBy === 'likes') { va = parseInt(a.getAttribute('data-likes') || 0);  vb = parseInt(b.getAttribute('data-likes') || 0); }
+    if (sortBy === 'views')     { va = parseInt(a.getAttribute('data-views') || 0);  vb = parseInt(b.getAttribute('data-views') || 0); }
+    else if (sortBy === 'likes'){ va = parseInt(a.getAttribute('data-likes') || 0);  vb = parseInt(b.getAttribute('data-likes') || 0); }
     else if (sortBy === 'eng')  { va = parseFloat(a.getAttribute('data-eng') || 0); vb = parseFloat(b.getAttribute('data-eng') || 0); }
+    else if (sortBy === 'followers') { va = parseInt(a.getAttribute('data-followers') || 0); vb = parseInt(b.getAttribute('data-followers') || 0); }
     else                        { va = parseInt(a.getAttribute('data-match') || 0);  vb = parseInt(b.getAttribute('data-match') || 0); }
     return vb - va;
   });
   visible.forEach(function(c) { grid.appendChild(c); });
+
+  // Update count
+  var counter = document.getElementById('kol-count');
+  if (counter) counter.textContent = shown + ' creators';
 }
 </script>
 </body>
