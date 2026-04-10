@@ -182,6 +182,61 @@ html.light [data-tip]:hover::after { background: #1e293b; }
 .rank-table td { padding: 7px 10px; border-bottom: 1px solid var(--border2); }
 .rank-table tr:hover { background: var(--card-hi); }
 
+/* ─── METRICS TAB ──────────────────────────────────── */
+.mx-section {
+  background: var(--card); border: 1px solid var(--border2); border-radius: var(--radius);
+  padding: 20px; margin-bottom: 16px; box-shadow: var(--shadow);
+}
+.mx-grid-2 {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 0;
+}
+.mx-funnel {
+  display: flex; align-items: center; justify-content: center; gap: 0; flex-wrap: wrap;
+  padding: 16px 0; margin-bottom: 8px;
+}
+.mx-funnel-step {
+  text-align: center; padding: 12px 20px; background: var(--card-hi);
+  border-radius: var(--radius); min-width: 90px;
+}
+.mx-funnel-val { font-size: 28px; font-weight: 800; display: block; }
+.mx-funnel-lbl { font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; margin-top: 2px; }
+.mx-funnel-arrow {
+  font-size: 18px; color: var(--muted2); padding: 0 8px; display: flex; flex-direction: column;
+  align-items: center; gap: 2px;
+}
+.mx-funnel-rate { font-size: 10px; color: var(--accent); font-weight: 600; }
+.mx-funnel-overall {
+  text-align: center; font-size: 12px; color: var(--muted); padding: 8px 0;
+  border-top: 1px solid var(--border2); margin-top: 8px;
+}
+.mx-stat-row { display: flex; gap: 16px; justify-content: center; margin-bottom: 16px; }
+.mx-stat { text-align: center; }
+.mx-stat-val { font-size: 22px; font-weight: 800; color: var(--accent); display: block; }
+.mx-stat-lbl { font-size: 10px; color: var(--muted); text-transform: uppercase; }
+.mx-bar-row { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
+.mx-bar-label { font-size: 11px; color: var(--muted); width: 60px; text-align: right; flex-shrink: 0; }
+.mx-bar-track { flex: 1; height: 16px; background: var(--card-hi); border-radius: 4px; overflow: hidden; }
+.mx-bar-fill { height: 100%; border-radius: 4px; transition: width 0.3s; min-width: 2px; }
+.mx-bar-count { font-size: 11px; font-weight: 600; color: var(--text); width: 30px; text-align: left; }
+.mx-tier-grid { display: flex; flex-direction: column; gap: 16px; }
+.mx-tier-item { padding: 12px 0; }
+.mx-tier-head { font-size: 12px; font-weight: 600; color: var(--text); margin-bottom: 4px; }
+.mx-tier-score { font-size: 20px; font-weight: 800; color: var(--accent); margin-bottom: 6px; }
+.mx-tier-max { font-size: 12px; color: var(--muted); font-weight: 400; }
+.mx-tier-sub { font-size: 10px; color: var(--muted2); margin-top: 4px; }
+.mx-pri-item {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 8px 12px; border-radius: 6px; margin-bottom: 6px;
+  background: var(--card-hi);
+}
+.mx-pri-label { font-size: 12px; font-weight: 500; color: var(--text); }
+.mx-pri-count { font-size: 12px; color: var(--muted); font-weight: 600; }
+@media (max-width: 768px) {
+  .mx-grid-2 { grid-template-columns: 1fr; }
+  .mx-funnel { flex-direction: column; gap: 4px; }
+  .mx-funnel-arrow { transform: rotate(90deg); padding: 4px 0; }
+}
+
 /* ─── GRADIENT SCORE BARS (improved) ───────────────── */
 .sbar-fill { border-radius: 3px; transition: width 0.3s; background: linear-gradient(90deg, var(--from), var(--to)) !important; }
 
@@ -680,7 +735,7 @@ html.light [data-tip]:hover::after { background: #1e293b; }
   </div>
   <div class="site-header-meta">
     <strong>2026-04-08</strong> &nbsp;|&nbsp; Market: <strong>IN</strong> &nbsp;|&nbsp; V8<br>
-    9 sources active &nbsp;&bull;&nbsp; Generated <span id="gen-time">2026-04-08 17:56</span>
+    9 sources active &nbsp;&bull;&nbsp; Generated <span id="gen-time">2026-04-10 09:55</span>
     <div class="refresh-group">
       <span class="data-age" id="data-age"></span>
       <button class="btn-refresh" id="btn-refresh" onclick="doRefresh()" title="Reload dashboard">
@@ -759,6 +814,7 @@ html.light [data-tip]:hover::after { background: #1e293b; }
   <div class="tab" onclick="sw('country',this)">🌍 Country</div>
   <div class="tab" onclick="sw('sources',this)">🔌 Sources</div>
   <div class="tab" onclick="sw('learning',this)">🧠 Learning</div>
+  <div class="tab" onclick="sw('metrics',this)">📊 Metrics</div>
 </nav>
 
 <!-- TAB: INSIGHTS -->
@@ -9045,9 +9101,332 @@ Tulis aja</div>
   <div><div class="learn-note">Top winning insight families: cricket-hero-angle (2), festival-transformation-angle (1), mass-hero-cinematic-angle (1)</div></div>
 </div>
 
+<!-- TAB: METRICS -->
+<div id="t-metrics" class="tc">
+  
+    <div class="mx-section">
+      <div class="sec-title">Signal Funnel</div>
+      <p class="sec-sub">Conversion from raw signals to actionable insights.</p>
+      
+    <div class="mx-funnel">
+      <div class="mx-funnel-step">
+        <div class="mx-funnel-val" style="color:var(--accent)">334</div>
+        <div class="mx-funnel-lbl">Raw Signals</div>
+      </div>
+      <div class="mx-funnel-arrow">→ <span class="mx-funnel-rate">29.94%</span></div>
+      <div class="mx-funnel-step">
+        <div class="mx-funnel-val" style="color:var(--purple)">100</div>
+        <div class="mx-funnel-lbl">Validated</div>
+      </div>
+      <div class="mx-funnel-arrow">→ <span class="mx-funnel-rate">50.00%</span></div>
+      <div class="mx-funnel-step">
+        <div class="mx-funnel-val" style="color:var(--cyan)">50</div>
+        <div class="mx-funnel-lbl">Scored</div>
+      </div>
+      <div class="mx-funnel-arrow">→ <span class="mx-funnel-rate">0.00%</span></div>
+      <div class="mx-funnel-step">
+        <div class="mx-funnel-val" style="color:var(--green)">0</div>
+        <div class="mx-funnel-lbl">Run Today</div>
+      </div>
+    </div>
+    <div class="mx-funnel-overall">Overall conversion: <strong>0.00%</strong> (Raw → Run Today)</div>
+    
+    </div>
+
+    <div class="mx-grid-2">
+      <div class="mx-section">
+        <div class="sec-title" style="font-size:14px">Score Distribution</div>
+        <div class="mx-stat-row">
+          <div class="mx-stat"><span class="mx-stat-val">63.0</span><span class="mx-stat-lbl">Avg Score</span></div>
+          <div class="mx-stat"><span class="mx-stat-val">60.0</span><span class="mx-stat-lbl">Median</span></div>
+          <div class="mx-stat"><span class="mx-stat-val">81.1</span><span class="mx-stat-lbl">Top</span></div>
+        </div>
+        
+        <div class="mx-bar-row">
+          <span class="mx-bar-label">90-100</span>
+          <div class="mx-bar-track"><div class="mx-bar-fill" style="width:0%;background:var(--green)"></div></div>
+          <span class="mx-bar-count">0</span>
+        </div>
+        <div class="mx-bar-row">
+          <span class="mx-bar-label">80-89</span>
+          <div class="mx-bar-track"><div class="mx-bar-fill" style="width:7%;background:#4ade80"></div></div>
+          <span class="mx-bar-count">3</span>
+        </div>
+        <div class="mx-bar-row">
+          <span class="mx-bar-label">70-79</span>
+          <div class="mx-bar-track"><div class="mx-bar-fill" style="width:12%;background:var(--cyan)"></div></div>
+          <span class="mx-bar-count">5</span>
+        </div>
+        <div class="mx-bar-row">
+          <span class="mx-bar-label">60-69</span>
+          <div class="mx-bar-track"><div class="mx-bar-fill" style="width:100%;background:var(--amber)"></div></div>
+          <span class="mx-bar-count">42</span>
+        </div>
+        <div class="mx-bar-row">
+          <span class="mx-bar-label">50-59</span>
+          <div class="mx-bar-track"><div class="mx-bar-fill" style="width:0%;background:#fb923c"></div></div>
+          <span class="mx-bar-count">0</span>
+        </div>
+        <div class="mx-bar-row">
+          <span class="mx-bar-label"><50</span>
+          <div class="mx-bar-track"><div class="mx-bar-fill" style="width:0%;background:var(--red)"></div></div>
+          <span class="mx-bar-count">0</span>
+        </div>
+      </div>
+      <div class="mx-section">
+        <div class="sec-title" style="font-size:14px">3-Tier Scoring</div>
+        
+    <div class="mx-tier-grid">
+      <div class="mx-tier-item">
+        <div class="mx-tier-head">Tier 1: Signal Quality</div>
+        <div class="mx-tier-score">17.7<span class="mx-tier-max">/30</span></div>
+        <div class="mx-bar-track"><div class="mx-bar-fill" style="width:59%;background:var(--accent)"></div></div>
+        <div class="mx-tier-sub">Source reliability + Freshness + Cross-source</div>
+      </div>
+      <div class="mx-tier-item">
+        <div class="mx-tier-head">Tier 2: Install Intent</div>
+        <div class="mx-tier-score">34.0<span class="mx-tier-max">/40</span></div>
+        <div class="mx-bar-track"><div class="mx-bar-fill" style="width:85%;background:var(--purple)"></div></div>
+        <div class="mx-tier-sub">Affinity + Intent + Seasonal + 6D audience fit</div>
+      </div>
+      <div class="mx-tier-item">
+        <div class="mx-tier-head">Tier 3: Market Context</div>
+        <div class="mx-tier-score">20.8<span class="mx-tier-max">/30</span></div>
+        <div class="mx-bar-track"><div class="mx-bar-fill" style="width:69%;background:var(--cyan)"></div></div>
+        <div class="mx-tier-sub">Lifecycle + Competition + Historical</div>
+      </div>
+    </div>
+      </div>
+    </div>
+
+    <div class="mx-grid-2">
+      <div class="mx-section">
+        <div class="sec-title" style="font-size:14px">Priority Breakdown</div>
+        
+        <div class="mx-pri-item" style="border-left:3px solid #3b82f6; background:rgba(59,130,246,0.12)">
+          <span class="mx-pri-label">Watchlist</span>
+          <span class="mx-pri-count">42 (84%)</span>
+        </div>
+        <div class="mx-pri-item" style="border-left:3px solid #f59e0b; background:rgba(245,158,11,0.12)">
+          <span class="mx-pri-label">Test controlled</span>
+          <span class="mx-pri-count">8 (16%)</span>
+        </div>
+      </div>
+      <div class="mx-section">
+        <div class="sec-title" style="font-size:14px">Confidence Level</div>
+        
+        <div class="mx-pri-item" style="border-left:3px solid var(--green)">
+          <span class="mx-pri-label">High</span>
+          <span class="mx-pri-count">5 (10%)</span>
+        </div>
+        <div class="mx-pri-item" style="border-left:3px solid var(--amber)">
+          <span class="mx-pri-label">Medium</span>
+          <span class="mx-pri-count">8 (16%)</span>
+        </div>
+        <div class="mx-pri-item" style="border-left:3px solid var(--red)">
+          <span class="mx-pri-label">Low</span>
+          <span class="mx-pri-count">37 (74%)</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="mx-section">
+      <div class="sec-title" style="font-size:14px">Sub-Score Averages (across 50 insights)</div>
+      <p class="sec-sub">Each dimension scored 0-10. Higher = better signal quality.</p>
+      
+        <div class="mx-bar-row">
+          <span class="mx-bar-label" style="width:120px">Src Reliability</span>
+          <div class="mx-bar-track"><div class="mx-bar-fill" style="width:61%;background:var(--amber)"></div></div>
+          <span class="mx-bar-count">6.1</span>
+        </div>
+        <div class="mx-bar-row">
+          <span class="mx-bar-label" style="width:120px">Freshness</span>
+          <div class="mx-bar-track"><div class="mx-bar-fill" style="width:89%;background:var(--green)"></div></div>
+          <span class="mx-bar-count">8.9</span>
+        </div>
+        <div class="mx-bar-row">
+          <span class="mx-bar-label" style="width:120px">Cross-Source</span>
+          <div class="mx-bar-track"><div class="mx-bar-fill" style="width:39%;background:var(--red)"></div></div>
+          <span class="mx-bar-count">3.9</span>
+        </div>
+        <div class="mx-bar-row">
+          <span class="mx-bar-label" style="width:120px">Engagement</span>
+          <div class="mx-bar-track"><div class="mx-bar-fill" style="width:30%;background:var(--red)"></div></div>
+          <span class="mx-bar-count">3.0</span>
+        </div>
+        <div class="mx-bar-row">
+          <span class="mx-bar-label" style="width:120px">Affinity</span>
+          <div class="mx-bar-track"><div class="mx-bar-fill" style="width:82%;background:var(--green)"></div></div>
+          <span class="mx-bar-count">8.2</span>
+        </div>
+        <div class="mx-bar-row">
+          <span class="mx-bar-label" style="width:120px">Intent</span>
+          <div class="mx-bar-track"><div class="mx-bar-fill" style="width:91%;background:var(--green)"></div></div>
+          <span class="mx-bar-count">9.1</span>
+        </div>
+        <div class="mx-bar-row">
+          <span class="mx-bar-label" style="width:120px">Seasonal</span>
+          <div class="mx-bar-track"><div class="mx-bar-fill" style="width:11%;background:var(--red)"></div></div>
+          <span class="mx-bar-count">1.1</span>
+        </div>
+        <div class="mx-bar-row">
+          <span class="mx-bar-label" style="width:120px">Lifecycle</span>
+          <div class="mx-bar-track"><div class="mx-bar-fill" style="width:58%;background:var(--amber)"></div></div>
+          <span class="mx-bar-count">5.8</span>
+        </div>
+        <div class="mx-bar-row">
+          <span class="mx-bar-label" style="width:120px">Competition</span>
+          <div class="mx-bar-track"><div class="mx-bar-fill" style="width:67%;background:var(--amber)"></div></div>
+          <span class="mx-bar-count">6.7</span>
+        </div>
+        <div class="mx-bar-row">
+          <span class="mx-bar-label" style="width:120px">Historical</span>
+          <div class="mx-bar-track"><div class="mx-bar-fill" style="width:60%;background:var(--amber)"></div></div>
+          <span class="mx-bar-count">6.0</span>
+        </div>
+        <div class="mx-bar-row">
+          <span class="mx-bar-label" style="width:120px">Feasibility</span>
+          <div class="mx-bar-track"><div class="mx-bar-fill" style="width:100%;background:var(--green)"></div></div>
+          <span class="mx-bar-count">10.0</span>
+        </div>
+        <div class="mx-bar-row">
+          <span class="mx-bar-label" style="width:120px">Heat</span>
+          <div class="mx-bar-track"><div class="mx-bar-fill" style="width:61%;background:var(--amber)"></div></div>
+          <span class="mx-bar-count">6.1</span>
+        </div>
+        <div class="mx-bar-row">
+          <span class="mx-bar-label" style="width:120px">Product Fit</span>
+          <div class="mx-bar-track"><div class="mx-bar-fill" style="width:82%;background:var(--green)"></div></div>
+          <span class="mx-bar-count">8.2</span>
+        </div>
+        <div class="mx-bar-row">
+          <span class="mx-bar-label" style="width:120px">CTR Potential</span>
+          <div class="mx-bar-track"><div class="mx-bar-fill" style="width:91%;background:var(--green)"></div></div>
+          <span class="mx-bar-count">9.1</span>
+        </div>
+        <div class="mx-bar-row">
+          <span class="mx-bar-label" style="width:120px">KOL Engagement</span>
+          <div class="mx-bar-track"><div class="mx-bar-fill" style="width:30%;background:var(--red)"></div></div>
+          <span class="mx-bar-count">3.0</span>
+        </div>
+    </div>
+
+    <div class="mx-section">
+      <div class="sec-title" style="font-size:14px">Category Performance</div>
+      <table class="rank-table show" style="width:100%">
+        <thead><tr>
+          <th>Category</th><th style="text-align:center">Count</th>
+          <th style="text-align:center">Top Score</th><th style="text-align:center">Avg Score</th>
+          <th style="text-align:center">Run Today</th>
+        </tr></thead>
+        <tbody><tr>
+          <td>📸 Photo Editing</td>
+          <td style="text-align:center">32</td>
+          <td style="text-align:center;color:var(--accent);font-weight:700">81.1</td>
+          <td style="text-align:center">64.7</td>
+          <td style="text-align:center">0</td>
+        </tr><tr>
+          <td>🌿 Evergreen</td>
+          <td style="text-align:center">3</td>
+          <td style="text-align:center;color:var(--accent);font-weight:700">60.0</td>
+          <td style="text-align:center">60.0</td>
+          <td style="text-align:center">0</td>
+        </tr><tr>
+          <td>🏏 Sports &amp; IPL</td>
+          <td style="text-align:center">3</td>
+          <td style="text-align:center;color:var(--accent);font-weight:700">60.0</td>
+          <td style="text-align:center">60.0</td>
+          <td style="text-align:center">0</td>
+        </tr><tr>
+          <td>🎬 Cinema &amp; Bollywood</td>
+          <td style="text-align:center">9</td>
+          <td style="text-align:center;color:var(--accent);font-weight:700">60.0</td>
+          <td style="text-align:center">60.0</td>
+          <td style="text-align:center">0</td>
+        </tr><tr>
+          <td>🎉 Festivals &amp; Events</td>
+          <td style="text-align:center">1</td>
+          <td style="text-align:center;color:var(--accent);font-weight:700">60.0</td>
+          <td style="text-align:center">60.0</td>
+          <td style="text-align:center">0</td>
+        </tr><tr>
+          <td>💄 Beauty &amp; Glow Up</td>
+          <td style="text-align:center">1</td>
+          <td style="text-align:center;color:var(--accent);font-weight:700">60.0</td>
+          <td style="text-align:center">60.0</td>
+          <td style="text-align:center">0</td>
+        </tr><tr>
+          <td>📌 Video Editing</td>
+          <td style="text-align:center">1</td>
+          <td style="text-align:center;color:var(--accent);font-weight:700">60.0</td>
+          <td style="text-align:center">60.0</td>
+          <td style="text-align:center">0</td>
+        </tr></tbody>
+      </table>
+    </div>
+
+    <div class="mx-section">
+      <div class="sec-title" style="font-size:14px">Source Efficiency</div>
+      <p class="sec-sub">How well each source converts raw signals into scored insights.</p>
+      <table class="rank-table show" style="width:100%">
+        <thead><tr>
+          <th>Source</th><th style="text-align:center">Signals</th>
+          <th style="text-align:center">→ Insights</th><th style="text-align:center">Conversion</th>
+        </tr></thead>
+        <tbody><tr>
+          <td><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#fb923c;margin-right:6px"></span>Social &amp; Reddit</td>
+          <td style="text-align:center">160</td>
+          <td style="text-align:center">0</td>
+          <td style="text-align:center;color:var(--accent)">0.00%</td>
+        </tr><tr>
+          <td><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#06b6d4;margin-right:6px"></span>TikTok KOL</td>
+          <td style="text-align:center">99</td>
+          <td style="text-align:center">0</td>
+          <td style="text-align:center;color:var(--accent)">0.00%</td>
+        </tr><tr>
+          <td><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#ec4899;margin-right:6px"></span>Pinterest</td>
+          <td style="text-align:center">41</td>
+          <td style="text-align:center">0</td>
+          <td style="text-align:center;color:var(--accent)">0.00%</td>
+        </tr><tr>
+          <td><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#94a3b8;margin-right:6px"></span>Social Youtube</td>
+          <td style="text-align:center">15</td>
+          <td style="text-align:center">0</td>
+          <td style="text-align:center;color:var(--accent)">0.00%</td>
+        </tr><tr>
+          <td><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#94a3b8;margin-right:6px"></span>Measurement Trends</td>
+          <td style="text-align:center">8</td>
+          <td style="text-align:center">0</td>
+          <td style="text-align:center;color:var(--accent)">0.00%</td>
+        </tr><tr>
+          <td><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#94a3b8;margin-right:6px"></span>Manual Meta</td>
+          <td style="text-align:center">5</td>
+          <td style="text-align:center">0</td>
+          <td style="text-align:center;color:var(--accent)">0.00%</td>
+        </tr><tr>
+          <td><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#f59e0b;margin-right:6px"></span>Product Hunt</td>
+          <td style="text-align:center">3</td>
+          <td style="text-align:center">0</td>
+          <td style="text-align:center;color:var(--accent)">0.00%</td>
+        </tr><tr>
+          <td><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#a78bfa;margin-right:6px"></span>Calendar &amp; Events</td>
+          <td style="text-align:center">2</td>
+          <td style="text-align:center">0</td>
+          <td style="text-align:center;color:var(--accent)">0.00%</td>
+        </tr><tr>
+          <td><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#94a3b8;margin-right:6px"></span>Manual Internal</td>
+          <td style="text-align:center">1</td>
+          <td style="text-align:center">0</td>
+          <td style="text-align:center;color:var(--accent)">0.00%</td>
+        </tr></tbody>
+      </table>
+    </div>
+    
+</div>
+
 <!-- FOOTER -->
 <footer class="site-footer">
-  Apero Creative Insight Bot V8 &nbsp;&bull;&nbsp; 2026-04-08 17:56 &nbsp;&bull;&nbsp;
+  Apero Creative Insight Bot V8 &nbsp;&bull;&nbsp; 2026-04-10 09:55 &nbsp;&bull;&nbsp;
   334 signals from 9 sources &nbsp;&bull;&nbsp;
   <a href="https://github.com/binh171/apero-insight-dashboard" target="_blank">GitHub</a>
 </footer>
@@ -9208,7 +9587,7 @@ function filterKOL() {
 var _history = [{"date": "2026-04-07", "raw": 340, "validated": 100, "insights": 50, "sources": 9, "kol": 105, "top_score": 90.1, "run_today": 3, "top_insights": [{"name": "Cricket hero angle from Competitor crick", "score": 90.1}, {"name": "Cricket hero angle from cricket photo ed", "score": 90.1}, {"name": "Cricket hero angle from IPL 2026 Season ", "score": 87.1}, {"name": "Festival transformation angle from India", "score": 84.3}, {"name": "Mass hero cinematic angle from BAJRANG B", "score": 81.7}, {"name": "Mass hero cinematic angle from bollywood", "score": 80.3}, {"name": "Mass hero cinematic angle from Taarak Me", "score": 80.3}, {"name": "Transformation angle from Google Photos ", "score": 80.0}, {"name": "Transformation angle from Has AI photo e", "score": 80.0}, {"name": "Transformation angle from The 10 Best AI", "score": 80.0}]}, {"date": "2026-04-08", "raw": 334, "validated": 100, "insights": 50, "sources": 9, "kol": 99, "top_score": 81.1, "run_today": 0, "top_insights": [{"name": "Transformation angle from X expands AI t", "score": 81.1}, {"name": "Transformation angle from X has a slight", "score": 81.1}, {"name": "Transformation angle from X Upgrades Its", "score": 81.1}, {"name": "Transformation angle from The Best Mobil", "score": 79.9}, {"name": "Transformation angle from X rolls out Gr", "score": 79.9}, {"name": "Transformation angle from X debuts in-ap", "score": 78.7}, {"name": "Transformation angle from Has AI photo e", "score": 74.1}, {"name": "Transformation angle from Here is the be", "score": 72.9}, {"name": "Evergreen old-photo restore angle", "score": 60.0}, {"name": "Evergreen old-photo restore angle", "score": 60.0}]}];
 var _briefData = [{"name": "Transformation angle from X expands AI translations and adds in-stream photo editing -", "why": "19 social + 0 measurement proofs; heat 228+0; reason: aspiration; social_only; appearances 2, first seen 0d ago recurring trend.", "tension": "Users want an attractive upgraded version of themselves, aligned with current trends.", "bridge": "Upload photo -> AI creates an upgraded, shareable version.", "angles": ["Before selfie to aspirational portrait inspired by: X expands AI translations and adds in-st", "Upload-photo instant transformation", "Profile-picture upgrade", "Visual wow before/after", "Trend-fit transformation"], "action": "Promising — small budget test, monitor 24h", "window": "24h", "score": 81.1, "priority": "Test controlled"}, {"name": "Transformation angle from X has a slightly more functional photo editor now - Engadget", "why": "15 social + 0 measurement proofs; heat 180+0; reason: aspiration; social_only; appearances 2, first seen 0d ago recurring trend.", "tension": "Users want an attractive upgraded version of themselves, aligned with current trends.", "bridge": "Upload photo -> AI creates an upgraded, shareable version.", "angles": ["Before selfie to aspirational portrait inspired by: X has a slightly more functional photo e", "Upload-photo instant transformation", "Profile-picture upgrade", "Visual wow before/after", "Trend-fit transformation"], "action": "Promising — small budget test, monitor 24h", "window": "24h", "score": 81.1, "priority": "Test controlled"}, {"name": "Transformation angle from X Upgrades Its Photo Editor With Grok AI, But Trust Issues L", "why": "11 social + 0 measurement proofs; heat 132+0; reason: aspiration; social_only; appearances 1, first seen 0d ago.", "tension": "Users want an attractive upgraded version of themselves, aligned with current trends.", "bridge": "Upload photo -> AI creates an upgraded, shareable version.", "angles": ["Before selfie to aspirational portrait inspired by: X Upgrades Its Photo Editor With Grok AI", "Upload-photo instant transformation", "Profile-picture upgrade", "Visual wow before/after", "Trend-fit transformation"], "action": "Promising — small budget test, monitor 24h", "window": "24h", "score": 81.1, "priority": "Test controlled"}, {"name": "Transformation angle from The Best Mobile Photo Editing Apps We've Tested for 2026 - p", "why": "3 social + 0 measurement proofs; heat 36+0; reason: aspiration; social_only; appearances 3, first seen 1d ago recurring trend.", "tension": "Users want an attractive upgraded version of themselves, aligned with current trends.", "bridge": "Upload photo -> AI creates an upgraded, shareable version.", "angles": ["Before selfie to aspirational portrait inspired by: The Best Mobile Photo Editing Apps We've", "Upload-photo instant transformation", "Profile-picture upgrade", "Visual wow before/after", "Trend-fit transformation"], "action": "Promising — small budget test, monitor 24h", "window": "24h", "score": 79.9, "priority": "Test controlled"}, {"name": "Transformation angle from X rolls out Grok-powered AI photo editor, brings in-app imag", "why": "3 social + 0 measurement proofs; heat 36+0; reason: aspiration; social_only; appearances 1, first seen 0d ago.", "tension": "Users want an attractive upgraded version of themselves, aligned with current trends.", "bridge": "Upload photo -> AI creates an upgraded, shareable version.", "angles": ["Before selfie to aspirational portrait inspired by: X rolls out Grok-powered AI photo editor", "Upload-photo instant transformation", "Profile-picture upgrade", "Visual wow before/after", "Trend-fit transformation"], "action": "Promising — small budget test, monitor 24h", "window": "24h", "score": 79.9, "priority": "Test controlled"}, {"name": "Transformation angle from X debuts in-app photo editing tool powered by Grok AI - News", "why": "2 social + 0 measurement proofs; heat 24+0; reason: aspiration; social_only; appearances 1, first seen 0d ago.", "tension": "Users want an attractive upgraded version of themselves, aligned with current trends.", "bridge": "Upload photo -> AI creates an upgraded, shareable version.", "angles": ["Before selfie to aspirational portrait inspired by: X debuts in-app photo editing tool power", "Upload-photo instant transformation", "Profile-picture upgrade", "Visual wow before/after", "Trend-fit transformation"], "action": "Promising — small budget test, monitor 24h", "window": "24h", "score": 78.7, "priority": "Test controlled"}, {"name": "Transformation angle from Has AI photo editing now made taking the photo less importan", "why": "4 social + 0 measurement proofs; heat 48+0; reason: aspiration; social_only; appearances 3, first seen 1d ago recurring trend.", "tension": "Users want an attractive upgraded version of themselves, aligned with current trends.", "bridge": "Upload photo -> AI creates an upgraded, shareable version.", "angles": ["Before selfie to aspirational portrait inspired by: Has AI photo editing now made taking the", "Upload-photo instant transformation", "Profile-picture upgrade", "Visual wow before/after", "Trend-fit transformation"], "action": "Promising — small budget test, monitor 24h", "window": "24h", "score": 74.1, "priority": "Test controlled"}, {"name": "Transformation angle from Here is the best photo editing software to use in 2026 - Ama", "why": "4 social + 0 measurement proofs; heat 48+0; reason: aspiration; social_only; appearances 5, first seen 1d ago recurring trend.", "tension": "Users want an attractive upgraded version of themselves, aligned with current trends.", "bridge": "Upload photo -> AI creates an upgraded, shareable version.", "angles": ["Before selfie to aspirational portrait inspired by: Here is the best photo editing software ", "Upload-photo instant transformation", "Profile-picture upgrade", "Visual wow before/after", "Trend-fit transformation"], "action": "Promising — small budget test, monitor 24h", "window": "24h", "score": 72.9, "priority": "Test controlled"}, {"name": "Evergreen old-photo restore angle", "why": "1 social + 0 measurement proofs; heat 28+0; reason: nostalgia; social_only; appearances 5, first seen 1d ago recurring trend.", "tension": "Users want to rescue old memories — blurred or faded family photos — for emotional sharing.", "bridge": "Upload old/blurred photo -> restore, enhance for emotional sharing.", "angles": ["Old photo restore emotional reveal inspired by: Old photo restore evergreen demand", "Blurred memory to HD portrait", "Family archive cleanup", "Then-vs-now restoration", "Parents youth photo enhancement"], "action": "Monitor signals — not actionable yet", "window": "3-14 days", "score": 60.0, "priority": "Watchlist"}, {"name": "Evergreen old-photo restore angle", "why": "1 social + 0 measurement proofs; heat 24+0; reason: aspiration; social_only; appearances 3, first seen 1d ago recurring trend.", "tension": "Users want to rescue old memories — blurred or faded family photos — for emotional sharing.", "bridge": "Upload old/blurred photo -> restore, enhance for emotional sharing.", "angles": ["Old photo restore emotional reveal inspired by: Competitor photo enhance ads India", "Blurred memory to HD portrait", "Family archive cleanup", "Then-vs-now restoration", "Parents youth photo enhancement"], "action": "Monitor signals — not actionable yet", "window": "24h", "score": 60.0, "priority": "Watchlist"}, {"name": "Transformation angle from X photo editor gets new features - YugaTech", "why": "2 social + 0 measurement proofs; heat 24+0; reason: aspiration; social_only; appearances 2, first seen 0d ago recurring trend.", "tension": "Users want an attractive upgraded version of themselves, aligned with current trends.", "bridge": "Upload photo -> AI creates an upgraded, shareable version.", "angles": ["Before selfie to aspirational portrait inspired by: X photo editor gets new features - YugaT", "Upload-photo instant transformation", "Profile-picture upgrade", "Visual wow before/after", "Trend-fit transformation"], "action": "Monitor signals — not actionable yet", "window": "24h", "score": 60.0, "priority": "Watchlist"}, {"name": "Cricket hero angle from Competitor cricket portrait ads India", "why": "1 social + 0 measurement proofs; heat 20+0; reason: competition; social_only; appearances 15, first seen 1d ago recurring trend.", "tension": "Users want to see themselves as cricket heroes in the context of a hot match.", "bridge": "Upload photo -> AI transforms into cricket hero/captain/winner pose.", "angles": ["Captain entrance hero shot inspired by: Competitor cricket portrait ads India", "Batsman winner pose", "Fan-to-stadium-hero transformation", "Cricket poster with dramatic lighting", "Team-color celebration portrait"], "action": "Monitor signals — not actionable yet", "window": "24-72h", "score": 60.0, "priority": "Watchlist"}, {"name": "Evergreen old-photo restore angle", "why": "1 social + 0 measurement proofs; heat 20+0; reason: aspiration; social_only; appearances 3, first seen 1d ago recurring trend.", "tension": "Users want to rescue old memories — blurred or faded family photos — for emotional sharing.", "bridge": "Upload old/blurred photo -> restore, enhance for emotional sharing.", "angles": ["Old photo restore emotional reveal inspired by: photo enhance India ads", "Blurred memory to HD portrait", "Family archive cleanup", "Then-vs-now restoration", "Parents youth photo enhancement"], "action": "Monitor signals — not actionable yet", "window": "24h", "score": 60.0, "priority": "Watchlist"}, {"name": "Cricket hero angle from cricket photo editing ads", "why": "1 social + 0 measurement proofs; heat 20+0; reason: competition; social_only; appearances 15, first seen 1d ago recurring trend.", "tension": "Users want to see themselves as cricket heroes in the context of a hot match.", "bridge": "Upload photo -> AI transforms into cricket hero/captain/winner pose.", "angles": ["Captain entrance hero shot inspired by: cricket photo editing ads", "Batsman winner pose", "Fan-to-stadium-hero transformation", "Cricket poster with dramatic lighting", "Team-color celebration portrait"], "action": "Monitor signals — not actionable yet", "window": "24-72h", "score": 60.0, "priority": "Watchlist"}, {"name": "Mass hero cinematic angle from Cocktail 2 Song Jab Talak: Rashmika, Shahid, Kriti Put On Th", "why": "2 social + 0 measurement proofs; heat 24+0; reason: celebrity; social_only; appearances 1, first seen 0d ago.", "tension": "Users want a mass hero look with strong cinematic aura worth posting.", "bridge": "Upload photo -> AI creates mass hero look/cinematic poster.", "angles": ["Mass entry hero reveal inspired by: Cocktail 2 Song Jab Talak: Rashmika, Sha", "Action poster transformation", "Fire-and-aura cinematic portrait", "Temple or epic-warrior vibe", "Before selfie to movie-poster hero"], "action": "Monitor signals — not actionable yet", "window": "24-72h", "score": 60.0, "priority": "Watchlist"}, {"name": "Transformation angle from photo editing app India", "why": "0 social + 1 measurement proofs; heat 0+16; reason: aspiration; measurement_only; appearances 3, first seen 1d ago recurring trend.", "tension": "Users want an attractive upgraded version of themselves, aligned with current trends.", "bridge": "Upload photo -> AI creates an upgraded, shareable version.", "angles": ["Before selfie to aspirational portrait inspired by: photo editing app India", "Upload-photo instant transformation", "Profile-picture upgrade", "Visual wow before/after", "Trend-fit transformation"], "action": "Monitor signals — not actionable yet", "window": "24h", "score": 60.0, "priority": "Watchlist"}, {"name": "Transformation angle from AI portrait generator", "why": "0 social + 1 measurement proofs; heat 0+16; reason: aspiration; measurement_only; appearances 3, first seen 1d ago recurring trend.", "tension": "Users want an attractive upgraded version of themselves, aligned with current trends.", "bridge": "Upload photo -> AI creates an upgraded, shareable version.", "angles": ["Before selfie to aspirational portrait inspired by: AI portrait generator", "Upload-photo instant transformation", "Profile-picture upgrade", "Visual wow before/after", "Trend-fit transformation"], "action": "Monitor signals — not actionable yet", "window": "24h", "score": 60.0, "priority": "Watchlist"}, {"name": "Transformation angle from best photo editor 2026", "why": "0 social + 1 measurement proofs; heat 0+16; reason: aspiration; measurement_only; appearances 3, first seen 1d ago recurring trend.", "tension": "Users want an attractive upgraded version of themselves, aligned with current trends.", "bridge": "Upload photo -> AI creates an upgraded, shareable version.", "angles": ["Before selfie to aspirational portrait inspired by: best photo editor 2026", "Upload-photo instant transformation", "Profile-picture upgrade", "Visual wow before/after", "Trend-fit transformation"], "action": "Monitor signals — not actionable yet", "window": "24h", "score": 60.0, "priority": "Watchlist"}, {"name": "Transformation angle from AI headshot app", "why": "0 social + 1 measurement proofs; heat 0+16; reason: aspiration; measurement_only; appearances 3, first seen 1d ago recurring trend.", "tension": "Users want an attractive upgraded version of themselves, aligned with current trends.", "bridge": "Upload photo -> AI creates an upgraded, shareable version.", "angles": ["Before selfie to aspirational portrait inspired by: AI headshot app", "Upload-photo instant transformation", "Profile-picture upgrade", "Visual wow before/after", "Trend-fit transformation"], "action": "Monitor signals — not actionable yet", "window": "24h", "score": 60.0, "priority": "Watchlist"}, {"name": "Transformation angle from photo editing app", "why": "0 social + 1 measurement proofs; heat 0+16; reason: aspiration; measurement_only; appearances 3, first seen 1d ago recurring trend.", "tension": "Users want an attractive upgraded version of themselves, aligned with current trends.", "bridge": "Upload photo -> AI creates an upgraded, shareable version.", "angles": ["Before selfie to aspirational portrait inspired by: photo editing app", "Upload-photo instant transformation", "Profile-picture upgrade", "Visual wow before/after", "Trend-fit transformation"], "action": "Monitor signals — not actionable yet", "window": "24h", "score": 60.0, "priority": "Watchlist"}, {"name": "Transformation angle from editor de fotos AI", "why": "0 social + 1 measurement proofs; heat 0+16; reason: aspiration; measurement_only; appearances 3, first seen 1d ago recurring trend.", "tension": "Users want an attractive upgraded version of themselves, aligned with current trends.", "bridge": "Upload photo -> AI creates an upgraded, shareable version.", "angles": ["Before selfie to aspirational portrait inspired by: editor de fotos AI", "Upload-photo instant transformation", "Profile-picture upgrade", "Visual wow before/after", "Trend-fit transformation"], "action": "Monitor signals — not actionable yet", "window": "24h", "score": 60.0, "priority": "Watchlist"}, {"name": "Transformation angle from edit foto AI", "why": "0 social + 1 measurement proofs; heat 0+16; reason: aspiration; measurement_only; appearances 3, first seen 1d ago recurring trend.", "tension": "Users want an attractive upgraded version of themselves, aligned with current trends.", "bridge": "Upload photo -> AI creates an upgraded, shareable version.", "angles": ["Before selfie to aspirational portrait inspired by: edit foto AI", "Upload-photo instant transformation", "Profile-picture upgrade", "Visual wow before/after", "Trend-fit transformation"], "action": "Monitor signals — not actionable yet", "window": "24h", "score": 60.0, "priority": "Watchlist"}, {"name": "Transformation angle from แอพแต่งรูป", "why": "0 social + 1 measurement proofs; heat 0+16; reason: aspiration; measurement_only; appearances 3, first seen 1d ago recurring trend.", "tension": "Users want an attractive upgraded version of themselves, aligned with current trends.", "bridge": "Upload photo -> AI creates an upgraded, shareable version.", "angles": ["Before selfie to aspirational portrait inspired by: แอพแต่งรูป", "Upload-photo instant transformation", "Profile-picture upgrade", "Visual wow before/after", "Trend-fit transformation"], "action": "Monitor signals — not actionable yet", "window": "24h", "score": 60.0, "priority": "Watchlist"}, {"name": "Cricket hero angle from IPL 2026 Season — daily fixtures & fan moments", "why": "1 social + 0 measurement proofs; heat 12+0; reason: competition; social_only; appearances 15, first seen 1d ago recurring trend.", "tension": "Users want to see themselves as cricket heroes in the context of a hot match.", "bridge": "Upload photo -> AI transforms into cricket hero/captain/winner pose.", "angles": ["Captain entrance hero shot inspired by: IPL 2026 Season — daily fixtures & fan m", "Batsman winner pose", "Fan-to-stadium-hero transformation", "Cricket poster with dramatic lighting", "Team-color celebration portrait"], "action": "Monitor signals — not actionable yet", "window": "24-72h", "score": 60.0, "priority": "Watchlist"}, {"name": "Festival transformation angle from India Festival & Cultural Calendar 2026", "why": "1 social + 0 measurement proofs; heat 12+0; reason: identity/culture; social_only; appearances 15, first seen 1d ago recurring trend.", "tension": "Users want festive/traditional photos that look premium and shareable.", "bridge": "Upload photo -> festive portrait, traditional royal look or clean family portrait.", "angles": ["Traditional royal look inspired by: India Festival & Cultural Calendar 2026", "Festival family portrait upgrade", "Before casual to festive attire", "Celebration-ready DP", "Wedding-season premium portrait"], "action": "Monitor signals — not actionable yet", "window": "2-7 days", "score": 60.0, "priority": "Watchlist"}, {"name": "Transformation angle from Google Photos brings its prompt-based editing feature to Ind", "why": "1 social + 0 measurement proofs; heat 12+0; reason: aspiration; social_only; appearances 3, first seen 1d ago recurring trend.", "tension": "Users want an attractive upgraded version of themselves, aligned with current trends.", "bridge": "Upload photo -> AI creates an upgraded, shareable version.", "angles": ["Before selfie to aspirational portrait inspired by: Google Photos brings its prompt-based ed", "Upload-photo instant transformation", "Profile-picture upgrade", "Visual wow before/after", "Trend-fit transformation"], "action": "Monitor signals — not actionable yet", "window": "24h", "score": 60.0, "priority": "Watchlist"}, {"name": "Transformation angle from Indian American researchers’ tool protects against identity ", "why": "1 social + 0 measurement proofs; heat 12+0; reason: aspiration; social_only; appearances 3, first seen 1d ago recurring trend.", "tension": "Users want an attractive upgraded version of themselves, aligned with current trends.", "bridge": "Upload photo -> AI creates an upgraded, shareable version.", "angles": ["Before selfie to aspirational portrait inspired by: Indian American researchers’ tool protec", "Upload-photo instant transformation", "Profile-picture upgrade", "Visual wow before/after", "Trend-fit transformation"], "action": "Monitor signals — not actionable yet", "window": "24h", "score": 60.0, "priority": "Watchlist"}, {"name": "Transformation angle from Eid-ul-fitr 2026: Easy Gemini AI photo editing prompts for p", "why": "1 social + 0 measurement proofs; heat 12+0; reason: identity/culture; social_only; appearances 3, first seen 1d ago recurring trend.", "tension": "Users want an attractive upgraded version of themselves, aligned with current trends.", "bridge": "Upload photo -> AI creates an upgraded, shareable version.", "angles": ["Before selfie to aspirational portrait inspired by: Eid-ul-fitr 2026: Easy Gemini AI photo e", "Upload-photo instant transformation", "Profile-picture upgrade", "Visual wow before/after", "Trend-fit transformation"], "action": "Monitor signals — not actionable yet", "window": "24h", "score": 60.0, "priority": "Watchlist"}, {"name": "Transformation angle from Google rolls out AI-based image editing in Photos for users ", "why": "1 social + 0 measurement proofs; heat 12+0; reason: aspiration; social_only; appearances 3, first seen 1d ago recurring trend.", "tension": "Users want an attractive upgraded version of themselves, aligned with current trends.", "bridge": "Upload photo -> AI creates an upgraded, shareable version.", "angles": ["Before selfie to aspirational portrait inspired by: Google rolls out AI-based image editing ", "Upload-photo instant transformation", "Profile-picture upgrade", "Visual wow before/after", "Trend-fit transformation"], "action": "Monitor signals — not actionable yet", "window": "24h", "score": 60.0, "priority": "Watchlist"}, {"name": "Transformation angle from Cheer Holding Launches Beta Testing of Klon AI for Overseas ", "why": "1 social + 0 measurement proofs; heat 12+0; reason: aspiration; social_only; appearances 3, first seen 1d ago recurring trend.", "tension": "Users want an attractive upgraded version of themselves, aligned with current trends.", "bridge": "Upload photo -> AI creates an upgraded, shareable version.", "angles": ["Before selfie to aspirational portrait inspired by: Cheer Holding Launches Beta Testing of K", "Upload-photo instant transformation", "Profile-picture upgrade", "Visual wow before/after", "Trend-fit transformation"], "action": "Monitor signals — not actionable yet", "window": "24h", "score": 60.0, "priority": "Watchlist"}, {"name": "Transformation angle from Trendy Portrait App Lensa Is Accused of Creating Nonconsensu", "why": "1 social + 0 measurement proofs; heat 12+0; reason: meme; social_only; appearances 3, first seen 1d ago recurring trend.", "tension": "Users want an attractive upgraded version of themselves, aligned with current trends.", "bridge": "Upload photo -> AI creates an upgraded, shareable version.", "angles": ["Before selfie to aspirational portrait inspired by: Trendy Portrait App Lensa Is Accused of ", "Upload-photo instant transformation", "Profile-picture upgrade", "Visual wow before/after", "Trend-fit transformation"], "action": "Monitor signals — not actionable yet", "window": "24h", "score": 60.0, "priority": "Watchlist"}, {"name": "Transformation angle from 10 Best AI Photo Enhancer Apps for 2026: I Tested Them—Here’", "why": "1 social + 0 measurement proofs; heat 12+0; reason: aspiration; social_only; appearances 3, first seen 1d ago recurring trend.", "tension": "Users want an attractive upgraded version of themselves, aligned with current trends.", "bridge": "Upload photo -> AI creates an upgraded, shareable version.", "angles": ["Before selfie to aspirational portrait inspired by: 10 Best AI Photo Enhancer Apps for 2026:", "Upload-photo instant transformation", "Profile-picture upgrade", "Visual wow before/after", "Trend-fit transformation"], "action": "Monitor signals — not actionable yet", "window": "24h", "score": 60.0, "priority": "Watchlist"}, {"name": "Transformation angle from The 10 Best AI Photo Editing Tools for Fixing Bad Images (20", "why": "1 social + 0 measurement proofs; heat 12+0; reason: aspiration; social_only; appearances 3, first seen 1d ago recurring trend.", "tension": "Users want an attractive upgraded version of themselves, aligned with current trends.", "bridge": "Upload photo -> AI creates an upgraded, shareable version.", "angles": ["Before selfie to aspirational portrait inspired by: The 10 Best AI Photo Editing Tools for F", "Upload-photo instant transformation", "Profile-picture upgrade", "Visual wow before/after", "Trend-fit transformation"], "action": "Monitor signals — not actionable yet", "window": "24h", "score": 60.0, "priority": "Watchlist"}, {"name": "Transformation angle from The 2 Best Photo Editing Apps for Android and iOS of 2026 | ", "why": "1 social + 0 measurement proofs; heat 12+0; reason: aspiration; social_only; appearances 2, first seen 0d ago recurring trend.", "tension": "Users want an attractive upgraded version of themselves, aligned with current trends.", "bridge": "Upload photo -> AI creates an upgraded, shareable version.", "angles": ["Before selfie to aspirational portrait inspired by: The 2 Best Photo Editing Apps for Androi", "Upload-photo instant transformation", "Profile-picture upgrade", "Visual wow before/after", "Trend-fit transformation"], "action": "Monitor signals — not actionable yet", "window": "24h", "score": 60.0, "priority": "Watchlist"}, {"name": "Transformation angle from These are the best photo editing apps to use in 2026 - Amate", "why": "1 social + 0 measurement proofs; heat 12+0; reason: aspiration; social_only; appearances 3, first seen 1d ago recurring trend.", "tension": "Users want an attractive upgraded version of themselves, aligned with current trends.", "bridge": "Upload photo -> AI creates an upgraded, shareable version.", "angles": ["Before selfie to aspirational portrait inspired by: These are the best photo editing apps to", "Upload-photo instant transformation", "Profile-picture upgrade", "Visual wow before/after", "Trend-fit transformation"], "action": "Monitor signals — not actionable yet", "window": "24h", "score": 60.0, "priority": "Watchlist"}, {"name": "Transformation angle from I Tested the Best Photo Editing Apps for Android, Here are M", "why": "1 social + 0 measurement proofs; heat 12+0; reason: aspiration; social_only; appearances 3, first seen 1d ago recurring trend.", "tension": "Users want an attractive upgraded version of themselves, aligned with current trends.", "bridge": "Upload photo -> AI creates an upgraded, shareable version.", "angles": ["Before selfie to aspirational portrait inspired by: I Tested the Best Photo Editing Apps for", "Upload-photo instant transformation", "Profile-picture upgrade", "Visual wow before/after", "Trend-fit transformation"], "action": "Monitor signals — not actionable yet", "window": "24h", "score": 60.0, "priority": "Watchlist"}, {"name": "Transformation angle from Affinity by Canva Promises a Free, No AI Photo Editor. Is it", "why": "1 social + 0 measurement proofs; heat 12+0; reason: aspiration; social_only; appearances 2, first seen 0d ago recurring trend.", "tension": "Users want an attractive upgraded version of themselves, aligned with current trends.", "bridge": "Upload photo -> AI creates an upgraded, shareable version.", "angles": ["Before selfie to aspirational portrait inspired by: Affinity by Canva Promises a Free, No AI", "Upload-photo instant transformation", "Profile-picture upgrade", "Visual wow before/after", "Trend-fit transformation"], "action": "Monitor signals — not actionable yet", "window": "24h", "score": 60.0, "priority": "Watchlist"}, {"name": "Transformation angle from The Best Photo Editing Software We've Tested for 2026 - pcma", "why": "1 social + 0 measurement proofs; heat 12+0; reason: aspiration; social_only; appearances 3, first seen 1d ago recurring trend.", "tension": "Users want an attractive upgraded version of themselves, aligned with current trends.", "bridge": "Upload photo -> AI creates an upgraded, shareable version.", "angles": ["Before selfie to aspirational portrait inspired by: The Best Photo Editing Software We've Te", "Upload-photo instant transformation", "Profile-picture upgrade", "Visual wow before/after", "Trend-fit transformation"], "action": "Monitor signals — not actionable yet", "window": "24h", "score": 60.0, "priority": "Watchlist"}, {"name": "Transformation angle from AI Turbo for Gigafactories: Telekom announces European Indus", "why": "1 social + 0 measurement proofs; heat 12+0; reason: celebrity; social_only; appearances 3, first seen 1d ago recurring trend.", "tension": "Users want an attractive upgraded version of themselves, aligned with current trends.", "bridge": "Upload photo -> AI creates an upgraded, shareable version.", "angles": ["Before selfie to aspirational portrait inspired by: AI Turbo for Gigafactories: Telekom anno", "Upload-photo instant transformation", "Profile-picture upgrade", "Visual wow before/after", "Trend-fit transformation"], "action": "Monitor signals — not actionable yet", "window": "24h", "score": 60.0, "priority": "Watchlist"}, {"name": "Transformation angle from \"Does this match?\" Monday", "why": "1 social + 0 measurement proofs; heat 12+0; reason: competition; social_only; appearances 3, first seen 1d ago recurring trend.", "tension": "Users want an attractive upgraded version of themselves, aligned with current trends.", "bridge": "Upload photo -> AI creates an upgraded, shareable version.", "angles": ["Before selfie to aspirational portrait inspired by: \"Does this match?\" Monday", "Upload-photo instant transformation", "Profile-picture upgrade", "Visual wow before/after", "Trend-fit transformation"], "action": "Monitor signals — not actionable yet", "window": "24h", "score": 60.0, "priority": "Watchlist"}, {"name": "Transformation angle from /r/videography Monthly Camera Buying Advice Megathread", "why": "1 social + 0 measurement proofs; heat 12+0; reason: aspiration; social_only; appearances 3, first seen 1d ago recurring trend.", "tension": "Users want an attractive upgraded version of themselves, aligned with current trends.", "bridge": "Upload photo -> AI creates an upgraded, shareable version.", "angles": ["Before selfie to aspirational portrait inspired by: /r/videography Monthly Camera Buying Adv", "Upload-photo instant transformation", "Profile-picture upgrade", "Visual wow before/after", "Trend-fit transformation"], "action": "Monitor signals — not actionable yet", "window": "24h", "score": 60.0, "priority": "Watchlist"}, {"name": "Mass hero cinematic angle from Viral Video: Allu Arjun Greets Sea Of Fans Outside Hyderabad", "why": "1 social + 0 measurement proofs; heat 12+0; reason: meme; social_only; appearances 1, first seen 0d ago.", "tension": "Users want a mass hero look with strong cinematic aura worth posting.", "bridge": "Upload photo -> AI creates mass hero look/cinematic poster.", "angles": ["Mass entry hero reveal inspired by: Viral Video: Allu Arjun Greets Sea Of Fa", "Action poster transformation", "Fire-and-aura cinematic portrait", "Temple or epic-warrior vibe", "Before selfie to movie-poster hero"], "action": "Monitor signals — not actionable yet", "window": "24-72h", "score": 60.0, "priority": "Watchlist"}, {"name": "Mass hero cinematic angle from Bhooth Bangla Trailer: Akshay Kumar, Priyadarshan And A Stri", "why": "1 social + 0 measurement proofs; heat 12+0; reason: celebrity; social_only; appearances 1, first seen 0d ago.", "tension": "Users want a mass hero look with strong cinematic aura worth posting.", "bridge": "Upload photo -> AI creates mass hero look/cinematic poster.", "angles": ["Mass entry hero reveal inspired by: Bhooth Bangla Trailer: Akshay Kumar, Pri", "Action poster transformation", "Fire-and-aura cinematic portrait", "Temple or epic-warrior vibe", "Before selfie to movie-poster hero"], "action": "Monitor signals — not actionable yet", "window": "24-72h", "score": 60.0, "priority": "Watchlist"}, {"name": "Mass hero cinematic angle from Aditya Dhar Reveals Dhurandhar 2 Casting Brief For 'Fearless", "why": "1 social + 0 measurement proofs; heat 12+0; reason: aspiration; social_only; appearances 1, first seen 0d ago.", "tension": "Users want a mass hero look with strong cinematic aura worth posting.", "bridge": "Upload photo -> AI creates mass hero look/cinematic poster.", "angles": ["Mass entry hero reveal inspired by: Aditya Dhar Reveals Dhurandhar 2 Casting", "Action poster transformation", "Fire-and-aura cinematic portrait", "Temple or epic-warrior vibe", "Before selfie to movie-poster hero"], "action": "Monitor signals — not actionable yet", "window": "24-72h", "score": 60.0, "priority": "Watchlist"}, {"name": "Mass hero cinematic angle from Unable to type even 25 words per minute, 3 Kanpur clerks dem", "why": "1 social + 0 measurement proofs; heat 12+0; reason: aspiration; social_only; appearances 1, first seen 0d ago.", "tension": "Users want a mass hero look with strong cinematic aura worth posting.", "bridge": "Upload photo -> AI creates mass hero look/cinematic poster.", "angles": ["Mass entry hero reveal inspired by: Unable to type even 25 words per minute,", "Action poster transformation", "Fire-and-aura cinematic portrait", "Temple or epic-warrior vibe", "Before selfie to movie-poster hero"], "action": "Monitor signals — not actionable yet", "window": "24-72h", "score": 60.0, "priority": "Watchlist"}, {"name": "Mass hero cinematic angle from What was Pakistan's role in US-Iran ceasefire? Journalist Ha", "why": "1 social + 0 measurement proofs; heat 12+0; reason: aspiration; social_only; appearances 1, first seen 0d ago.", "tension": "Users want a mass hero look with strong cinematic aura worth posting.", "bridge": "Upload photo -> AI creates mass hero look/cinematic poster.", "angles": ["Mass entry hero reveal inspired by: What was Pakistan's role in US-Iran ceas", "Action poster transformation", "Fire-and-aura cinematic portrait", "Temple or epic-warrior vibe", "Before selfie to movie-poster hero"], "action": "Monitor signals — not actionable yet", "window": "24-72h", "score": 60.0, "priority": "Watchlist"}, {"name": "Mass hero cinematic angle from 24 hours on, where is Pawan Khera as Assam cops look for the", "why": "1 social + 0 measurement proofs; heat 12+0; reason: aspiration; social_only; appearances 0.", "tension": "Users want a mass hero look with strong cinematic aura worth posting.", "bridge": "Upload photo -> AI creates mass hero look/cinematic poster.", "angles": ["Mass entry hero reveal inspired by: 24 hours on, where is Pawan Khera as Ass", "Action poster transformation", "Fire-and-aura cinematic portrait", "Temple or epic-warrior vibe", "Before selfie to movie-poster hero"], "action": "Monitor signals — not actionable yet", "window": "24-72h", "score": 60.0, "priority": "Watchlist"}, {"name": "Mass hero cinematic angle from Nitish Kumar to take Rajya Sabha oath on April 10 as Bihar f", "why": "1 social + 0 measurement proofs; heat 12+0; reason: aspiration; social_only; appearances 1, first seen 0d ago.", "tension": "Users want a mass hero look with strong cinematic aura worth posting.", "bridge": "Upload photo -> AI creates mass hero look/cinematic poster.", "angles": ["Mass entry hero reveal inspired by: Nitish Kumar to take Rajya Sabha oath on", "Action poster transformation", "Fire-and-aura cinematic portrait", "Temple or epic-warrior vibe", "Before selfie to movie-poster hero"], "action": "Monitor signals — not actionable yet", "window": "24-72h", "score": 60.0, "priority": "Watchlist"}, {"name": "Mass hero cinematic angle from India welcomes US‑Iran ceasefire, calls for lasting peace an", "why": "1 social + 0 measurement proofs; heat 12+0; reason: aspiration; social_only; appearances 1, first seen 0d ago.", "tension": "Users want a mass hero look with strong cinematic aura worth posting.", "bridge": "Upload photo -> AI creates mass hero look/cinematic poster.", "angles": ["Mass entry hero reveal inspired by: India welcomes US‑Iran ceasefire, calls ", "Action poster transformation", "Fire-and-aura cinematic portrait", "Temple or epic-warrior vibe", "Before selfie to movie-poster hero"], "action": "Monitor signals — not actionable yet", "window": "24-72h", "score": 60.0, "priority": "Watchlist"}, {"name": "Transformation angle from 5 free photo-editing apps you need to amp up the social medi", "why": "1 social + 0 measurement proofs; heat 12+0; reason: aspiration; social_only; appearances 1, first seen 0d ago.", "tension": "Users want an attractive upgraded version of themselves, aligned with current trends.", "bridge": "Upload photo -> AI creates an upgraded, shareable version.", "angles": ["Before selfie to aspirational portrait inspired by: 5 free photo-editing apps you need to am", "Upload-photo instant transformation", "Profile-picture upgrade", "Visual wow before/after", "Trend-fit transformation"], "action": "Monitor signals — not actionable yet", "window": "24h", "score": 60.0, "priority": "Watchlist"}];
 var _autoRefreshTimer = null;
-var _generatedAt = '2026-04-08 17:56';
+var _generatedAt = '2026-04-10 09:55';
 
 function doRefresh() {
   var btn = document.getElementById('btn-refresh');
